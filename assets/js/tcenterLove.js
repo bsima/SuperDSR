@@ -62,7 +62,7 @@ function parseData(ticketNumber) {
     console.log(ticketNumber);
     create(ticketNumber);
   } else {
-    console.log("No Tcenter ticket!");
+    console.log("No TCenter ticket!");
   }
 };
 
