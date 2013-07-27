@@ -1,10 +1,10 @@
 SuperDSR
---------
+========
 
 A little extension to make an RIT Desktop Support Representative's life just super.
 
 Contents
-========
+--------
 
 * **Global Shortcuts.** When available, shortcuts will show up inside a grey circle next to their action.
 * **Global Jumpfield.** Clicking on the extension button on the top-right corner of Chrome opens a list of links to the most common ITS websites. Where available, search fields next to the links act as jumpfields.
@@ -12,14 +12,16 @@ Contents
 * **TCenter Jumpfield.** A textbox on the ticket listing page of TCenter that lets you jump to a ticket.
 
 Installation
-============
+------------
 
 1. Use [Chrome](http://google.com/chrome)
-2. Add this page as a trusted source for extensions
-3. Install as an extension
+2. Enable developer mode in Settings > Extensions
+3. Install this directory as an extension
 
 TODO
-====
+----
+
+To see all open TODO's in the code documentation, run the command `grep -rn "@TODO" *`
 
 * Package all Greasemonkey scripts into a Chrome extension
     * Extension button has a dropdown that lists the most common shortcuts, e.g. Wiki, Footprints, TCenter
