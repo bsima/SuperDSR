@@ -5,9 +5,7 @@
   "description": "A little extension to make an RIT Desktop Support Representative's life just super.",
   "version": "0.1",
 
-  "permissions": [
-    "https://secure.flickr.com/"
-  ],
+    /* "permissions": [], */
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "jumpfield.html"

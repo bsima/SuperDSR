@@ -28,4 +28,4 @@ TODO
     * Javascript. Put a button on the ticket creation page of TCenter that looks up a ticket in Footprints and pulls certain information from the ticket, then enters it into the TCenter ticket.
 * Global Shortcuts using Mousetrap
 * TCenter jumpfield.
-                * Create a textbox at the top of Tcenter frontpage that jumps you to a certain ticket.
+    * Create a textbox at the top of Tcenter frontpage that jumps you to a certain ticket.

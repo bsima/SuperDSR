@@ -2,8 +2,8 @@
 <html>
   <head>
     <title>SuperDSR Jumpfield</title>
-    <link rel="stylesheet" id="bootstrap-css" href="assets/css/bootstrap.min.css" type="text/css" media="all"> 
-    <link rel="stylesheet" id="main-css" href="assets/css/main.css" type="text/css" media="all"> 
+    <link rel="stylesheet" id="bootstrap-css" href="assets/css/bootstrap.min.css" type="text/css" media="all">
+    <link rel="stylesheet" id="main-css" href="assets/css/main.css" type="text/css" media="all">
     <style>
       body {
         min-width: 400px;
@@ -18,28 +18,40 @@
         height: 75px;
       }
     </style>
-    
+
 
     <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
+      - JavaScript and HTML must be in separate files: see Google's Content Security
       - Policy documentation[1] for details and explanation.
       -
       - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
      -->
+
     <!-- Required Libraries -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/jquery-2.0.3.min.js"></script>
-    <script src="assets/js/mousetrap.min.js"></script>
-    
-    <!-- Components -->
-    <script src="assets/js/shortcuts.js"></script>
-    
+    <script src="assets/js/libs/bootstrap.min.js"></script>
+    <script src="assets/js/libs/jquery-2.0.3.min.js"></script>
+    <script src="assets/js/libs/mousetrap.min.js"></script>
+
     <!-- Init Script -->
-    <script src="jumpfield.js"></script>
+    <script src="init.js"></script>
+
+    <!-- Components -->
+    <script src="assets/js/biggerDescription.js"></script>
+    <script src="assets/js/clawsTools.js"></script>
+    <script src="assets/js/keyboardJockey.js"></script>
+    <script src="assets/js/kickassWiki.js"></script>
+    <script src="assets/js/largerAssignees.js"></script>
+    <script src="assets/js/quickAssign.js"></script>
+    <script src="assets/js/tcenterLove.js"></script>
+    <script src="assets/js/userSearch.js"></script>
+
   </head>
   <body>
-    <ul>
-      <li>Test</li>
+    <ul class="nav nav-tabs nav-stacked">
+      <li><a href="http://wiki.rit.edu">Wiki</a></li>
+      <li><a href="http://footprints.rit.edu">Footprints</a></li>
+      <li><a href="http://tcenter.rit.edu">TCenter</a></li>
+      <li><a href="http://claws.rit.edu/admintools">CLAWS</a></li>
     </ul>
   </body>
 </html>
