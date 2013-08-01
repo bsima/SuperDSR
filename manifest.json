@@ -11,17 +11,11 @@
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "jumpfield.html"
-  }
-
-  "background": {
-    "scripts": ["_init.js"],
-    "persistent": true
-  }
-
-  "content scripts": [
+  },
+  "content_scripts": [
     {
-      "matches": ["https://footprints*.main.ad.rit.edu/MRcgi/MRTicketPage.pl*"],
-      "js": ["content.js"]
+      "matches": ["https://*.main.ad.rit.edu/MRcgi/MRTicketPage.pl"],
+      "js": ["content-scripts/js/tcenterLove.js"]
     }
   ]
 }

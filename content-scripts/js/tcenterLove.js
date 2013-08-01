@@ -10,7 +10,7 @@
  * @TODO Convert this to jQuery and get rid of the Greasemonkey stuff.
 */
 
-GM_addStyle("#ContentWrapper{box-shadow:0px;}");
+//GM_addStyle("#ContentWrapper{box-shadow:0px;}");
 
 /*
  * ============
@@ -26,9 +26,9 @@ GM_addStyle("#ContentWrapper{box-shadow:0px;}");
 
 // Adds the style for the created link
 // @TODO Convert this to jQuery
-GM_addStyle("#tcenterJump{position:fixed;top:40%;right:0;width:40px;height:150px;background-color:#A7DCAC;}")
-GM_addStyle("#tcenterJump:hover{background-color:#d0ecd3;}")
-console.log("Style #tcenterJump created");
+//GM_addStyle("#tcenterJump{position:fixed;top:40%;right:0;width:40px;height:150px;background-color:#A7DCAC;}")
+//GM_addStyle("#tcenterJump:hover{background-color:#d0ecd3;}")
+//console.log("Style #tcenterJump created");
 
 /*****************************************
  *        Name: parseData
