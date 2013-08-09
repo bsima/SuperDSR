@@ -2,23 +2,8 @@
 <html>
   <head>
     <title>SuperDSR Jumpfield</title>
-    <link rel="stylesheet" id="bootstrap-css" href="assets/css/bootstrap.min.css" type="text/css" media="all">
-    <link rel="stylesheet" id="main-css" href="assets/css/main.css" type="text/css" media="all">
-    <style>
-      body {
-        min-width: 400px;
-        overflow-x: hidden;
-      }
-
-      img {
-        margin: 5px;
-        border: 2px solid black;
-        vertical-align: middle;
-        width: 75px;
-        height: 75px;
-      }
-    </style>
-
+    <link rel="stylesheet" id="bootstrap-css" href="content-scripts/css/bootstrap.min.css" type="text/css" media="all">
+    <link rel="stylesheet" id="main-css" href="content-scripts/css/jumpfield.css" type="text/css" media="all">
 
     <!--
       - JavaScript and HTML must be in separate files: see Google's Content Security
@@ -27,31 +12,38 @@
       - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
      -->
 
-    <!-- Required Libraries -->
-    <script src="assets/js/libs/bootstrap.min.js"></script>
-    <script src="assets/js/libs/jquery-2.0.3.min.js"></script>
-    <script src="assets/js/libs/mousetrap.min.js"></script>
-
-    <!-- Init Script -->
-    <script src="assets/js/_init.js"></script>
-
-    <!-- Components -->
-    <script src="assets/js/biggerDescription.js"></script>
-    <script src="assets/js/clawsTools.js"></script>
-    <script src="assets/js/keyboardJockey.js"></script>
-    <script src="assets/js/kickassWiki.js"></script>
-    <script src="assets/js/largerAssignees.js"></script>
-    <script src="assets/js/quickAssign.js"></script>
-    <script src="assets/js/tcenterLove.js"></script>
-    <script src="assets/js/userSearch.js"></script>
+     <script src="content-scripts/js/jumpfield.js"></script>
 
   </head>
-  <body>
-    <ul class="nav nav-tabs nav-stacked">
-      <li><a href="http://wiki.rit.edu">Wiki</a></li>
-      <li><a href="http://footprints.rit.edu">Footprints</a></li>
-      <li><a href="http://tcenter.rit.edu">TCenter</a></li>
-      <li><a href="http://claws.rit.edu/admintools">CLAWS</a></li>
+  <body class="">
+    <ul class="list-group">
+      <li class="list-group-item row">
+        <h4 class="list-group-item-heading"><a target="_blank" href="https://wiki.rit.edu/display/its/Desktop+Support+Internal">Wiki</a></h4>
+        <form class="form-inline" id="wiki-quick-search" action="https://wiki.rit.edu/dosearchsite.action" method="get" target="_blank">
+          <input class="form-control input-sm search" type="text" name="queryString" title="Quick Search (/or g , g)" placeholder="Search the Wiki">
+          <button class="btn btn-primary btn-xs" type="submit">GO</button>
+        </form>
+      </li>
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading"><a target="_blank" href="https://footprints.rit.edu">Footprints</a></h4>
+        <form name="quickSearch" class="form-inline" method="post" action="https://footprints02.main.ad.rit.edu/MRcgi/MRhomepage.pl" target="_blank" >
+          <input class="form-control input-sm search" type="text" title="Search" NAME="SEARCHS" ID="SEARCHS" placeholder="Jump to Footprints Ticket">
+          <button class="btn btn-primary btn-xs" type="submit">GO</button>
+        </form>
+      </li>
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading"><a target="_blank" href="https://tcenter.rit.edu">TCenter</a></h4>
+        <form name="tcenter" class="form-inline">
+          <input class="form-control input-sm search" type="text" title="title" placeholder="Jump to TCenter ticket (username or #)">
+          <button class="btn btn-primary btn-xs" type="submit">GO</button>
+        </form>
+      </li>
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading"><a target="_blank" href="https://claws.rit.edu/admintools">CLAWS</a></h4>
+      </li>
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading"><a target="_blank" href="https://maps.rit.edu">Maps</a></h4>
+      </li>
     </ul>
   </body>
 </html>

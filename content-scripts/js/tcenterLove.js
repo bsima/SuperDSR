@@ -10,8 +10,6 @@
  * @TODO Convert this to jQuery and get rid of the Greasemonkey stuff.
 */
 
-//GM_addStyle("#ContentWrapper{box-shadow:0px;}");
-
 /*
  * ============
  * DESCRIPTION
@@ -23,12 +21,6 @@
  * and then create a link to the Tcenter ticket that floats
  * in the upper right-hand portion of the screen.
 */
-
-// Adds the style for the created link
-// @TODO Convert this to jQuery
-//GM_addStyle("#tcenterJump{position:fixed;top:40%;right:0;width:40px;height:150px;background-color:#A7DCAC;}")
-//GM_addStyle("#tcenterJump:hover{background-color:#d0ecd3;}")
-//console.log("Style #tcenterJump created");
 
 /*****************************************
  *        Name: parseData
