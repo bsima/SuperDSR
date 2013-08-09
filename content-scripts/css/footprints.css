@@ -1,8 +1,9 @@
 /* General style improvements for Footprints */
 
+body { background: white !important; }
+
 #ContentWrapper {
-	background-color: black !important;
-	box-shadow: 0px !important;
+	box-shadow: none !important;
 }
 
 

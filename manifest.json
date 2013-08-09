@@ -18,7 +18,7 @@
     { /* Footprints ticket page */
       "matches": ["*://*.main.ad.rit.edu/MRcgi/MRTicketPage.pl"],
       "js": ["content-scripts/js/tcenterLove.js"],
-      "css": ["content-scripts/css/footprints.css"],
+      "css": ["content-scripts/css/footprints.css"]
     },
     { /* Footprints home page */
       "matches": ["https://*.main.ad.rit.edu/MRcgi/MRhomepage.pl*"],
