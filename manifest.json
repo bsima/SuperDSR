@@ -8,14 +8,17 @@
   "permissions": [
       "tabs"
   ],
+
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "jumpfield.html"
   },
+
   "content_scripts": [
     {
-      "matches": ["https://*.main.ad.rit.edu/MRcgi/MRTicketPage.pl"],
+      "matches": ["https://*.main.ad.rit.edu/MRcgi/MRTicketPage.pl*"],
       "js": ["content-scripts/js/tcenterLove.js"]
+      "css": ["content-scripts/css/tcenterLove.css"]
     }
   ]
 }
