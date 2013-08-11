@@ -15,7 +15,7 @@
   },
 
   "content_scripts": [
-    { /* Footprints ticket page */
+    {
       "matches": ["https://*.main.ad.rit.edu/MRcgi/MRTicketPage.pl*"],
       "js": ["content-scripts/js/tcenterLove.js", 
              "content-scripts/js/quickAssign.js", 
@@ -23,17 +23,17 @@
              "content-scripts/js/biggerDescription.js"],
       "css": ["content-scripts/css/footprints.css"]
     },
-    { /* Footprints home page */
+    {
       "matches": ["https://*.main.ad.rit.edu/MRcgi/MRhomepage.pl*"],
       "css": ["content-scripts/css/footprints.css"],
       "js": ["content-scripts/js/userSearch.js"]
     },
-    { /* Wiki scripts */ 
+    {
       "matches": ["https://wiki.rit.edu/*"],
       "js": ["content-scripts/js/kickassWiki.js"],
       "css": ["content-scripts/css/wiki.css"]
     },
-    { /* Claws scripts */
+    {
       "matches": ["https://claws.rit.edu/admintools/*"],
       "js": ["content-scripts/js/clawsTools.js"]
     }
