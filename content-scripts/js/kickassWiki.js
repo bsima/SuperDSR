@@ -9,29 +9,13 @@
 */
 
 
+
 /* Auto-expand breadcrumbs
  * =======================
  * Add class li#ellipsis.hidden-crumb
  *
 **/
 
-function expandBreadcrumbs() {
-  if ( document.getElementById("breadcrumbs").children.className == "hidden-crumb" ) {
-    this.className = "";
-  } else if ( document.getElementById("breadcrumbs").children.className != "hidden-crumb" ) {
-    this.className = "hidden-crumb"
-  }
-
+if ( document.getElementById("breadcrumbs").children.className == "hidden-crumb" ) {
+  this.removeAttribute("class");
 }
-
-
-
-/* Auto-expand child pages
- * =======================
- * Show ul.more-children
- *
-**/
-GM_addStyle(".showme{display:block}")
-document.getElementsByClassName("more-children").className="showme";
-
-

@@ -4,12 +4,9 @@
  * @include https://footprints*.main.ad.rit.edu/MRcgi/MRTicketPage.pl*
  * @package Footprints
  *
- * @TODO This script heavly relies on GM-specific code. Much refactoring needs to be done.
- *       One may want to lookup the GM_ functions and rewrite them in DS_ and then store them
- *       in a library. Then, less overall editing of the script will be necessary.
+ * @TODO This script relies on GM-specific code. Much refactoring needs to be done. See other @TODO's in this script
  *         GM_getValue()
  *         GM_setValue()
- *         GM_addStyle()
  *
 */
 
@@ -144,6 +141,7 @@ function addQuickAssignee(name, html)
 // Load custome Assignees JSON
 // the GM_getValue loads the value if stored. If not, an empty JSON object is
 // returned
+// @TODO Replace GM_getValue with Chrome cookie equivalent. See line 608 of this script
 var customQuickAssignJSON = GM_getValue("customQA", "{}");
 
 // If the custom JSON object is empty, this browser is running this script for
@@ -516,8 +514,15 @@ if( doConvert ) {
 
 }
 
-// Add custom style to enlarge the quick assign buttons
-GM_addStyle("#quickAssignTd{min-width:170px;} #quickAssignTd>input {  width:100%; padding: 5px 0 5px 0; }");
+
+/*
+ * ========= DEPRECATED =========
+ * Moved to ../css/footprints.css
+ * ==============================
+ *
+ * // Add custom style to enlarge the quick assign buttons
+ * // GM_addStyle("#quickAssignTd{min-width:170px;} #quickAssignTd>input {  width:100%; padding: 5px 0 5px 0; }");
+*/
 
 // Get the list of assignees element
 var assigneeList = document.getElementById('assgnee');
@@ -598,6 +603,8 @@ var saveAnchor = document.createElement("a");
         customQuickAssignJSON[(count+"")] = [name, assignees];
 
         // Save custom assignee to GM variable
+        // @TODO Store this in a Chrome cookie, instead of a Greasemonkey variable
+        //       http://developer.chrome.com/extensions/cookies.html
         GM_setValue("customQA", JSON.stringify(customQuickAssignJSON));
     };
 

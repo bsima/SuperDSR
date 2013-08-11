@@ -1,12 +1,10 @@
-/* @name userSearch
+/* 
+ * @name userSearch
  * @description Add Search bar to Footprints that allows searching all tickets by username
  * @namespace https://footprints*.main.ad.rit.edu/*
  * @include https://footprints*.main.ad.rit.edu/MRcgi/MRhomepage.pl*
  * @package Footprints
  *
- * I don't see any Greasemonkey-specific code, so this should work without
- * any modifications, but even so...
- * @TODO Verify that this works without modification for GM-specific code.
 */
 
 // Create Search form
@@ -16,7 +14,7 @@ var form = document.createElement('form');
 form.method="post";
 
 // This is the script that handles the search
-form.action="/MRcgi/MRhomepage.pl";
+form.action="https://footprints02.main.ad.rit.edu/MRcgi/MRhomepage.pl";
 
 
 /**

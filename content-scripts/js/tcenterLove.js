@@ -7,7 +7,6 @@
  * @namespace https://footprints*.main.ad.rit.edu/MRcgi/MRTicketPage.pl*
  * @include https://footprints*.main.ad.rit.edu/MRcgi/MRTicketPage.pl*
  *
- * @TODO Convert this to jQuery and get rid of the Greasemonkey stuff.
 */
 
 /*
