@@ -15,3 +15,7 @@ img {
 input.search {
   width: 400px;
 }
+
+select.form-control {
+	width: 100px;
+}

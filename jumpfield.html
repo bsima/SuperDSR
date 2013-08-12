@@ -48,6 +48,28 @@
           <button class="btn btn-primary btn-xs" type="submit">GO</button>
         </form>
       </li>
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading"><a target="_blank" href="https://www.rit.edu/~w-home/lookup/index.php">LDAP</a></h4>
+        <form class="form-inline" method="post" action="https://www.rit.edu/~w-home/lookup/index.php">
+          <select class="form-control input-sm" name="search_for">
+            <option value="displayname">Name</option>
+            <option value="mail">Email Address</option>
+            <option value="uid">Username</option>                            
+            <option value="labeleduri">Home Page URL</option>
+            <option value="title">Title</option>
+            <option value="telephonenumber">Phone Number</option>
+          </select>
+          <select class="form-control input-sm" name="search_type">
+            <option value="=*">Contains</option>
+            <option value="=">Is</option>
+            <option value="~=">Sounds Like</option>
+          </select>
+          <input class="form-control search" type="text" name="search_val" value="" size="25" maxlength="100" placeholder="Search the RIT directory" />
+          <input type="hidden" name="submit" value="Find" />
+          <button class="btn btn-xs btn-primary" type="submit" value="Find">GO</button>
+          <span class="help-block">You must be logged in for this to work.</span>
+        </form>
+      </li>
     </ul>
   </body>
 </html>
