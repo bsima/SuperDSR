@@ -1,0 +1,34 @@
+/* General style improvements for Footprints */
+
+body { background: white !important; }
+
+#ContentWrapper {
+	box-shadow: none !important;
+}
+
+
+/* tcenterLove.js */
+
+#tcenterJump {
+	position: fixed;
+	top: 40%;
+	right: 0;
+	width: 40px;
+	height: 150px;
+	background-color: #A7DCAC;
+}
+
+#tcenterJump:hover {
+	background-color: #d0ecd3;
+}
+
+/* quickAssign.js */
+
+#quickAssignTd {
+	min-width: 170px;
+} 
+
+#quickAssignTd > input {  
+	width: 100%; 
+	padding: 5px 0 5px 0; 
+}

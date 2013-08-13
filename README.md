@@ -50,7 +50,6 @@ To see all open TODO's in the code documentation, run the command `grep -rn "@TO
     * When you click on the SuperDSR button on the Chrome bar, a popup displays that lets you search the wiki, etc. Only the wiki search and the Maps search currently works. The other search boxes need work.
 * TCenter Autofill
     * Javascript. Put a button on the ticket creation page of TCenter that looks up a ticket in Footprints and pulls certain information from the ticket, then enters it into the TCenter ticket.
-* Global Keyboard Shortcuts using Mousetrap (see /content-scripts/js/keyboardJockey.js)
 * Authentication. Have the DRS sign in with their employee username and password, authenticate with shibolleth, then autofill/login everywere one needs to be logged in
 
 Comments, Questions, Suggestions?
