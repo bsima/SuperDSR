@@ -11,66 +11,91 @@
       -
       - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
      -->
-
-     <script src="content-scripts/js/jumpfield.js"></script>
+     <script src="/libs/jquery-2.0.3.min.js"></script>
+     <script src="/libs/bootstrap.min.js"></script>
+     <script src="/libs/mousetrap.min.js"></script>
 
   </head>
-  <body class="">
+  <body>
     <ul class="list-group">
-      <li class="list-group-item row">
-        <h4 class="list-group-item-heading"><a target="_blank" href="https://wiki.rit.edu/display/its/Desktop+Support+Internal">Wiki</a></h4>
-        <form class="form-inline" id="wiki-quick-search" action="https://wiki.rit.edu/dosearchsite.action" method="get" target="_blank">
+      <li class="list-group-item">
+        <a id="wiki-link" class="list-group-item-heading row" target="_blank" href="https://wiki.rit.edu/display/its/Desktop+Support+Internal"><h4>Wiki</h4></a>
+        <form class="form-inline input-group" id="wiki-quick-search" action="https://wiki.rit.edu/dosearchsite.action" method="get" target="_blank">
           <input class="form-control input-sm search" type="text" name="queryString" title="Quick Search (/or g , g)" placeholder="Search the Wiki">
-          <button class="btn btn-primary btn-xs" type="submit">GO</button>
+          <span class="input-group-btn">
+            <button class="btn btn-primary btn-sm" type="submit">GO</button>
+          </span>
         </form>
       </li>
       <li class="list-group-item">
-        <h4 class="list-group-item-heading"><a target="_blank" href="https://footprints.rit.edu">Footprints</a></h4>
-        <form name="quickSearch" class="form-inline" method="post" action="https://footprints02.main.ad.rit.edu/MRcgi/MRhomepage.pl" target="_blank" >
+        <a id="footprints-link" class="list-group-item-heading" target="_blank" href="https://footprints.rit.edu"><h4>Footprints</h4></a>
+        <form name="quickSearch" class="form-inline input-group" method="post" action="https://footprints02.main.ad.rit.edu/MRcgi/MRhomepage.pl" target="_blank" >
           <input class="form-control input-sm search disabled" type="text" title="Search" NAME="SEARCHS" ID="SEARCHS" placeholder="Jump to Footprints Ticket">
-          <button class="btn btn-primary btn-xs disabled" type="submit">GO</button>
+          <span class="input-group-btn">
+            <button class="btn btn-primary btn-sm disabled" type="submit">GO</button>
+          </span>
         </form>
       </li>
-      <li class="list-group-item">
-        <h4 class="list-group-item-heading"><a target="_blank" href="https://apps.rit.edu/~a-tcent/admin/ticketList.php">TCenter</a></h4>
-        <form name="tcenter" class="form-inline">
-          <input class="form-control input-sm search disabled" type="text" title="title" placeholder="Jump to TCenter ticket (username or #)">
-          <button class="btn btn-primary btn-xs disabled" type="submit">GO</button>
+      <li id="tcs" class="list-group-item">
+        <a id="tcenter-link" class="list-group-item-heading" target="_blank" href="https://apps.rit.edu/~a-tcent/admin/ticketList.php"><h4>TCenter</h4></a>
+
+        <form class="form-inline input-group" name="tcenter" method="post" target="_blank" action="https://apps.rit.edu/~a-tcent/admin/search.php">
+            <input id="tcSearch" class="form-control input-sm search" type="text" name="" placeholder="Search TCenter tickets">
+            <span class="input-group-btn">
+              <button class="btn btn-sm btn-primary" type="submit">GO</button>
+            </span>
         </form>
+
+        <h5>Search for:</h5>
+        <span id="tcs-tcenterID" class="label label-default">TCenter ID</span>
+        <span id="tcs-footprintsID" class="label label-default">Footprints ID</span>
+        <span id="tcs-hostname" class="label label-default">Hostname</span>
+        <span id="tcs-username" class="label label-default">Username</span>
+        <span id="tcs-serial" class="label label-default">Serial Number (CAPS)</span>
+
       </li>
       <li class="list-group-item">
-        <h4 class="list-group-item-heading"><a target="_blank" href="https://claws.rit.edu/admintools">CLAWS</a></h4>
+        <a id="claws-link" class="list-group-item-heading" target="_blank" href="https://claws.rit.edu/admintools"><h4>CLAWS</h4></a>
       </li>
       <li class="list-group-item">
-        <h4 class="list-group-item-heading"><a target="_blank" href="https://maps.rit.edu">Maps</a></h4>
-        <form name="maps" class="form-inline" id="" action="https://maps.rit.edu/index.php" method="get" target="_blank">
+        <h4 class="list-group-item-heading"><a id="maps-link" target="_blank" href="https://maps.rit.edu">Maps</a></h4>
+        <form name="maps" class="form-inline input-group" id="" action="https://maps.rit.edu/index.php" method="get" target="_blank">
           <input class="form-control input-sm search" name="q" type="text" placeholder="Search RIT Maps">
-          <button class="btn btn-primary btn-xs" type="submit">GO</button>
+          <span class="input-group-btn">
+            <button class="btn btn-primary btn-sm" type="submit">GO</button>
+          </span>
         </form>
       </li>
       <li class="list-group-item">
-        <h4 class="list-group-item-heading"><a target="_blank" href="https://www.rit.edu/~w-home/lookup/index.php">LDAP</a></h4>
+        <a id="ldap-link" class="list-group-item-heading" target="_blank" href="https://www.rit.edu/~w-home/lookup/index.php"><h4>LDAP</h4></a>
         <form class="form-inline" method="post" action="https://www.rit.edu/~w-home/lookup/index.php">
-          <select class="form-control input-sm" name="search_for">
-            <option value="displayname">Name</option>
-            <option value="mail">Email Address</option>
-            <option value="uid">Username</option>                            
-            <option value="labeleduri">Home Page URL</option>
-            <option value="title">Title</option>
-            <option value="telephonenumber">Phone Number</option>
-          </select>
-          <select class="form-control input-sm" name="search_type">
-            <option value="=*">Contains</option>
-            <option value="=">Is</option>
-            <option value="~=">Sounds Like</option>
-          </select>
-          <input class="form-control search" type="text" name="search_val" value="" size="25" maxlength="100" placeholder="Search the RIT directory" />
-          <input type="hidden" name="submit" value="Find" />
-          <button class="btn btn-xs btn-primary" type="submit" value="Find">GO</button>
-          <span class="help-block">You must be logged in for this to work.</span>
+          <div class="form-group">
+            <select class="form-control input-sm" name="search_for">
+              <option value="displayname">Name</option>
+              <option value="mail">Email Address</option>
+              <option value="uid">Username</option>                            
+              <option value="labeleduri">Home Page URL</option>
+              <option value="title">Title</option>
+              <option value="telephonenumber">Phone Number</option>
+            </select>
+            <select class="form-control input-sm" name="search_type">
+              <option value="=*">Contains</option>
+              <option value="=">Is</option>
+              <option value="~=">Sounds Like</option>
+            </select>
+          </div>
+          <div id="ldap-search" class="form-inline input-group">
+            <input class="form-control input-sm search" type="text" data-toggle="tooltip" title="You must be logged in for this to work." data-container="body" name="search_val" placeholder="Search the RIT directory" />
+            <span class="input-group-btn">
+              <button class="btn btn-sm btn-primary" type="submit" value="Find">GO</button>
+            </span>
+          </div>
         </form>
       </li>
     </ul>
+
+         <script src="content-scripts/js/jumpfield.js"></script>
+
   </body>
 </html>
 
