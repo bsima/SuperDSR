@@ -15,6 +15,9 @@
 
 $(document).ready(function() {
 	console.log("document ready");
+
+	$('#close').focus();
+
     // Regular Expressions
     var ticketNum = /\b\d{5}\b/g; // Tcenter ticket ID - 5-digit number, surrounded by word boundaries
     var footprintsNum = /\b\d{6}\b/g; // Footprints ticket ID - 6-digit number, surrounded by word boundaries
@@ -25,7 +28,7 @@ $(document).ready(function() {
 
     console.log("vars created");
 
-    $('input#tcSearch').on('keyup', function() { 
+    $('input#tcenter-search').on('keyup', function() { 
 
     	var input = $(this).val();
 
@@ -33,7 +36,7 @@ $(document).ready(function() {
 
 		if ( input.match(ticketNum) ) {
 			$("#tcs-tcenterID").addClass('label-success');
-			$('input#tcSearch').attr('name', 'ticketNum');
+			$('input#tcenter-search').attr('name', 'ticketNum');
 
 		} else {
 			$("#tcs-tcenterID").attr('class', 'label label-default');
@@ -41,21 +44,21 @@ $(document).ready(function() {
 
 		if ( input.match(footprintsNum) ) {
 			$("#tcs-footprintsID").addClass('label-success');
-			$('input#tcSearch').attr('name', 'footprintsNum');
+			$('input#tcenter-search').attr('name', 'footprintsNum');
 		} else {
 			$("#tcs-footprintsID").attr('class', 'label label-default');
 		};
 
 		if ( input.match(hostname) ) {
 			$("#tcs-hostname").addClass('label-success');
-			$('input#tcSearch').attr('name', 'hostname');
+			$('input#tcenter-search').attr('name', 'hostname');
 		} else {
 			$("#tcs-hostname").attr('class', 'label label-default');
 		};
 
 		if ( input.match(username) ) {
 			$("#tcs-username").addClass('label-success');
-			$('#tcSearch').attr('name', 'username');
+			$('#tcenter-search').attr('name', 'username');
 			$('#tcs form').attr('action', 'https://apps.rit.edu/~a-tcent/admin/viewUser.php');
 		} else {
 			$("#tcs-username").attr('class', 'label label-default');
@@ -63,28 +66,26 @@ $(document).ready(function() {
 
 		if ( input.match(serial) ) {
 			$("#tcs-serial").addClass('label-success');
-			$('input#tcSearch').attr('name', 'serial');
+			$('input#tcenter-search').attr('name', 'serial');
 		} else {
 			$("#tcs-serial").attr('class', 'label label-default');
 		};
 
     })
+
+Mousetrap.bind('w', function() { $('input#wiki-search').focus();}, 'keyup'); // Wiki
+Mousetrap.bind('f', function() { $('input#footprints-search').focus(); }, 'keyup'); // Footprints
+Mousetrap.bind('t', function() { $('input#tcenter-search').focus(); }, 'keyup'); // TCenter
+Mousetrap.bind('c', function() { $('input#claws-search').focus(); }, 'keyup'); // CLAWS
+Mousetrap.bind('m', function() { $('input#maps-search').focus(); }, 'keyup'); // Maps
+Mousetrap.bind('l', function() { $('input#ldap-search').focus(); }, 'keyup'); // LDAP
+
 });
 
 /* 
  * Keybindings 
  *
+*/
 
+/* Jump to... */
 
-* Jump to...
-Mousetrap.bind('w', $('a#wiki-link').trigger('click');); // Wiki
-Mousetrap.bind('g f', function() { $('#footprints-link').click(); }); // Footprints
-Mousetrap.bind('g t', function() { $('#tcenter-link').click(); }); // TCenter
-Mousetrap.bind('g c', function() { $('#claws-link').click(); }); // CLAWS
-Mousetrap.bind('g m', function() { $('#maps-link').click(); }); // Maps
-Mousetrap.bind('g l', function() { $('#ldap-link').click(); }); // LDAP
-
-
-$('input#tcSearch').attr('name', 'ticketNum');
-$('span#tcHint').hide();
-$('span#tcStatus').text().replace('','TCenter Ticket ID'); */

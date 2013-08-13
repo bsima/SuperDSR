@@ -17,11 +17,13 @@
 
   </head>
   <body>
+    <button id="close" type="button" class="close">&times;</button>
+
     <ul class="list-group">
       <li class="list-group-item">
-        <a id="wiki-link" class="list-group-item-heading row" target="_blank" href="https://wiki.rit.edu/display/its/Desktop+Support+Internal"><h4>Wiki</h4></a>
+        <a id="wiki-link" class="list-group-item-heading" target="_blank" href="https://wiki.rit.edu/display/its/Desktop+Support+Internal"><h4>Wiki</h4></a>
         <form class="form-inline input-group" id="wiki-quick-search" action="https://wiki.rit.edu/dosearchsite.action" method="get" target="_blank">
-          <input class="form-control input-sm search" type="text" name="queryString" title="Quick Search (/or g , g)" placeholder="Search the Wiki">
+          <input id="wiki-search" class="form-control input-sm search" type="text" name="queryString" title="Quick Search (/or g , g)" placeholder="Search the Wiki">
           <span class="input-group-btn">
             <button class="btn btn-primary btn-sm" type="submit">GO</button>
           </span>
@@ -30,7 +32,7 @@
       <li class="list-group-item">
         <a id="footprints-link" class="list-group-item-heading" target="_blank" href="https://footprints.rit.edu"><h4>Footprints</h4></a>
         <form name="quickSearch" class="form-inline input-group" method="post" action="https://footprints02.main.ad.rit.edu/MRcgi/MRhomepage.pl" target="_blank" >
-          <input class="form-control input-sm search disabled" type="text" title="Search" NAME="SEARCHS" ID="SEARCHS" placeholder="Jump to Footprints Ticket">
+          <input id="footprints-search" class="form-control input-sm search disabled" type="text" title="Search" NAME="SEARCHS" ID="SEARCHS" placeholder="Jump to Footprints Ticket">
           <span class="input-group-btn">
             <button class="btn btn-primary btn-sm disabled" type="submit">GO</button>
           </span>
@@ -40,18 +42,18 @@
         <a id="tcenter-link" class="list-group-item-heading" target="_blank" href="https://apps.rit.edu/~a-tcent/admin/ticketList.php"><h4>TCenter</h4></a>
 
         <form class="form-inline input-group" name="tcenter" method="post" target="_blank" action="https://apps.rit.edu/~a-tcent/admin/search.php">
-            <input id="tcSearch" class="form-control input-sm search" type="text" name="" placeholder="Search TCenter tickets">
+            <input id="tcenter-search" class="form-control input-sm search" type="text" name="" placeholder="Search TCenter tickets">
             <span class="input-group-btn">
               <button class="btn btn-sm btn-primary" type="submit">GO</button>
             </span>
         </form>
-
-        <h5>Search for:</h5>
-        <span id="tcs-tcenterID" class="label label-default">TCenter ID</span>
-        <span id="tcs-footprintsID" class="label label-default">Footprints ID</span>
-        <span id="tcs-hostname" class="label label-default">Hostname</span>
-        <span id="tcs-username" class="label label-default">Username</span>
-        <span id="tcs-serial" class="label label-default">Serial Number (CAPS)</span>
+        <div class="help-block">
+          <span id="tcs-tcenterID" class="label label-default">TCenter ID</span>
+          <span id="tcs-footprintsID" class="label label-default">Footprints ID</span>
+          <span id="tcs-hostname" class="label label-default">Hostname</span>
+          <span id="tcs-username" class="label label-default">Username</span>
+          <span id="tcs-serial" class="label label-default">Serial Number (CAPS)</span>
+        </div>
 
       </li>
       <li class="list-group-item">
@@ -60,7 +62,7 @@
       <li class="list-group-item">
         <h4 class="list-group-item-heading"><a id="maps-link" target="_blank" href="https://maps.rit.edu">Maps</a></h4>
         <form name="maps" class="form-inline input-group" id="" action="https://maps.rit.edu/index.php" method="get" target="_blank">
-          <input class="form-control input-sm search" name="q" type="text" placeholder="Search RIT Maps">
+          <input id="maps-search" class="form-control input-sm search" name="q" type="text" placeholder="Search RIT Maps">
           <span class="input-group-btn">
             <button class="btn btn-primary btn-sm" type="submit">GO</button>
           </span>
@@ -85,7 +87,7 @@
             </select>
           </div>
           <div id="ldap-search" class="form-inline input-group">
-            <input class="form-control input-sm search" type="text" data-toggle="tooltip" title="You must be logged in for this to work." data-container="body" name="search_val" placeholder="Search the RIT directory" />
+            <input id="ldap-search" class="form-control input-sm search" type="text" data-toggle="tooltip" title="You must be logged in for this to work." data-container="body" name="search_val" placeholder="Search the RIT directory" />
             <span class="input-group-btn">
               <button class="btn btn-sm btn-primary" type="submit" value="Find">GO</button>
             </span>

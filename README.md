@@ -16,13 +16,22 @@ Contents
     * **kickassWiki.js** - A collection of JavaScript functions and CSS classes that make Confluence's (semi-)crappy wiki better. (Not much in this yet, but it will grow with time.)
 * CLAWS
     * **clawsTools.js** - A collection of functions that makes searching the dreaded CLAWS into a breeze.
-* Jumpfield - By clicking on the SuperDSR button, you can access a quick-search field.
-    * Search the Wiki - working
-    * Search Footprints - **not working**
-    * Search Tcenter - **not working** 
-    * Search CLAWS - **not working**
-    * Search RIT Maps - working
-    * Search LDAP - working
+* Jumpfield
+    * By clicking on the SuperDSR button, you can access a quick-search field.
+        * Search the Wiki - working
+        * Search Footprints - **not working**
+        * Search Tcenter - working
+        * Search CLAWS - **not working**
+        * Search RIT Maps - working
+        * Search LDAP - working
+    * Keyboard shortcuts make it quicker to navigate the Jumpfield
+        * Alt+S opens the Jumpfield, then:
+        * w selects the Wiki search
+        * f selects the Footprints search
+        * t selects the TCenter search
+        * c selects the CLAWS search
+        * m selects the Maps search
+        * l selects the LDAP search
 
 Installation
 ------------
