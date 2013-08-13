@@ -1,11 +1,41 @@
+/* 
+ *
+ * RIT Orange: #F36E21
+ *
+*/
+
 body {
   min-width: 500px;
   overflow-x: hidden;
+  padding: 90px 0px 0px;
+
 }
 
-a h4 {
-	line-height: 5px;
-	padding: 0px;
+#top {
+	background: #F36E21;
+	color: white;
+	border-radius: 0px;
+	margin-bottom: 0px;
+}
+
+#top a.navbar-brand {
+	color: white;
+}
+
+#top ul.nav-tabs li a { border-radius: 0px; color: #DDD; }
+
+#top ul.nav-tabs li:hover { background-color: #f69963; /*border-color: #f69963;*/}
+#top ul.nav-tabs li a:hover { color: #555; background-color: #f69963;/* border-color: #f69963;*/}
+
+#top ul.nav-tabs li.active:hover,
+#top ul.nav-tabs li.active a:hover { background-color: #fff; /* border-color: #fff; */}
+
+#top ul.nav-tabs li.active a { color: #555; }
+
+#close { 
+	position: absolute;
+	top: 10px;
+	right: 10px;
 }
 
 .list-group {
@@ -13,10 +43,17 @@ a h4 {
 	border: none;
 }
 
+.list-group-item {
+	border: none;
+}
 
-/*input.search {
-  width: 400px !important;
-}*/
+.nav-tabs {
+	border: none;
+}
+
+.hide {
+	display: none;
+}
 
 select.form-control {
 	width: 100px;

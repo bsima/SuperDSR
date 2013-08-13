@@ -17,11 +17,22 @@
 
   </head>
   <body>
-    <button id="close" type="button" class="close">&times;</button>
+    <div id="top" class="navbar navbar-fixed-top">
+      <a class="navbar-brand" href="#">SuperDSR</a>
+      <button id="close" type="button" class="close">&times;</button>
 
-    <ul class="list-group">
+      <ul id="myTab" class="nav nav-tabs">
+
+        <li id="nav-searches" class="active" ><a href="#content-searches" data-toggle="tab">Searches</a></li>
+        <li id="nav-bookmarks"><a href="#content-bookmarks" data-toggle="tab">Links</a></li>
+      </ul>
+    </div>
+
+    <div class="tab-content">
+    <ul id="content-searches" class="list-group tab-pane active">
+
       <li class="list-group-item">
-        <a id="wiki-link" class="list-group-item-heading" target="_blank" href="https://wiki.rit.edu/display/its/Desktop+Support+Internal"><h4>Wiki</h4></a>
+        <h4><a id="wiki-link" class="list-group-item-heading" target="_blank" href="https://wiki.rit.edu/display/its/Desktop+Support+Internal">Wiki</a></h4>
         <form class="form-inline input-group" id="wiki-quick-search" action="https://wiki.rit.edu/dosearchsite.action" method="get" target="_blank">
           <input id="wiki-search" class="form-control input-sm search" type="text" name="queryString" title="Quick Search (/or g , g)" placeholder="Search the Wiki">
           <span class="input-group-btn">
@@ -29,8 +40,9 @@
           </span>
         </form>
       </li>
+
       <li class="list-group-item">
-        <a id="footprints-link" class="list-group-item-heading" target="_blank" href="https://footprints.rit.edu"><h4>Footprints</h4></a>
+        <h4><a id="footprints-link" class="list-group-item-heading" target="_blank" href="https://footprints.rit.edu">Footprints</a></h4>
         <form name="quickSearch" class="form-inline input-group" method="post" action="https://footprints02.main.ad.rit.edu/MRcgi/MRhomepage.pl" target="_blank" >
           <input id="footprints-search" class="form-control input-sm search disabled" type="text" title="Search" NAME="SEARCHS" ID="SEARCHS" placeholder="Jump to Footprints Ticket">
           <span class="input-group-btn">
@@ -38,8 +50,9 @@
           </span>
         </form>
       </li>
+
       <li id="tcs" class="list-group-item">
-        <a id="tcenter-link" class="list-group-item-heading" target="_blank" href="https://apps.rit.edu/~a-tcent/admin/ticketList.php"><h4>TCenter</h4></a>
+        <h4><a id="tcenter-link" class="list-group-item-heading" target="_blank" href="https://apps.rit.edu/~a-tcent/admin/ticketList.php">TCenter</a></h4>
 
         <form class="form-inline input-group" name="tcenter" method="post" target="_blank" action="https://apps.rit.edu/~a-tcent/admin/search.php">
             <input id="tcenter-search" class="form-control input-sm search" type="text" name="" placeholder="Search TCenter tickets">
@@ -47,6 +60,7 @@
               <button class="btn btn-sm btn-primary" type="submit">GO</button>
             </span>
         </form>
+
         <div class="help-block">
           <span id="tcs-tcenterID" class="label label-default">TCenter ID</span>
           <span id="tcs-footprintsID" class="label label-default">Footprints ID</span>
@@ -54,11 +68,18 @@
           <span id="tcs-username" class="label label-default">Username</span>
           <span id="tcs-serial" class="label label-default">Serial Number (CAPS)</span>
         </div>
+      </li>
 
-      </li>
       <li class="list-group-item">
-        <a id="claws-link" class="list-group-item-heading" target="_blank" href="https://claws.rit.edu/admintools"><h4>CLAWS</h4></a>
+        <h4><a id="claws-link" class="list-group-item-heading" target="_blank" href="https://claws.rit.edu/admintools">CLAWS</a></h4>
+        <form name="" class="form-inline input-group" action="" method="" target="_blank">
+          <input id="claws-group" class="form-control input-sm search" name="" type="text" placeholder="Search CLAWS">
+          <span class="input-group-btn">
+            <button class="btn btn-primary btn-sm disabled" type="submit">GO</button>
+          </span>
+        </form>
       </li>
+
       <li class="list-group-item">
         <h4 class="list-group-item-heading"><a id="maps-link" target="_blank" href="https://maps.rit.edu">Maps</a></h4>
         <form name="maps" class="form-inline input-group" id="" action="https://maps.rit.edu/index.php" method="get" target="_blank">
@@ -68,9 +89,10 @@
           </span>
         </form>
       </li>
+
       <li class="list-group-item">
-        <a id="ldap-link" class="list-group-item-heading" target="_blank" href="https://www.rit.edu/~w-home/lookup/index.php"><h4>LDAP</h4></a>
-        <form class="form-inline" method="post" action="https://www.rit.edu/~w-home/lookup/index.php">
+        <h4><a id="ldap-link" class="list-group-item-heading" target="_blank" href="https://www.rit.edu/~w-home/lookup/index.php">LDAP</a></h4>
+        <form class="form-inline" method="post" action="https://www.rit.edu/~w-home/lookup/index.php" target="_blank">
           <div class="form-group">
             <select class="form-control input-sm" name="search_for">
               <option value="displayname">Name</option>
@@ -87,16 +109,40 @@
             </select>
           </div>
           <div id="ldap-search" class="form-inline input-group">
-            <input id="ldap-search" class="form-control input-sm search" type="text" data-toggle="tooltip" title="You must be logged in for this to work." data-container="body" name="search_val" placeholder="Search the RIT directory" />
+            <input id="ldap-search" class="form-control input-sm search" type="text" name="search_val" placeholder="Search the RIT directory" />
+            <input type="hidden" name="submit" value="Find" />
             <span class="input-group-btn">
               <button class="btn btn-sm btn-primary" type="submit" value="Find">GO</button>
             </span>
           </div>
         </form>
       </li>
+
     </ul>
 
-         <script src="js/jumpfield.js"></script>
+    <ul id="content-bookmarks" class="list-group tab-pane">
+      <li class="list-group-item">
+          <input id="bookmark-search" type="text" class="form-control" placeholder="Filter Links">
+      </li>
+      <li class="list-group-item bookmark"><a href="http://footprints.rit.edu" class="external-link" rel="nofollow">FootPrints</a></li>
+      <li class="list-group-item bookmark"><a href="https://apps.rit.edu/~a-tcent/" class="external-link" rel="nofollow">TCenter</a></li>
+      <li class="list-group-item bookmark"><a href="https://claws.rit.edu/admintools" class="external-link" rel="nofollow">CLAWS</a></li>
+      <li class="list-group-item bookmark"><a href="https://pointsec.finance.rit.edu/WebRemoteHelp/index.htm" class="external-link" rel="nofollow">FINANCE CheckPoint Remote Help</a></li    >
+      <li class="list-group-item bookmark"><a href="https://www.rit.edu/~w-home/lookup/index.php" class="external-link" rel="nofollow">RIT LDAP Directory</a></li>
+      <li class="list-group-item bookmark"><a href="https://finweb.rit.edu/kronos/apps/punchform/" class="external-link" rel="nofollow">Kronos Punch</a></li>
+      <li class="list-group-item bookmark"><a href="https://finweb.rit.edu/kronos/apps/timecardreview/" class="external-link" rel="nofollow">Kronos Timecard Review - Check your punches</a></li>
+      <li class="list-group-item bookmark"><a href="/display/its/Desktop+Support+CLAWS+Hostname+Reference">Desktop Support CLAWS Hostname Reference</a></li>
+      <li class="list-group-item bookmark"><a href="http://facilities.rit.edu/campus/" class="external-link" rel="nofollow">Floor Maps</a></li>
+      <li class="list-group-item bookmark"><a href="/display/its/Child+Ticket+Cheat+Sheet">Child Ticket Cheat Sheet</a></li>
+      <li class="list-group-item bookmark"><a href="/display/its/SCCM+2012+Documentation+for+Support+Techs">SCCM 2012 Documentation for Support Techs</a></li>
+      <li class="list-group-item bookmark"><a href="https://adsccm01.ad.rit.edu/Reports" class="external-link" rel="nofollow">SCCM 2012 Reporting</a></li>
+      <li class="list-group-item bookmark"><a href="http://maps.rit.edu/" class="external-link" rel="nofollow">RIT Map (Interactive version)</a></li>
+      <li class="list-group-item bookmark"><a href="http://www.dell.com/support/troubleshooting/us/en/555/ProductSelector" class="external-link" rel="nofollow">Dell Warranty Look-Up</a></li>
+      <li class="list-group-item bookmark"><a href="https://docs.google.com/a/g.rit.edu/spreadsheet/ccc?key=0AqXTW-e2XaNEdGMtSm9vZ0VLMmhmQ19fVDBXRWVteWc&amp;usp=sharing&amp;    invite=CInvxOYM" class="external-link" rel="nofollow">Bomgar Duplicates</a></li>
+    </ul>
+    </div>
+
+    <script src="js/jumpfield.js"></script>
 
   </body>
 </html>
