@@ -24,8 +24,8 @@ body {
 
 #top ul.nav-tabs li a { border-radius: 0px; color: #DDD; }
 
-#top ul.nav-tabs li:hover { background-color: #f69963; /*border-color: #f69963;*/}
-#top ul.nav-tabs li a:hover { color: #555; background-color: #f69963;/* border-color: #f69963;*/}
+#top ul.nav-tabs li:hover { background-color: #f69963; border: none; /*border-color: #f69963;*/}
+#top ul.nav-tabs li a:hover { color: #555; background-color: #f69963; border: 1px solid transparent; border-bottom: 1px solid white; /* border-color: #f69963;*/}
 
 #top ul.nav-tabs li.active:hover,
 #top ul.nav-tabs li.active a:hover { background-color: #fff; /* border-color: #fff; */}

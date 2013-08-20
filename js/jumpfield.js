@@ -20,43 +20,42 @@ function tcenterSearch() {
 
     	var input = $(this).val();
 
-
-		if ( input.match(ticketNum) ) {
-			$("#tcs-tcenterID").addClass('label-success');
+		if ( input.trim(this).match(ticketNum) ) {
+			$('#tcs-tcenterID').addClass('label-success');
 			$('input#tcenter-search').attr('name', 'ticketNum');
 
 		} else {
-			$("#tcs-tcenterID").attr('class', 'label label-default');
+			$('#tcs-tcenterID').attr('class', 'label label-default');
 		};
 
-		if ( input.match(footprintsNum) ) {
-			$("#tcs-footprintsID").addClass('label-success');
+		if ( input.trim(this).match(footprintsNum) ) {
+			$('#tcs-footprintsID').addClass('label-success');
 			$('input#tcenter-search').attr('name', 'footprintsNum');
 		} else {
 			$("#tcs-footprintsID").attr('class', 'label label-default');
 		};
 
-		if ( input.match(hostname) ) {
-			$("#tcs-hostname").addClass('label-success');
+		if ( input.trim(this).match(hostname) ) {
+			$('#tcs-hostname').addClass('label-success');
 			$('input#tcenter-search').attr('name', 'hostname');
 		} else {
 			$("#tcs-hostname").attr('class', 'label label-default');
 		};
 
-		if ( input.match(username) ) {
-			$("#tcs-username").addClass('label-success');
+		if ( input.trim(this).match(username) ) {
+			$('#tcs-username').addClass('label-success');
 			$('#tcenter-search').attr('name', 'username');
 			$('#tcs form').attr('action', 'https://apps.rit.edu/~a-tcent/admin/viewUser.php');
 		} else {
-			$("#tcs-username").attr('class', 'label label-default');
+			$('#tcs-username').attr('class', 'label label-default');
 			$('#tcs form').attr('action', 'https://apps.rit.edu/~a-tcent/admin/search.php');
 		};
 
-		if ( input.match(serial) ) {
-			$("#tcs-serial").addClass('label-success');
+		if ( input.trim(this).match(serial) ) {
+			$('#tcs-serial').addClass('label-success');
 			$('input#tcenter-search').attr('name', 'serial');
 		} else {
-			$("#tcs-serial").attr('class', 'label label-default');
+			$('#tcs-serial').attr('class', 'label label-default');
 		};
 
     })
@@ -77,6 +76,15 @@ function filterBookmarks() {
 $(document).ready(function() {
 
 	$('#close').focus();
+
+	// Strip leading and trailing spaces in search boxes
+	
+	$('input.search').on('keyup', function() {
+		$('input.search').val( function( i, val ) {
+    		return val.trim();
+    	});
+	});
+	
 
 	// Init tcenter search function
 	tcenterSearch();
