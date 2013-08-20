@@ -4,7 +4,7 @@
  * @include https://footprints*.main.ad.rit.edu/MRcgi/MRTicketPage.pl*
  * @package Footprints
  *
- * @TODO This script relies on GM-specific code. Much refactoring needs to be done. See other @TODO's in this script
+ * @TODO This script relies on GM-specific code. Refactoring needs to be done. See other @TODO's in this script
  *         GM_getValue()
  *         GM_setValue()
  *

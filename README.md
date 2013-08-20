@@ -7,8 +7,7 @@ Contents
 --------
 
 * Footprints
-    * **biggerDescription.js** - Increases the size of the previous description area in edit ticket mode.
-    * **largerAssignees.js** - Increases the size of the assignees section on the Footprints ticket page.
+    * **biggerDescription.js** - Increases the size of the previous description area in edit ticket mode. Also includes the functions from **largerAssignees.js**: Increases the size of the assignees section on the Footprints ticket page.
     * **quickAssign.js** - Adds buttons to side of assignees box to allow assigning of tickets with one click
     * **userSearach.js** - Add Search bar to Footprints that allows searching all tickets by username
     * **tcenterLove.js** - Adds a link to jump to a Tcenter ticket.
