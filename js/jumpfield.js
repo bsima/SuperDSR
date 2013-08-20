@@ -77,12 +77,20 @@ $(document).ready(function() {
 
 	$('#close').focus();
 
-	// Strip leading and trailing spaces in search boxes
-	
-	$('input.search').on('keyup', function() {
+	// Strip leading and trailing spaces in search
+	// search boxes on submit or enter press	
+	function trimSearch() {
 		$('input.search').val( function( i, val ) {
     		return val.trim();
     	});
+	};
+	$('input.search').on('blur', function(){
+		trimSearch();
+	});
+	$('input.search').keypress(function(e) {
+		if ( e.which == 13 ) {
+			trimSearch();
+		}
 	});
 	
 
