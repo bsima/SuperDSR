@@ -23,10 +23,7 @@
   "content_scripts": [
     {
       "matches": ["https://*.main.ad.rit.edu/MRcgi/MRTicketPage.pl*"],
-      "js": ["js/tcenterLove.js", 
-             "js/quickAssign.js", 
-             "js/largerAssignees.js",
-             "js/biggerDescription.js"],
+      "js": ["js/tcenterLove.js", "js/quickAssign.js", "js/largerAssignees.js", "js/biggerDescription.js"],
       "css": ["css/footprints.css"]
     },
     {

@@ -32,3 +32,10 @@ body { background: white !important; }
 	width: 100%; 
 	padding: 5px 0 5px 0; 
 }
+
+/* biggerDescription.js */
+
+#descrpt_tbl { 
+	width: 75% !important;
+	min-width: 400px !important;
+}
