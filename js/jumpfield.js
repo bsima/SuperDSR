@@ -1,5 +1,5 @@
 
-/* 
+/*
  * @name tcenterSearch
  * @package Jumpfield
  * @package TCenter
@@ -16,7 +16,7 @@ function tcenterSearch() {
     var username = /\b(\w(?=\D)){2}((\w{3,5})|(\d{4}))\b/g; // Username - 3 letters, followed by 3 or 4 word characters, surrounded by word boundaries
     var serial = /\b[A-Z0-9]{7}\b/g; // Serial - a series of 7 uppercase letters and/or digits, surrounded by word boundaries
 
-    $('input#tcenter-search').on('keyup', function() { 
+    $('input#tcenter-search').on('keyup', function() {
 
     	var input = $(this).val();
 
@@ -67,48 +67,58 @@ function clawsSearch() {
     var hostname      = /\b\w+-\d+\b/g; // Hostname - a series of letters, hyphen, a series of numbers, surrounded by word boundaries
     var username      = /\b(\w(?=\D)){2}((\w{3,5})|(\d{4}))\b/g; // Username - 3 letters, followed by 3 or 4 word characters, surrounded by word boundaries
     var serial        = /\b[A-Z0-9]{7}\b/g; // Serial - a series of 7 uppercase letters and/or digits, surrounded by word boundaries
-    var mac           = /\b^([0-9a-fA-F]{2}(:)){5}([0-9a-fA-F]{2})$\b/g; // MAC Address - 6 couples of 2 hexadecimel numbers
+    var mac           = /(\b^([0-9a-fA-F]{2}(:|-)){5}([0-9a-fA-F]{2})$\b)|(\b^([0-9a-fA-F]{2}){6}$\b)/g; // MAC Address - 6 couples of 2 hexadecimel numbers, separated (or not) by a colon
     var uid           = /\b\d{9}\b/g // University ID - a 9-digit number
 
-    $('input#claws-search').on('keyup', function() { 
+    $('input#claws-search').on('keyup', function() {
 
     	var input = $(this).val();
 
-		if ( input.trim(this).match(uid) ) {
-			$('#claws-uid').addClass('label-success');
-			$('input#claws-search').attr('name', 'RITUID');
-			$('#claws form').attr('action', 'https://claws.rit.edu/admintools/users/idedit.php?ID=&ACTIVATEKEY=&AUTHGN=&AUTHMN=&AUTHSN=&EMAIL=&HOMECITY=&HOMESTATE=&HOMEZIP=&COLLEGE=&PROGRAM=&DEPT=&USERNAME[0]=&AFFILIATION=&NickMatch=true&QuickMatch=true&LongMatch=true&MatchHowMany=MatchMany&ACTION=Find+Match');
-		} else {
-			$('#claws-uid').attr('class', 'label label-default');
-			$('#claws form').attr('action', '');
-		};
+      if ( input.trim(this).match(uid) ) {
+        $('#claws-uid').addClass('label-success');
+        // $('input#claws-search').attr('name', 'RITUID');
+        $('#claws form').attr('action', 'https://claws.rit.edu/admintools/users/usersearch.php?ldap_modifier_USERNAME=Contains&ldap_USERNAME=&ldap_modifier_IDENTITY=Is&ldap_IDENTITY='+input+'&ldap_modifier_HOMEPAGEURL=Contains&ldap_HOMEPAGEURL=&ldap_modifier_CRMPERSONID=Is&ldap_CRMPERSONID=&ldap_modifier_ALLFIELDS=Contains&ldap_ALLFIELDS=&ldap_modifier_Name=Contains&ldap_Name=&ldap_modifier_Email_Address=Contains&ldap_Email_Address=&ldap_modifier_Address=Contains&ldap_Address=&ldap_match=2&ldap_group%5B%5D=-1&ACTION=SEARCH');
+      } else {
+        $('#claws-uid').attr('class', 'label label-default');
+      };
 
-		if ( input.trim(this).match(username) ) {
-			$('#claws-username').addClass('label-success');
-			$('input#claws-search').attr('name', 'USERNAME');
-			$("#claws form").attr('action', 'https://claws.rit.edu/admintools/users/useredit.php?submit=Submit&ACTION=GETUSER');
-		} else {
-			$("#claws-username").attr('class', 'label label-default');
-			$('#claws form').attr('action', '');
+      if ( input.trim(this).match(username) ) {
+        $('#claws-username').addClass('label-success');
+        // $('input#claws-search').attr('name', 'USERNAME');
+        $('#claws form').attr('action', 'https://claws.rit.edu/admintools/users/useredit.php?USERNAME='+input+'&submit=Submit&ACTION=GETUSER');
+      } else {
+        $('#claws-username').attr('class', 'label label-default');
+      };
 
-		};
+      if ( input.trim(this).match(hostname) ) {
+        $('#claws-hostname').addClass('label-success');
+        // $('input#claws-search').attr('name', 'hostname');
+        $('#claws form').attr('action', 'https://claws.rit.edu/admintools/computers/computerSearch.php?DDNSHostname='+input+'%&ACTION=SEARCH');
+      } else {
+        $("#claws-hostname").attr('class', 'label label-default');
+      };
 
-		if ( input.trim(this).match(hostname) ) {
-			$('#claws-hostname').addClass('label-success');
-			$('input#claws-search').attr('name', 'hostname');
-			$('#claws form').attr('action', '');
-		} else {
-			$("#claws-hostname").attr('class', 'label label-default');
-		};
-
-		if ( input.trim(this).match(mac) ) {
-			$('#claws-mac').addClass('label-success');
-			$('#claws-search').attr('name', 'mac');
-		} else {
-			$('#claws-mac').attr('class', 'label label-default');
-		};
+      if ( input.trim(this).match(mac) ) {
+        $('#claws-mac').addClass('label-success');
+        // $('input#claws-search').attr('name', 'STRING');
+        $('#claws form').attr('action', 'https://claws.rit.edu/admintools/computers/computerSearch.php?MAC='+input+'&ACTION=SEARCH');
+      } else {
+        $('#claws-mac').attr('class', 'label label-default');
+      };
 
     })
+};
+
+function fpSearch() {
+
+  $('input#fp-search').on('keyup', function() {
+
+    var input = $(this).val();
+
+    $('#fp form').attr('action', 'https://footprints02.main.ad.rit.edu/MRcgi/MRTicketPage.pl?USER=bwshelp&MRP=dvJARCrSP&MAJOR_MODE=DETAILS&MAXMININC=&MRNUMBERLIST='+input+'&LASTID=53243016&ABN=&GRPDETAIL=&HISTORYKEY=&MR='+input+'&PROJECTID=2&RUNNING_IN_POPUP=1');
+
+  })
+
 };
 
 function filterBookmarks() {
@@ -127,7 +137,7 @@ $(document).ready(function() {
 	$('#close').focus();
 
 	// Strip leading and trailing spaces in search
-	// search boxes on submit or enter press	
+	// search boxes on submit or enter press
 	function trimSearch() {
 		$('input.search').val( function( i, val ) {
     		return val.trim();
@@ -141,13 +151,11 @@ $(document).ready(function() {
 			trimSearch();
 		}
 	});
-	
 
-	// Init tcenter search function
+	// Init search functions
 	tcenterSearch();
-
-	// Init claws search function
 	clawsSearch();
+  fpSearch();
 
 	// Init bookmarks filter feature
 	$('input#bookmark-search').on('keyup', function() {

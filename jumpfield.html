@@ -41,15 +41,20 @@
         </form>
       </li>
 
-      <li class="list-group-item">
+      <!-- Footprints -->
+
+      <li id="fp" class="list-group-item">
         <h4><a id="footprints-link" class="list-group-item-heading" target="_blank" href="https://footprints.rit.edu">Footprints</a></h4>
-        <form name="quickSearch" class="form-inline input-group" method="post" action="https://footprints02.main.ad.rit.edu/MRcgi/MRhomepage.pl" target="_blank" >
-          <input id="footprints-search" class="form-control input-sm search disabled" type="text" title="Search" NAME="SEARCHS" ID="SEARCHS" placeholder="Jump to Footprints Ticket">
+
+        <form name="quickSearch" class="form-inline input-group" method="post" action="" target="_blank" >
+          <input id="fp-search" class="form-control input-sm search" type="text" title="Search" NAME="SEARCHS" ID="SEARCHS" placeholder="Jump to Footprints Ticket">
           <span class="input-group-btn">
             <button class="submit btn btn-primary btn-sm disabled" type="submit">GO</button>
           </span>
         </form>
       </li>
+
+      <!-- TCenter -->
 
       <li id="tcs" class="list-group-item">
         <h4><a id="tcenter-link" class="list-group-item-heading" target="_blank" href="https://apps.rit.edu/~a-tcent/admin/ticketList.php">TCenter</a></h4>
@@ -86,7 +91,7 @@
           <span id="claws-username" class="label label-default">Username</span>
           <span id="claws-hostname" class="label label-default">Hostname</span>
           <span id="claws-mac" class="label label-default">MAC</span>
-          <!-- <span id="claws-dhcp" class="label label-default">DHCP Log</span> 
+          <!-- <span id="claws-dhcp" class="label label-default">DHCP Log</span>
                DHCP Search is wicked complicated so I'm leaving it out for now. -->
         </div>
       </li>
@@ -108,7 +113,7 @@
             <select class="form-control input-sm" name="search_for">
               <option value="displayname">Name</option>
               <option value="mail">Email Address</option>
-              <option value="uid">Username</option>                            
+              <option value="uid">Username</option>
               <option value="labeleduri">Home Page URL</option>
               <option value="title">Title</option>
               <option value="telephonenumber">Phone Number</option>
