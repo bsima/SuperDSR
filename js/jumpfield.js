@@ -23,7 +23,6 @@ function tcenterSearch() {
 		if ( input.trim(this).match(ticketNum) ) {
 			$('#tcs-tcenterID').addClass('label-success');
 			$('input#tcenter-search').attr('name', 'ticketNum');
-
 		} else {
 			$('#tcs-tcenterID').attr('class', 'label label-default');
 		};
@@ -62,6 +61,56 @@ function tcenterSearch() {
 
 };
 
+function clawsSearch() {
+
+	// Regular expressions. yay.
+    var hostname      = /\b\w+-\d+\b/g; // Hostname - a series of letters, hyphen, a series of numbers, surrounded by word boundaries
+    var username      = /\b(\w(?=\D)){2}((\w{3,5})|(\d{4}))\b/g; // Username - 3 letters, followed by 3 or 4 word characters, surrounded by word boundaries
+    var serial        = /\b[A-Z0-9]{7}\b/g; // Serial - a series of 7 uppercase letters and/or digits, surrounded by word boundaries
+    var mac           = /\b^([0-9a-fA-F]{2}(:)){5}([0-9a-fA-F]{2})$\b/g; // MAC Address - 6 couples of 2 hexadecimel numbers
+    var uid           = /\b\d{9}\b/g // University ID - a 9-digit number
+
+    $('input#claws-search').on('keyup', function() { 
+
+    	var input = $(this).val();
+
+		if ( input.trim(this).match(uid) ) {
+			$('#claws-uid').addClass('label-success');
+			$('input#claws-search').attr('name', 'RITUID');
+			$('#claws form').attr('action', 'https://claws.rit.edu/admintools/users/idedit.php?ID=&ACTIVATEKEY=&AUTHGN=&AUTHMN=&AUTHSN=&EMAIL=&HOMECITY=&HOMESTATE=&HOMEZIP=&COLLEGE=&PROGRAM=&DEPT=&USERNAME[0]=&AFFILIATION=&NickMatch=true&QuickMatch=true&LongMatch=true&MatchHowMany=MatchMany&ACTION=Find+Match');
+		} else {
+			$('#claws-uid').attr('class', 'label label-default');
+			$('#claws form').attr('action', '');
+		};
+
+		if ( input.trim(this).match(username) ) {
+			$('#claws-username').addClass('label-success');
+			$('input#claws-search').attr('name', 'USERNAME');
+			$("#claws form").attr('action', 'https://claws.rit.edu/admintools/users/useredit.php?submit=Submit&ACTION=GETUSER');
+		} else {
+			$("#claws-username").attr('class', 'label label-default');
+			$('#claws form').attr('action', '');
+
+		};
+
+		if ( input.trim(this).match(hostname) ) {
+			$('#claws-hostname').addClass('label-success');
+			$('input#claws-search').attr('name', 'hostname');
+			$('#claws form').attr('action', '');
+		} else {
+			$("#claws-hostname").attr('class', 'label label-default');
+		};
+
+		if ( input.trim(this).match(mac) ) {
+			$('#claws-mac').addClass('label-success');
+			$('#claws-search').attr('name', 'mac');
+		} else {
+			$('#claws-mac').attr('class', 'label label-default');
+		};
+
+    })
+};
+
 function filterBookmarks() {
 	console.log('filterBookmarks called');
 	$('ul#content-bookmarks li.bookmark').filter(function() {
@@ -96,6 +145,9 @@ $(document).ready(function() {
 
 	// Init tcenter search function
 	tcenterSearch();
+
+	// Init claws search function
+	clawsSearch();
 
 	// Init bookmarks filter feature
 	$('input#bookmark-search').on('keyup', function() {

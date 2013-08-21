@@ -70,14 +70,25 @@
         </div>
       </li>
 
-      <li class="list-group-item">
+      <!-- CLAWS IS HERE BITCHES -->
+
+      <li id="claws" class="list-group-item">
         <h4><a id="claws-link" class="list-group-item-heading" target="_blank" href="https://claws.rit.edu/admintools">CLAWS</a></h4>
-        <form name="" class="form-inline input-group" action="" method="" target="_blank">
-          <input id="claws-group" class="form-control input-sm search" name="" type="text" placeholder="Search CLAWS">
+        <form name="" class="form-inline input-group" action="" method="POST" target="_blank">
+          <input id="claws-search" class="form-control input-sm search" name="" type="text" placeholder="Search CLAWS">
           <span class="input-group-btn">
-            <button class="submit btn btn-primary btn-sm disabled" type="submit">GO</button>
+            <button class="submit btn btn-primary btn-sm" type="submit">GO</button>
           </span>
         </form>
+
+        <div class="help-block">
+          <span id="claws-uid" class="label label-default">UID</span>
+          <span id="claws-username" class="label label-default">Username</span>
+          <span id="claws-hostname" class="label label-default">Hostname</span>
+          <span id="claws-mac" class="label label-default">MAC</span>
+          <!-- <span id="claws-dhcp" class="label label-default">DHCP Log</span> 
+               DHCP Search is wicked complicated so I'm leaving it out for now. -->
+        </div>
       </li>
 
       <li class="list-group-item">
