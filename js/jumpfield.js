@@ -115,7 +115,7 @@ function fpSearch() {
 
     var input = $(this).val();
 
-    $('#fp form').attr('action', 'https://footprints02.main.ad.rit.edu/MRcgi/MRTicketPage.pl?USER=bwshelp&MRP=dvJARCrSP&MAJOR_MODE=DETAILS&MAXMININC=&MRNUMBERLIST='+input+'&LASTID=53243016&ABN=&GRPDETAIL=&HISTORYKEY=&MR='+input+'&PROJECTID=2&RUNNING_IN_POPUP=1');
+    $('#fp form').attr('action', 'https://footprints02.main.ad.rit.edu/MRcgi/MRTicketPage.pl?USER=bwshelp&MRP=dvJARCrSP&MAJOR_MODE=DETAILS&MAXMININC=&MRNUMBERLIST='+input+'&ABN=&GRPDETAIL=&HISTORYKEY=&MR='+input+'&PROJECTID=2&RUNNING_IN_POPUP=1');
 
   })
 
