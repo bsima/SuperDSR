@@ -67,7 +67,7 @@ function clawsSearch() {
     var hostname      = /\b\w+-\d+\b/g; // Hostname - a series of letters, hyphen, a series of numbers, surrounded by word boundaries
     var username      = /\b(\w(?=\D)){2}((\w{3,5})|(\d{4}))\b/g; // Username - 3 letters, followed by 3 or 4 word characters, surrounded by word boundaries
     var serial        = /\b[A-Z0-9]{7}\b/g; // Serial - a series of 7 uppercase letters and/or digits, surrounded by word boundaries
-    var mac           = /(\b^([0-9a-fA-F]{2}(:|-)){5}([0-9a-fA-F]{2})$\b)|(\b^([0-9a-fA-F]{2}){6}$\b)/g; // MAC Address - 6 couples of 2 hexadecimel numbers, separated (or not) by a colon
+    var mac           = /(\b^([0-9a-fA-F]{2}(:|-|.)){5}([0-9a-fA-F]{2})$\b)|(\b^([0-9a-fA-F]{2}){6}$\b)|(\b([0-9a-fA-F]{4}(.)){2}([0-9a-fA-F])\b)/g; // MAC Address - 6 couples of 2 hexadecimel numbers, separated (or not) by a colon
     var uid           = /\b\d{9}\b/g // University ID - a 9-digit number
 
     $('input#claws-search').on('keyup', function() {
@@ -115,7 +115,7 @@ function fpSearch() {
 
     var input = $(this).val();
 
-    $('#fp form').attr('action', 'https://footprints02.main.ad.rit.edu/MRcgi/MRTicketPage.pl?USER=bwshelp&MRP=dvJARCrSP&MAJOR_MODE=DETAILS&MAXMININC=&MRNUMBERLIST='+input+'&ABN=&GRPDETAIL=&HISTORYKEY=&MR='+input+'&PROJECTID=2&RUNNING_IN_POPUP=1');
+    $('#fp form').attr('action', 'https://footprints02.main.ad.rit.edu/MRcgi/MRTicketPage.pl?USER=bwshelp&PROJECTID=2&MRP=H7K8R9nEyf&MAXMININC=&MAJOR_MODE=DETAILS&RUNNING_IN_POPUP=1&MR='+input);
 
   })
 
