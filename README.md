@@ -20,7 +20,7 @@ Contents
         * Search the Wiki - working
         * Search Footprints - **not working**
         * Search Tcenter - working
-        * Search CLAWS - **not working**
+        * Search CLAWS - working
         * Search RIT Maps - working
         * Search LDAP - working
     * Keyboard shortcuts make it quicker to navigate the Jumpfield
@@ -36,7 +36,7 @@ Installation
 ------------
 
 1. Use [Chrome](http://google.com/chrome)
-2. Download this entire directory using the download button to the right
+2. Download this entire directory using the download button to the right or one of the [releases](https://github.com/bsima/SuperDSR/releases)
 3. In Chrome: Enable developer mode in Settings > Extensions
 4. Install this directory as an extension ("Load unpacked extension" button)
 
