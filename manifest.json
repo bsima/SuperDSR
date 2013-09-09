@@ -38,7 +38,7 @@
       "css": ["css/wiki.css"]
     },
     {
-      "matches": ["https://claws.rit.edu/admintools/*"],
+      "matches": ["https://claws.rit.edu/admintools*"],
       "js": ["js/clawsTools.js"]
     },
     {
