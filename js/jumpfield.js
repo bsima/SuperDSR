@@ -155,7 +155,7 @@ $(document).ready(function() {
 	// Init search functions
 	tcenterSearch();
 	clawsSearch();
-  fpSearch();
+    fpSearch();
 
 	// Init bookmarks filter feature
 	$('input#bookmark-search').on('keyup', function() {
@@ -167,6 +167,8 @@ $(document).ready(function() {
 		$('input#bookmark-search').select();
 		console.log('Select on the bookmark search field');
 	});
+
+	$('li.bookmark a').attr('target', '_blank');
 
 	// Jumfield key bindings
 	Mousetrap.bind('w', function() { $('input#wiki-search').focus();}, 'keyup'); // Wiki
