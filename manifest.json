@@ -3,7 +3,7 @@
 
   "name": "SuperDSR",
   "description": "A little extension to make an RIT Desktop Support Representative's life just super.",
-  "version": "0.3.4",
+  "version": "0.3.5",
 
   "permissions": [
       "tabs"
@@ -20,6 +20,7 @@
       }
     }
   },
+
   "content_scripts": [
     {
       "matches": ["https://*.main.ad.rit.edu/MRcgi/MRTicketPage.pl*"],
@@ -37,8 +38,19 @@
       "css": ["css/wiki.css"]
     },
     {
-      "matches": ["https://claws.rit.edu/admintools/*"],
+      "matches": ["https://claws.rit.edu/admintools*"],
       "js": ["js/clawsTools.js"]
+    },
+    {
+      "matches": ["https://apps.rit.edu/~a-tcent/index.php?manualTicket=true&type=2"],
+      "js": ["libs/jquery-2.0.3.min.js", "js/tcenterAutofill.js"],
+      "css": ["css/tcenterAutofill.css"]
     }
+  ],
+  "web_accessible_resources": [
+    "libs/bootstrap.min.css",
+    "libs/bootstrap.min.js",
+    "libs/jquery-2.0.3.min.js",
+    "libs/mousetrap.min.js"
   ]
 }
