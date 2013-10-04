@@ -168,6 +168,8 @@ $(document).ready(function() {
 		console.log('Select on the bookmark search field');
 	});
 
+  $('.bookmark a').attr('target', '_blank');
+
 	// Jumfield key bindings
 	Mousetrap.bind('w', function() { $('input#wiki-search').focus();}, 'keyup'); // Wiki
 	Mousetrap.bind('f', function() { $('input#footprints-search').focus(); }, 'keyup'); // Footprints
