@@ -10,12 +10,12 @@
 function tcenterSearch() {
 
 	// Regular expressions. yay.
-    var ticketNum = /\b\d{5}\b/g; // Tcenter ticket ID - 5-digit number, surrounded by word boundaries
-    var footprintsNum = /\b\d{6}\b/g; // Footprints ticket ID - 6-digit number, surrounded by word boundaries
-    var hostname = /\b\w+-\d+\b/g; // Hostname - a series of letters, hyphen, a series of numbers, surrounded by word boundaries
-    var username = /\b(\w(?=\D)){2}((\w{3,5})|(\d{4}))\b/g; // Username - 3 letters, followed by 3 or 4 word characters, surrounded by word boundaries
-    var serial = /\b[A-Z0-9]{7}\b/g; // Serial - a series of 7 uppercase letters and/or digits, surrounded by word boundaries
-
+    var ticketNum     = /\d{5}/g;                            // Tcenter ticket ID - 5-digit number
+    var footprintsNum = /\d{6}/g;                            // Footprints ticket ID - 6-digit number
+    var hostname      = /\w+-\d+/g;                          // Hostname - a series of letters, hyphen, a series of numbers
+    var username      = /(\w(?=\D)){2}((\w{3,5})|(\d{4}))/g; // Username - 3 letters, followed by 3 or 4 word characters
+    var serial        = /[A-Z0-9]{7}/g;                      // Serial - a series of 7 uppercase letters and/or digits
+    
     $('input#tcenter-search').on('keyup', function() {
 
     	var input = $(this).val();
@@ -64,11 +64,13 @@ function tcenterSearch() {
 function clawsSearch() {
 
 	// Regular expressions. yay.
-    var hostname      = /\b\w+-\d+\b/g; // Hostname - a series of letters, hyphen, a series of numbers, surrounded by word boundaries
-    var username      = /\b(\w(?=\D)){2}((\w{3,5})|(\d{4}))\b/g; // Username - 3 letters, followed by 3 or 4 word characters, surrounded by word boundaries
-    var serial        = /\b[A-Z0-9]{7}\b/g; // Serial - a series of 7 uppercase letters and/or digits, surrounded by word boundaries
+    var hostname      = /\w+-\d+/g;                             // Hostname - a series of letters, hyphen, a series of numbers
+    var username      = /(\w){3}([A-Za-z]{3,}|\d{4})/g; // Username - 3 letters, followed by 3 or 4 word characters
+    var serial        = /[A-Z0-9]{7}/g;                         // Serial - a series of 7 uppercase letters and/or digits
     var mac           = /(\b^([0-9a-fA-F]{2}(:|-)){5}([0-9a-fA-F]{2})$\b)|(\b^([0-9a-fA-F]{2}){6}$\b)/g; // MAC Address - 6 couples of 2 hexadecimel numbers, separated (or not) by a colon
-    var uid           = /\b\d{9}\b/g // University ID - a 9-digit number
+    var uid           = /\d{9}/g;                               // University ID - a 9-digit number
+    var printer       = /pr[A-Za-z]{2,4}\d{1,}/g;               // Printers - "PR" followed by 2-4 word characters, followed by 1 or more digit
+
 
     $('input#claws-search').on('keyup', function() {
 
@@ -90,7 +92,7 @@ function clawsSearch() {
         $('#claws-username').attr('class', 'label label-default');
       };
 
-      if ( input.trim(this).match(hostname) ) {
+      if ( input.trim(this).match(hostname) || input.trim(this).match(printer) ) {
         $('#claws-hostname').addClass('label-success');
         // $('input#claws-search').attr('name', 'hostname');
         $('#claws form').attr('action', 'https://claws.rit.edu/admintools/computers/computerSearch.php?DDNSHostname='+input+'%&ACTION=SEARCH');
@@ -111,13 +113,13 @@ function clawsSearch() {
 
 function fpSearch() {
 
-  $('input#fp-search').on('keyup', function() {
+    $('input#fp-search').on('keyup', function() {
 
-    var input = $(this).val();
+        var input = $(this).val();
 
-    $('#fp form').attr('action', 'https://footprints02.main.ad.rit.edu/MRcgi/MRTicketPage.pl?USER=bwshelp&MRP=dvJARCrSP&MAJOR_MODE=DETAILS&MAXMININC=&MRNUMBERLIST='+input+'&ABN=&GRPDETAIL=&HISTORYKEY=&MR='+input+'&PROJECTID=2&RUNNING_IN_POPUP=1');
+        $('#fp form').attr('action', 'https://footprints02.main.ad.rit.edu/MRcgi/MRTicketPage.pl?USER=bwshelp&MRP=dvJARCrSP&MAJOR_MODE=DETAILS&MAXMININC=&MRNUMBERLIST='+input+'&ABN=&GRPDETAIL=&HISTORYKEY=&MR='+input+'&PROJECTID=2&RUNNING_IN_POPUP=1');
 
-  })
+    })
 
 };
 
@@ -155,7 +157,7 @@ $(document).ready(function() {
 	// Init search functions
 	tcenterSearch();
 	clawsSearch();
-  fpSearch();
+    fpSearch();
 
 	// Init bookmarks filter feature
 	$('input#bookmark-search').on('keyup', function() {
