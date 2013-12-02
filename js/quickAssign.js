@@ -10,61 +10,42 @@
  *
 */
 
-
-/**
- * Version History:
- * 4.2.2 - Commented everything like crazy to make maintenance easier
- *
- * 4.2.1 - Fixed bug where performing a name search would automatically click
- *         the first element
- *
- * 4.2.0 - Added simplified name editing
- * 4.1.0 - Added Network Communications to defaults
- * 4.1.0 - Support seamless upgrade from version 3 to 4
- * 4.0.0 - Removed Greasemonkey Menu options
- *         Instead, all management is done using new easily accessible buttons
- *         Management Interface now has options to restore defaults
- *
- * 3.1.0 - Added Management interface to Remove and reorder quick assignees
- *
- * 3.0.0 - Major Change to underlying system.  New Context menu options. Client
- *         side configuration storage. Ability to add and remove custom quick
- *         assignees.
- *
- * 2.0.0 - Major overhaul - Simplified code. Added Context menu.
- *
- * 2.0.1 - Minor fix - Formatting of buttons
- *
- * 2.0.2 - Minor fix - Reordered entries to fix assignees being automatically
- *         populated
- *
- * 1.0.0 - Fixed set of assignees
- *
- * 1.1.0 - Added PS-Approve group
- *
- * 1.2.0 - Added Adjusted order of elements
- *
- * 1.3.0 - Added support for Tabbed ticket page
- *
- * 1.4.0 - Added support for automatic updating of script
- *
+/** 
+ * customQA
+ * This gets the "customQA" key from the Chrome storage. Loads the value if stored.
+ * If not, an empty JSON object is returned.
  */
-
+var customQA == chrome.storage.sync.get('customQA');
+//var customQuickAssignJSON == GM_getValue("customQA", "{}");
 
 /**
-* Load the default options into the JSON object
+ * If the custom JSON object is empty, this browser is running this script for
+ * the first time
+ */
+if ( customQA == "{}" ) {
+    // Convert string to full JSON object
+    customQA = JSON.parse(customQA);
+
+    // Load default values
+    loadDefaults();
+} else {
+    // Convert String to JSON object
+    customQA = JSON.parse(customQA);
+}
+
+/** loadDefaults
+*
+* Loads the default options into the JSON object
 *
 */
-function loadDefaults()
-{
+function loadDefaults() {
     // Default for Service Desk ( Still caled Helpdesk )
-    customQuickAssignJSON[0] = [ "Service Desk",
+    customQA[0] = [ "Service Desk",
         "<option value=\"HelpDesk\">HelpDesk</option>"];
 
-    // Default for Service Desk Full Timers. If these change, PLEASE update the
-    // defaults here
+    // Default for Service Desk Full Timers. If these change, PLEASE update the defaults here
     // The format for members of the team is straight forward
-    customQuickAssignJSON[1]=
+    customQA[1]=
         ["Service Desk - FTE",
         "<option value=\"HelpDesk\">HelpDesk</option>"+
         "<option class=\"member\" value=\"gcchelp\">Geoffrey Cabrera</option>"+
@@ -74,43 +55,41 @@ function loadDefaults()
         "<option class=\"member\" value=\"odphelp\">Omar Phillips</option>"];
 
     // Special request from Geoff Cabrera
-    customQuickAssignJSON[2]=
+    customQA[2]=
         ["PS-Access",
         "<option value=\"PS__b__u__bAccess__bApprovers\">PS - Access Approvers</option>"+
         "<option class=\"member\" value=\"dhhrgr\">Doug Hausner</option>"+
         "<option class=\"member\" value=\"nhsrgr2\">Nancy Simonds</option>"];
 
     // Desktop Support quick assign button
-    customQuickAssignJSON[3]=
+    customQA[3]=
         ["Desktop",
         "<option value=\"Desktop__bSupport\">Desktop Support</option>"];
 
     // Systems support
-    customQuickAssignJSON[4]=
+    customQA[4]=
         ["Systems Support",
         "<option value=\"Systems__bSupport\">Systems Support</option>"];
 
     // Command Center
-    customQuickAssignJSON[5]=
+    customQA[5]=
         ["Command Center",
         "<option value=\"Command__bCenter\">Command Center</option>"];
 
     // Network Communications
-    customQuickAssignJSON[6]=
+    customQA[6]=
         ["Network Communications",
         "<option value=\"Network__bCommunications\">Network Communications</option>"];
 }
 
-/**
-* addQuickAssignee - Add a new quick assign button
+/** addQuickAssignee - Add a new quick assign button
 *
 * Params:
 *      name - Name of the button
 *      html - HTML data that will become the contents of the assignees list
- *
+*
 */
-function addQuickAssignee(name, html)
-{
+function addQuickAssignee(name, html) {
     // Create the quickassign Input button element
     var newAssignee = document.createElement("input");
 
@@ -138,27 +117,6 @@ function addQuickAssignee(name, html)
     qassignCell.appendChild(newAssignee);
 }
 
-// Load custome Assignees JSON
-// the GM_getValue loads the value if stored. If not, an empty JSON object is
-// returned
-// @TODO Replace GM_getValue with Chrome cookie equivalent. See line 608 of this script
-var customQuickAssignJSON = GM_getValue("customQA", "{}");
-
-// If the custom JSON object is empty, this browser is running this script for
-// the first time
-if( customQuickAssignJSON == "{}" )
-{
-    // Convert string to full JSON object
-    customQuickAssignJSON = JSON.parse(customQuickAssignJSON);
-
-    // Load default values
-    loadDefaults();
-}
-else
-{
-    // Convert String to JSON object
-    customQuickAssignJSON = JSON.parse(customQuickAssignJSON);
-}
 
 /**
  * Draws the QuickAssign management menu on screen
@@ -171,18 +129,17 @@ else
  */
 function makeMenu(tempJSON, itemCount) {
     // If tempJSON is a string, parse to JSON
-    if( typeof tempJSON == "string" ) {
+    if ( typeof tempJSON == "string" ) {
         tempJSON = JSON.parse(tempJSON);
-    }
-    else {
-        // Make copy of customQuickAssignJSON
+    } else {
+        // Make copy of customQA
         tempJSON = {};
         itemCount = 0;
         // Copy elements into tempJSON
-        for( var qassignName in customQuickAssignJSON ) {
+        for( var qassignName in customQA ) {
             tempJSON[qassignName] = [
-                                        customQuickAssignJSON[qassignName][0],
-                                        customQuickAssignJSON[qassignName][1]
+                                        customQA[qassignName][0],
+                                        customQA[qassignName][1]
                                     ];
             ++itemCount;
         }
@@ -433,19 +390,21 @@ function makeMenu(tempJSON, itemCount) {
     saveChanges.style.marginLeft = "25%";
     saveChanges.onclick = function() {
         // Really save values
-        GM_setValue("customQA", JSON.stringify(tempJSON));
+        customQA = tempJSON;
+        chrome.storage.sync.set(customQA, function() {
+            // Notify that the changes are saved.
+            message('Quick Assign Settings Saved');
+        });
 
         // Clear old fields
         var quickAssignTD = document.getElementById("quickAssignTd");
         quickAssignTD.innerHTML = "";
 
-        customQuickAssignJSON = JSON.parse(GM_getValue("customQA"));
+        customQA = chrome.storage.sync.get(customQA);
         // Redraw quickassign section
         for( var qassignName in tempJSON ) {
             addQuickAssignee(tempJSON[qassignName][0], tempJSON[qassignName][1]);
         }
-
-        alert("Changes have been changed.");
 
     };
     // Add save button to window
@@ -458,22 +417,24 @@ function makeMenu(tempJSON, itemCount) {
     reset.style.right = "25%";
     reset.style.position="absolute";
     reset.onclick = function() {
-        if( !confirm("Are you sure you want to reset the quick assignees list?") )
-        {
+        if( !confirm("Are you sure you want to reset the quick assignees list?") ) {
             return false;
         }
 
         var quickAssignTd = document.getElementById('quickAssignTd');
         quickAssignTd.innerHTML = "";
-        customQuickAssignJSON = JSON.parse("{}");
+        customQA = JSON.parse("{}");
 
         loadDefaults();
 
-        for( var qassignName in customQuickAssignJSON ) {
-            addQuickAssignee(customQuickAssignJSON[qassignName][0], customQuickAssignJSON[qassignName][1]);
+        for( var qassignName in customQA ) {
+            addQuickAssignee(customQA[qassignName][0], customQA[qassignName][1]);
         }
 
-        GM_setValue("customQA", JSON.stringify(customQuickAssignJSON));
+        GM_setValue("customQA", JSON.stringify(customQA));
+        chrome.storage.sync.set(customQA, function() {
+            message('Quick Assignees list reset.');
+        })
 
         // Unload window
         content.removeChild(newEl);
@@ -495,7 +456,7 @@ function makeMenu(tempJSON, itemCount) {
  */
 var doConvert = false;
 // Convert old style assignees
-for( var qassignName in customQuickAssignJSON ) {
+for( var qassignName in customQA ) {
     if( isNaN(parseInt(qassignName)) ) {
         doConvert = true;
     }
@@ -503,26 +464,16 @@ for( var qassignName in customQuickAssignJSON ) {
 
 if( doConvert ) {
     var el = 0;
-    var tempJSON = JSON.parse(JSON.stringify(customQuickAssignJSON));
+    var tempJSON = JSON.parse(JSON.stringify(customQA));
 
-    customQuickAssignJSON = JSON.parse("{}");
+    customQA = JSON.parse("{}");
 
     for( var qassignName in tempJSON ) {
-        customQuickAssignJSON[el+""] = [ qassignName, tempJSON[qassignName] ];
+        customQA[el+""] = [ qassignName, tempJSON[qassignName] ];
         ++el;
     }
 
 }
-
-
-/*
- * ========= DEPRECATED =========
- * Moved to ../css/footprints.css
- * ==============================
- *
- * // Add custom style to enlarge the quick assign buttons
- * // GM_addStyle("#quickAssignTd{min-width:170px;} #quickAssignTd>input {  width:100%; padding: 5px 0 5px 0; }");
-*/
 
 // Get the list of assignees element
 var assigneeList = document.getElementById('assgnee');
@@ -595,17 +546,17 @@ var saveAnchor = document.createElement("a");
 
         // Get length of JSON object
         var count = 0;
-        for( var qassignName in customQuickAssignJSON ) {
+        for( var qassignName in customQA ) {
             ++count;
         }
 
         // Store assignee
-        customQuickAssignJSON[(count+"")] = [name, assignees];
+        customQA[(count+"")] = [name, assignees];
 
         // Save custom assignee to GM variable
-        // @TODO Store this in a Chrome cookie, instead of a Greasemonkey variable
-        //       http://developer.chrome.com/extensions/cookies.html
-        GM_setValue("customQA", JSON.stringify(customQuickAssignJSON));
+        customQA = JSON.stringify(customQA);
+        storage.set(customQA);
+        //GM_setValue("customQA", JSON.stringify(customQA));
     };
 
     // Create Image for graphical new assignee creation
@@ -635,8 +586,8 @@ var qassignCell = document.createElement("td");
 /*
     Load buttons
 */
-for( var qassignName in customQuickAssignJSON ) {
-    addQuickAssignee(customQuickAssignJSON[qassignName][0], customQuickAssignJSON[qassignName][1]);
+for( var qassignName in customQA ) {
+    addQuickAssignee(customQA[qassignName][0], customQA[qassignName][1]);
 }
 
 // Add quick assign cell to the table row
