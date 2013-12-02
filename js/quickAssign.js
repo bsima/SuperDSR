@@ -40,46 +40,46 @@ if ( customQA == "{}" ) {
 */
 function loadDefaults() {
     // Default for Service Desk ( Still caled Helpdesk )
-    customQA[0] = [ "Service Desk",
-        "<option value=\"HelpDesk\">HelpDesk</option>"];
+    customQA[0] = [ 'Service Desk',
+        '<option value="HelpDesk">HelpDesk</option>'];
 
     // Default for Service Desk Full Timers. If these change, PLEASE update the defaults here
     // The format for members of the team is straight forward
     customQA[1]=
-        ["Service Desk - FTE",
-        "<option value=\"HelpDesk\">HelpDesk</option>"+
-        "<option class=\"member\" value=\"gcchelp\">Geoffrey Cabrera</option>"+
-        "<option class=\"member\" value=\"jjmhelp\">John Mander</option>"+
-        "<option class=\"member\" value=\"mcmhelp\">Mike Mistretta</option>"+
-        "<option class=\"member\" value=\"aapppt\">Ardelia Parker-Killings</option>"+
-        "<option class=\"member\" value=\"odphelp\">Omar Phillips</option>"];
+        ['Service Desk - FTE',
+        '<option value="HelpDesk">HelpDesk</option>'+
+        '<option class="member" value="gcchelp">Geoffrey Cabrera</option>'+
+        '<option class="member" value="jjmhelp">John Mander</option>'+
+        '<option class="member" value="mcmhelp">Mike Mistretta</option>'+
+        '<option class="member" value="aapppt">Ardelia Parker-Killings</option>'+
+        '<option class="member" value="odphelp">Omar Phillips</option>'];
 
     // Special request from Geoff Cabrera
     customQA[2]=
-        ["PS-Access",
-        "<option value=\"PS__b__u__bAccess__bApprovers\">PS - Access Approvers</option>"+
-        "<option class=\"member\" value=\"dhhrgr\">Doug Hausner</option>"+
-        "<option class=\"member\" value=\"nhsrgr2\">Nancy Simonds</option>"];
+        ['PS-Access',
+        '<option value="PS__b__u__bAccess__bApprovers\">PS - Access Approvers</option>'+
+        '<option class="member" value="dhhrgr">Doug Hausner</option>'+
+        '<option class="member" value="nhsrgr2">Nancy Simonds</option>'];
 
     // Desktop Support quick assign button
     customQA[3]=
-        ["Desktop",
-        "<option value=\"Desktop__bSupport\">Desktop Support</option>"];
+        ['Desktop',
+        '<option value="Desktop__bSupport">Desktop Support</option>'];
 
     // Systems support
     customQA[4]=
-        ["Systems Support",
-        "<option value=\"Systems__bSupport\">Systems Support</option>"];
+        ['Systems Support',
+        '<option value="Systems__bSupport">Systems Support</option>'];
 
     // Command Center
     customQA[5]=
-        ["Command Center",
-        "<option value=\"Command__bCenter\">Command Center</option>"];
+        ['Command Center',
+        '<option value="Command__bCenter">Command Center</option>'];
 
     // Network Communications
     customQA[6]=
-        ["Network Communications",
-        "<option value=\"Network__bCommunications\">Network Communications</option>"];
+        ['Network Communications',
+        '<option value="Network__bCommunications">Network Communications</option>'];
 }
 
 /** addQuickAssignee - Add a new quick assign button
