@@ -136,7 +136,13 @@ function filterBookmarks() {
 
 $(document).ready(function() {
 
-	$('#close').focus();
+	// Listen for closeButton
+	document.addEventListener('DOMContentLoaded', function(e) {
+	  var closeButton = document.querySelector('#close');
+	  closeButton.addEventListener('click', function(e) {
+	    window.close();
+	  });
+	});
 
 	// Strip leading and trailing spaces in search
 	// search boxes on submit or enter press
