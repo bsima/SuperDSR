@@ -10,35 +10,76 @@
  *
 */
 
+/** Debugging Tools
+ *
+ * Can't figure this shit out, so I'm making some debugging stuff
+ * Set debugMode to 1 to show error messages, 0 to hide messages.
+ */
+var debugMode = 1;
+function dbmsg(message) {
+    if ( debugMode == 1 ) {
+        var date = new Date();
+        var time = date.getHours() + ':' 
+            + date.getMinutes() + ':' 
+            + date.getSeconds();
+        console.log('DBM - ' + time + ': ' + message);
+        if ( chrome.runtime.lastError ) {
+            console.log('DBM lastError - ' + chrome.runtime.lastError);
+        }
+    } else if ( debugMode == 0 ) {
+        return;
+    }
+}
+if ( debugMode == 1 ) {
+    console.log('Debug mode is currently ON. Each debug message is preceeded with "DBM" and the time the message was generated.');
+
+    // Listen for changes in storage
+    chrome.storage.onChanged.addListener(function(changes, namespace) {
+        for (key in changes) {
+            var storageChange = changes[key];
+            dbmsg('Storage key "%s" in namespace "%s" changed. ' +
+                  'Old value was "%s", new value is "%s".',
+                  key,
+                  namespace,
+                  storageChange.oldValue,
+                  storageChange.newValue);
+        }
+    });
+} 
+
+
+dbmsg('Init quickAssign.js script.');
+
 /** 
  * customQA
- * This gets the "customQA" key from the Chrome storage. Loads the value if stored.
- * If not, an empty JSON object is returned.
+ * This creates an empty JS object and then loads it with the previously-saved
+ * data from Chrome.
  */
-var customQA == chrome.storage.sync.get('customQA');
-//var customQuickAssignJSON == GM_getValue("customQA", "{}");
+var customQA = {}; // Create an empty object
+chrome.storage.sync.get(customQA,function() {
+    dbmsg('customQA = '+customQA)
+});
 
 /**
- * If the custom JSON object is empty, this browser is running this script for
+ * If customQA is still empty, this browser is running this script for
  * the first time
  */
-if ( customQA == "{}" ) {
-    // Convert string to full JSON object
-    customQA = JSON.parse(customQA);
-
+if ( customQA == {} ) {
+    dbmsg('This is the first time this browser is running quickAssign.js.');
     // Load default values
     loadDefaults();
+    dbmsg('Defaults loaded into undefinded customQA.');
 } else {
-    // Convert String to JSON object
-    customQA = JSON.parse(customQA);
+    dbmsg('This browser has saved data.');
 }
 
 /** loadDefaults
 *
-* Loads the default options into the JSON object
-*
+* Loads the default options into the JSON object and then saves the object
+* to Chrome's storage.
 */
 function loadDefaults() {
+    dbmsg('Begin loadDefaults()');
     // Default for Service Desk ( Still caled Helpdesk )
     customQA[0] = [ 'Service Desk',
         '<option value="HelpDesk">HelpDesk</option>'];
@@ -80,6 +121,12 @@ function loadDefaults() {
     customQA[6]=
         ['Network Communications',
         '<option value="Network__bCommunications">Network Communications</option>'];
+
+    chrome.storage.sync.set(customQA,function() {
+        dbmsg('customQA has been set.')
+    });
+
+    dbmsg('End loadDefaults()');
 }
 
 /** addQuickAssignee - Add a new quick assign button
@@ -133,7 +180,7 @@ function makeMenu(tempJSON, itemCount) {
         tempJSON = JSON.parse(tempJSON);
     } else {
         // Make copy of customQA
-        tempJSON = {};
+        tempJSON  = {};
         itemCount = 0;
         // Copy elements into tempJSON
         for( var qassignName in customQA ) {
@@ -239,7 +286,7 @@ function makeMenu(tempJSON, itemCount) {
 
 
     // Iterate over all elements in JSON object
-    for( var qassignName in tempJSON ) {
+    for ( var qassignName in tempJSON ) {
 
         // Create a row
         var row = document.createElement("tr");
@@ -248,7 +295,7 @@ function makeMenu(tempJSON, itemCount) {
         row.id = qassignName;
 
         // Check odd/even
-        if( count % 2 == 1 ) {
+        if ( count % 2 == 1 ) {
             row.style.backgroundColor = "#EFEFEF";
         }
 
@@ -256,7 +303,7 @@ function makeMenu(tempJSON, itemCount) {
         var edit = document.createElement("td");
 
         // If possible to have a swap up action
-        if( count > 0 ) {
+        if ( count > 0 ) {
 
             // Create anchor
             var swapUp = document.createElement("a");
@@ -296,7 +343,7 @@ function makeMenu(tempJSON, itemCount) {
         edit.appendChild(document.createElement("br"));
 
         // If possible to do a swap down
-        if( count < (itemCount-1) ) {
+        if ( count < (itemCount-1) ) {
             // Create anchor
             var swapDown = document.createElement("a");
             swapDown.href = "#";
@@ -328,8 +375,7 @@ function makeMenu(tempJSON, itemCount) {
             };
 
             edit.appendChild(swapDown);
-        }
-        else {
+        } else {
             // If no option, add padding
             edit.appendChild(document.createElement("br"));
         }
@@ -350,13 +396,12 @@ function makeMenu(tempJSON, itemCount) {
         remove.onclick = function() {
             var number = this.parentNode.id;
             var i = parseInt(number);
-            while( tempJSON[(i+"")] ) {
-                if( tempJSON[((i+1)+"")] ) {
+            while ( tempJSON[(i+"")] ) {
+                if ( tempJSON[((i+1)+"")] ) {
                     // Move next element to current position
                     tempJSON[(i+"")][0] = tempJSON[((i+1)+"")][0];
                     tempJSON[(i+"")][1] = tempJSON[((i+1)+"")][1];
-                }
-                else {
+                } else {
                     // Delete final element
                     delete tempJSON[(i+"")];
                 }
@@ -393,16 +438,20 @@ function makeMenu(tempJSON, itemCount) {
         customQA = tempJSON;
         chrome.storage.sync.set(customQA, function() {
             // Notify that the changes are saved.
-            message('Quick Assign Settings Saved');
+            var msg = 'Quick Assignees settings saved successfully.';
+            message(msg);
+            dbmsg(msg); 
         });
 
         // Clear old fields
         var quickAssignTD = document.getElementById("quickAssignTd");
         quickAssignTD.innerHTML = "";
 
-        customQA = chrome.storage.sync.get(customQA);
         // Redraw quickassign section
-        for( var qassignName in tempJSON ) {
+        customQA = chrome.storage.sync.get('customQA',function() {
+            dbmsg('Redrawing quickassing section.')
+        });
+        for ( var qassignName in tempJSON ) {
             addQuickAssignee(tempJSON[qassignName][0], tempJSON[qassignName][1]);
         }
 
@@ -417,24 +466,26 @@ function makeMenu(tempJSON, itemCount) {
     reset.style.right = "25%";
     reset.style.position="absolute";
     reset.onclick = function() {
-        if( !confirm("Are you sure you want to reset the quick assignees list?") ) {
+        if ( !confirm("Are you sure you want to reset the quick assignees list?") ) {
             return false;
         }
 
         var quickAssignTd = document.getElementById('quickAssignTd');
         quickAssignTd.innerHTML = "";
-        customQA = JSON.parse("{}");
+        //customQA = JSON.parse("{}");
 
         loadDefaults();
 
-        for( var qassignName in customQA ) {
+        for ( var qassignName in customQA ) {
             addQuickAssignee(customQA[qassignName][0], customQA[qassignName][1]);
         }
 
-        GM_setValue("customQA", JSON.stringify(customQA));
+        // GM_setValue("customQA", JSON.stringify(customQA));
         chrome.storage.sync.set(customQA, function() {
-            message('Quick Assignees list reset.');
-        })
+            var msg = 'Quick Assignees list reset successfully.';
+            message(msg);
+            dbmsg(msg);
+        });
 
         // Unload window
         content.removeChild(newEl);
@@ -453,16 +504,17 @@ function makeMenu(tempJSON, itemCount) {
 /**
  * This segment here is for converting older versions of the custom Assignees
  * configuration variable to the newer format.
- */
+ * 
+ * ===== I don't think this section is necessary anymore =====
 var doConvert = false;
 // Convert old style assignees
-for( var qassignName in customQA ) {
-    if( isNaN(parseInt(qassignName)) ) {
+for ( var qassignName in customQA ) {
+    if ( isNaN(parseInt(qassignName)) ) {
         doConvert = true;
     }
 }
 
-if( doConvert ) {
+if ( doConvert ) {
     var el = 0;
     var tempJSON = JSON.parse(JSON.stringify(customQA));
 
@@ -474,6 +526,7 @@ if( doConvert ) {
     }
 
 }
+*/
 
 // Get the list of assignees element
 var assigneeList = document.getElementById('assgnee');
@@ -490,7 +543,7 @@ labelRow.appendChild(document.createElement('td'));
 
 // Create a label for the quick assign cell
 var qassignLabel = document.createElement("label");
-qassignLabel.htmlFor = "qassign";
+qassignLabel.htmlFor   = "qassign";
 qassignLabel.className = "tinytext";
 qassignLabel.innerHTML = "Quick Assign";
 
@@ -529,11 +582,9 @@ var saveAnchor = document.createElement("a");
 
         // Get new Assignee name
         var name = prompt("Quick assign name?",name);
-        if( name == null ) {
+        if ( name == null ) {
             return false;
-        }
-        else if( name == "" )
-        {
+        } else if ( name == "" ) {
             alert("You must enter a name!");
             return false;
        }
@@ -553,9 +604,11 @@ var saveAnchor = document.createElement("a");
         // Store assignee
         customQA[(count+"")] = [name, assignees];
 
-        // Save custom assignee to GM variable
-        customQA = JSON.stringify(customQA);
-        storage.set(customQA);
+        // Save custom assignee to Chrome sync storage
+        // customQA = JSON.stringify(customQA); // I don't think this is necessary...
+        chrome.storage.sync.set(customQA,function() {
+            dbmsg('Saving custom assignee list.'); 
+        });
         //GM_setValue("customQA", JSON.stringify(customQA));
     };
 
