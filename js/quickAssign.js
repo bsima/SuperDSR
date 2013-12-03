@@ -138,16 +138,16 @@ function loadDefaults() {
 */
 function addQuickAssignee(name, html) {
     // Create the quickassign Input button element
-    var newAssignee = document.createElement("input");
+    var newAssignee = document.createElement('input');
 
     // Set the ID of the element to be the name of the assignee
     // The RegEx removes all whitespace characters
     // The final result is the id = quickAssignNameYouSpecified
-    newAssignee.id = "quickAssign"+name.replace(/\s/g, "").trim();
+    newAssignee.id = 'quickAssign'+name.replace(/\s/g, '').trim();
 
     // Specifies type of input element
     // Submit type is a clickable button
-    newAssignee.type = "submit";
+    newAssignee.type = 'submit';
 
     // The value of the button will be the name of the assignee
     newAssignee.value = name;
@@ -176,7 +176,7 @@ function addQuickAssignee(name, html) {
  */
 function makeMenu(tempJSON, itemCount) {
     // If tempJSON is a string, parse to JSON
-    if ( typeof tempJSON == "string" ) {
+    if ( typeof tempJSON == 'string' ) {
         tempJSON = JSON.parse(tempJSON);
     } else {
         // Make copy of customQA
@@ -193,36 +193,36 @@ function makeMenu(tempJSON, itemCount) {
     }
 
     // Get main content div
-    var content = document.getElementById("ContentWrapper");
+    var content = document.getElementById('ContentWrapper');
 
     // Create new content container for management interface
-    var newEl = document.createElement("div");
+    var newEl = document.createElement('div');
     // Element is 75% of window window height and width
-    newEl.style.width = "75%";
-    newEl.style.height = "75%";
+    newEl.style.width = '75%';
+    newEl.style.height = '75%';
 
     // Position is fixed
-    newEl.style.position = "fixed";
+    newEl.style.position = 'fixed';
 
     // Thus, the element will always be centered on the screen
-    newEl.style.top = "12.5%";
-    newEl.style.left = "12.5%";
-    newEl.style.backgroundColor = "#fff";
-    newEl.style.border = "1px solid #000";
-    newEl.style.overflow = "auto";
+    newEl.style.top = '12.5%';
+    newEl.style.left = '12.5%';
+    newEl.style.backgroundColor = '#fff';
+    newEl.style.border = '1px solid #000';
+    newEl.style.overflow = 'auto';
 
     // Close button
-    var closeButton = document.createElement("div");
+    var closeButton = document.createElement('div');
 
     // Position element on right side of management interface
-    closeButton.style.cssFloat = "right";
+    closeButton.style.cssFloat = 'right';
 
     // Snag image from Footprints set of images
-    closeButton.innerHTML = "<a href=\"#\"><img src='/MRimg/cancel.gif'></a>";
+    closeButton.innerHTML = '<a href="#"><img src="/MRimg/cancel.gif"></a>';
 
     // Close button handler
     closeButton.onclick = function() {
-        if( confirm("Any unsaved changes will be lost. Are you sure you want to close this window?") ) {
+        if( confirm('Any unsaved changes will be lost. Are you sure you want to close this window?') ) {
             content.removeChild(newEl);
         }
     };
@@ -231,11 +231,11 @@ function makeMenu(tempJSON, itemCount) {
     newEl.appendChild(closeButton);
 
     // Create table to hold contacts
-    var contactTable = document.createElement("table");
-    contactTable.style.border = "1px solid #000";
-    contactTable.style.borderSpacing = "0";
-    contactTable.style.marginLeft = "25%";
-    contactTable.style.width = "50%";
+    var contactTable = document.createElement('table');
+    contactTable.style.border = '1px solid #000';
+    contactTable.style.borderSpacing = '0';
+    contactTable.style.marginLeft = '25%';
+    contactTable.style.width = '50%';
 
     // Use counter to track odd/even
     var count = 0;
@@ -251,14 +251,14 @@ function makeMenu(tempJSON, itemCount) {
         var value = this.innerHTML;
 
         // Create new input element
-        var nameEdit = document.createElement("input");
+        var nameEdit = document.createElement('input');
 
         // Type will be text
-        nameEdit.type="text";
+        nameEdit.type='text';
 
         // Set value to name of assignee
         nameEdit.value = value;
-        this.innerHTML = "";
+        this.innerHTML = '';
 
         // Onblur triggers when the element loses focus
         nameEdit.onblur = function() {
@@ -289,26 +289,26 @@ function makeMenu(tempJSON, itemCount) {
     for ( var qassignName in tempJSON ) {
 
         // Create a row
-        var row = document.createElement("tr");
+        var row = document.createElement('tr');
 
         // set rowID to quickAssign name
         row.id = qassignName;
 
         // Check odd/even
         if ( count % 2 == 1 ) {
-            row.style.backgroundColor = "#EFEFEF";
+            row.style.backgroundColor = '#EFEFEF';
         }
 
         // Create new table cell
-        var edit = document.createElement("td");
+        var edit = document.createElement('td');
 
         // If possible to have a swap up action
         if ( count > 0 ) {
 
             // Create anchor
-            var swapUp = document.createElement("a");
-            swapUp.href = "#";
-            swapUp.innerHTML = "<img src='/MRimg/up.gif'>";
+            var swapUp = document.createElement('a');
+            swapUp.href = '#';
+            swapUp.innerHTML = '<img src="/MRimg/up.gif">';
 
             // Onlick function performs swap and redraws menu window
             swapUp.onclick = function() {
@@ -318,14 +318,14 @@ function makeMenu(tempJSON, itemCount) {
                 // Sanity check
                 if( i > 0 ) {
                     // Swap names
-                    var temp = tempJSON[(i+"")][0];
-                    tempJSON[(i+"")][0] = tempJSON[((i-1)+"")][0];
-                    tempJSON[((i-1)+"")][0] = temp;
+                    var temp = tempJSON[(i+'')][0];
+                    tempJSON[(i+'')][0] = tempJSON[((i-1)+'')][0];
+                    tempJSON[((i-1)+'')][0] = temp;
 
                     // Swap innerHTML for assignee
-                    temp = tempJSON[(i+"")][1];
-                    tempJSON[(i+"")][1] = tempJSON[((i-1)+"")][1];
-                    tempJSON[((i-1)+"")][1] = temp;
+                    temp = tempJSON[(i+'')][1];
+                    tempJSON[(i+'')][1] = tempJSON[((i-1)+'')][1];
+                    tempJSON[((i-1)+'')][1] = temp;
 
                     // Unload window
                     content.removeChild(newEl);
@@ -340,14 +340,14 @@ function makeMenu(tempJSON, itemCount) {
             edit.appendChild(swapUp);
         }
         // Add padding
-        edit.appendChild(document.createElement("br"));
+        edit.appendChild(document.createElement('br'));
 
         // If possible to do a swap down
         if ( count < (itemCount-1) ) {
             // Create anchor
-            var swapDown = document.createElement("a");
-            swapDown.href = "#";
-            swapDown.innerHTML = "<img src='/MRimg/down.gif'>";
+            var swapDown = document.createElement('a');
+            swapDown.href = '#';
+            swapDown.innerHTML = '<img src="/MRimg/down.gif">';
 
             // onclick handles swap
             swapDown.onclick = function() {
@@ -356,14 +356,14 @@ function makeMenu(tempJSON, itemCount) {
 
                 if( i < (itemCount-1) ) {
                     // Swap names
-                    var temp = tempJSON[(i+"")][0];
-                    tempJSON[(i+"")][0] = tempJSON[((i+1)+"")][0];
-                    tempJSON[((i+1)+"")][0] = temp;
+                    var temp = tempJSON[(i+'')][0];
+                    tempJSON[(i+'')][0] = tempJSON[((i+1)+'')][0];
+                    tempJSON[((i+1)+'')][0] = temp;
 
                     // Swap innerHTML
-                    temp = tempJSON[(i+"")][1];
-                    tempJSON[(i+"")][1] = tempJSON[((i+1)+"")][1];
-                    tempJSON[((i+1)+"")][1] = temp;
+                    temp = tempJSON[(i+'')][1];
+                    tempJSON[(i+'')][1] = tempJSON[((i+1)+'')][1];
+                    tempJSON[((i+1)+'')][1] = temp;
 
                 }
                 // Unload window
@@ -377,33 +377,33 @@ function makeMenu(tempJSON, itemCount) {
             edit.appendChild(swapDown);
         } else {
             // If no option, add padding
-            edit.appendChild(document.createElement("br"));
+            edit.appendChild(document.createElement('br'));
         }
         row.appendChild(edit);
 
         // Create table cell to hold quick assign name
-        var name = document.createElement("td");
+        var name = document.createElement('td');
         name.onclick = editOnClick;
 
         name.innerHTML = tempJSON[qassignName][0];
         row.appendChild(name);
 
         // Create cell for remove option
-        var remove = document.createElement("td");
-        remove.innerHTML = "<a href='#'>Remove</a>" ;
+        var remove = document.createElement('td');
+        remove.innerHTML = '<a href="#">Remove</a>' ;
 
         // Onclick handler
         remove.onclick = function() {
             var number = this.parentNode.id;
             var i = parseInt(number);
-            while ( tempJSON[(i+"")] ) {
-                if ( tempJSON[((i+1)+"")] ) {
+            while ( tempJSON[(i+'')] ) {
+                if ( tempJSON[((i+1)+'')] ) {
                     // Move next element to current position
-                    tempJSON[(i+"")][0] = tempJSON[((i+1)+"")][0];
-                    tempJSON[(i+"")][1] = tempJSON[((i+1)+"")][1];
+                    tempJSON[(i+'')][0] = tempJSON[((i+1)+'')][0];
+                    tempJSON[(i+'')][1] = tempJSON[((i+1)+'')][1];
                 } else {
                     // Delete final element
-                    delete tempJSON[(i+"")];
+                    delete tempJSON[(i+'')];
                 }
                 i++;
             }
@@ -429,10 +429,10 @@ function makeMenu(tempJSON, itemCount) {
     newEl.appendChild(contactTable);
 
     // Save button
-    var saveChanges = document.createElement("input");
-    saveChanges.type = "submit";
-    saveChanges.value = "Save Changes";
-    saveChanges.style.marginLeft = "25%";
+    var saveChanges = document.createElement('input');
+    saveChanges.type = 'submit';
+    saveChanges.value = 'Save Changes';
+    saveChanges.style.marginLeft = '25%';
     saveChanges.onclick = function() {
         // Really save values
         customQA = tempJSON;
@@ -444,8 +444,8 @@ function makeMenu(tempJSON, itemCount) {
         });
 
         // Clear old fields
-        var quickAssignTD = document.getElementById("quickAssignTd");
-        quickAssignTD.innerHTML = "";
+        var quickAssignTD = document.getElementById('quickAssignTd');
+        quickAssignTD.innerHTML = '';
 
         // Redraw quickassign section
         customQA = chrome.storage.sync.get('customQA',function() {
@@ -460,19 +460,19 @@ function makeMenu(tempJSON, itemCount) {
     newEl.appendChild(saveChanges);
 
     // Reset button to restore default settings
-    var reset = document.createElement("input");
-    reset.type = "submit";
-    reset.value = "Load Defaults Assignees";
-    reset.style.right = "25%";
-    reset.style.position="absolute";
-    reset.onclick = function() {
+    var reset            = document.createElement('input');
+    reset.type           = 'submit';
+    reset.value          = 'Load Defaults Assignees';
+    reset.style.right    = '25%';
+    reset.style.position = 'absolute';
+    reset.onclick        = function() {
         if ( !confirm("Are you sure you want to reset the quick assignees list?") ) {
             return false;
         }
 
         var quickAssignTd = document.getElementById('quickAssignTd');
-        quickAssignTd.innerHTML = "";
-        //customQA = JSON.parse("{}");
+        quickAssignTd.innerHTML = '';
+        //customQA = JSON.parse('{}');
 
         loadDefaults();
 
@@ -542,21 +542,21 @@ var labelRow = assignRow.previousElementSibling;
 labelRow.appendChild(document.createElement('td'));
 
 // Create a label for the quick assign cell
-var qassignLabel = document.createElement("label");
-qassignLabel.htmlFor   = "qassign";
-qassignLabel.className = "tinytext";
-qassignLabel.innerHTML = "Quick Assign";
+var qassignLabel = document.createElement('label');
+qassignLabel.htmlFor   = 'qassign';
+qassignLabel.className = 'tinytext';
+qassignLabel.innerHTML = 'Quick Assign';
 
 // Add a link to launch management console
-var manageA = document.createElement("a");
-manageA.href = "#";
+var manageA = document.createElement('a');
+manageA.href = '#';
 manageA.onclick = function() {
     makeMenu();
 };
-manageA.innerHTML = "[Manage]";
+manageA.innerHTML = '[Manage]';
 
 // Create quick assign label cell
-var qassignLabelCell = document.createElement("td");
+var qassignLabelCell = document.createElement('td');
 
 // Add label
 qassignLabelCell.appendChild(qassignLabel);
@@ -568,24 +568,24 @@ qassignLabelCell.appendChild(manageA);
 labelRow.appendChild(qassignLabelCell);
 
 // Create the instant save function
-var qassignSaveCell = document.createElement("td");
-qassignSaveCell.innerHTML = " <label class='tinytext'> Save </label> ";
+var qassignSaveCell = document.createElement('td');
+qassignSaveCell.innerHTML = ' <label class="tinytext"> Save </label> ';
 
 // Create anchor
-var saveAnchor = document.createElement("a");
+var saveAnchor = document.createElement('a');
 // BEGIN saveAnchor CREATION CODE
     // Set onclick function
     saveAnchor.onclick = function() {
         var name = document.getElementById('assgnee').children[0] == null?
-            "New Element":
+            'New Element':
             document.getElementById('assgnee').children[0].innerHTML;
 
         // Get new Assignee name
-        var name = prompt("Quick assign name?",name);
+        var name = prompt('Quick assign name?',name);
         if ( name == null ) {
             return false;
-        } else if ( name == "" ) {
-            alert("You must enter a name!");
+        } else if ( name == '' ) {
+            alert('You must enter a name!');
             return false;
        }
 
@@ -602,7 +602,7 @@ var saveAnchor = document.createElement("a");
         }
 
         // Store assignee
-        customQA[(count+"")] = [name, assignees];
+        customQA[(count+'')] = [name, assignees];
 
         // Save custom assignee to Chrome sync storage
         // customQA = JSON.stringify(customQA); // I don't think this is necessary...
@@ -613,14 +613,14 @@ var saveAnchor = document.createElement("a");
     };
 
     // Create Image for graphical new assignee creation
-    saveAnchor.innerHTML = "<img border='0' align='absmiddle' src='/MRimg/next.png' alt='Add Selected Users to Assignee List' id='assgnadd_image'>";
+    saveAnchor.innerHTML = '<img border="0" align="absmiddle" src="/MRimg/next.png" alt="Add Selected Users to Assignee List" id="assgnadd_image">';
 
     // Replicate Footprints style mouse styles
-    saveAnchor.onmouseover= function() {this.style.border="2px outset threedhighlight";};
-    saveAnchor.onmouseout=function() {this.style.border="none";};
-    saveAnchor.onmouseup=function() {this.style.border="none";};
+    saveAnchor.onmouseover= function() {this.style.border='2px outset threedhighlight';};
+    saveAnchor.onmouseout=function() {this.style.border='none';};
+    saveAnchor.onmouseup=function() {this.style.border='none';};
     saveAnchor.onmousedown=function() {
-        this.style.border="2px inset threedhighlight";
+        this.style.border='2px inset threedhighlight';
     };
 
 // END saveAnchor CREATION CODE
@@ -631,10 +631,10 @@ qassignSaveCell.appendChild(saveAnchor);
 assignRow.appendChild( qassignSaveCell );
 
 // Create the final cell for the assign row
-var qassignCell = document.createElement("td");
-    qassignCell.id="quickAssignTd";
-    qassignCell.valign="top";
-    qassignCell.align="center";
+var qassignCell        = document.createElement('td');
+    qassignCell.id     = 'quickAssignTd';
+    qassignCell.valign = 'top';
+    qassignCell.align  = 'center';
 
 /*
     Load buttons
