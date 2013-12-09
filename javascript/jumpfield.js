@@ -1,4 +1,3 @@
-
 /*
  * @name tcenterSearch
  * @package Jumpfield
@@ -6,7 +5,6 @@
  *
  * @TODO I think this can be refactored to be more stable/efficient, and so I'm not repeating myself so much
 */
-
 function tcenterSearch() {
 
 	// Regular expressions. yay.
@@ -61,15 +59,20 @@ function tcenterSearch() {
 
 };
 
+/**
+ *
+ * CLAWS Search
+ *
+ */
 function clawsSearch() {
 
 	// Regular expressions. yay.
-    var hostname      = /\w+-\d+/g;                             // Hostname - a series of letters, hyphen, a series of numbers
-    var username      = /(\w){3}([A-Za-z]{3,}|\d{4})/g; // Username - 3 letters, followed by 3 or 4 word characters
-    var serial        = /[A-Z0-9]{7}/g;                         // Serial - a series of 7 uppercase letters and/or digits
-    var mac           = /(\b^([0-9a-fA-F]{2}(:|-)){5}([0-9a-fA-F]{2})$\b)|(\b^([0-9a-fA-F]{2}){6}$\b)/g; // MAC Address - 6 couples of 2 hexadecimel numbers, separated (or not) by a colon
-    var uid           = /\d{9}/g;                               // University ID - a 9-digit number
-    var printer       = /pr[A-Za-z]{2,4}\d{1,}/g;               // Printers - "PR" followed by 2-4 word characters, followed by 1 or more digit
+    var hostname = /\w+-\d+/g;                             // Hostname - a series of letters, hyphen, a series of numbers
+    var username = /(\w){3}([A-Za-z]{3,}|\d{4})/g;         // Username - 3 letters, followed by 3 or 4 word characters
+    var serial   = /[A-Z0-9]{7}/g;                         // Serial - a series of 7 uppercase letters and/or digits
+    var mac      = /(\b^([0-9a-fA-F]{2}(:|-)){5}([0-9a-fA-F]{2})$\b)|(\b^([0-9a-fA-F]{2}){6}$\b)/g; // MAC Address - 6 couples of 2 hexadecimel numbers, separated (or not) by a colon
+    var uid      = /\d{9}/g;                               // University ID - a 9-digit number
+    var printer  = /pr[A-Za-z]{2,4}\d{1,}/g;               // Printers - "PR" followed by 2-4 word characters, followed by 1 or more digit
 
 
     $('input#claws-search').on('keyup', function() {
@@ -111,6 +114,14 @@ function clawsSearch() {
     })
 };
 
+/**
+ *
+ * Footprints Search
+ *
+ * Doesn't currently work. I don't think it will ever work...
+ * Maybe I can just put some useful links in there instead of a search field.
+ *
+ */
 function fpSearch() {
 
     $('input#fp-search').on('keyup', function() {
@@ -123,42 +134,39 @@ function fpSearch() {
 
 };
 
-function filterBookmarks() {
-	console.log('filterBookmarks called');
-	$('ul#content-bookmarks li.bookmark').filter(function() {
-		$('input#bookmark-search').val();
-		console.log('text filtered');
-
-		$(this).css('backgound-color','red');
-		console.log('text reded');
-	}).css('backgound-color','red');
-};
-
+/**
+ * 
+ * Start your engines...
+ *
+ */
 $(document).ready(function() {
 
 	// Listen for closeButton
 	document.addEventListener('DOMContentLoaded', function(e) {
-	  var closeButton = document.querySelector('#close');
+	  var closeButton = $('#close');
 	  closeButton.addEventListener('click', function(e) {
 	    window.close();
 	  });
 	});
 
 	// Strip leading and trailing spaces in search
-	// search boxes on submit or enter press
+	// boxes on submit or enter press
 	function trimSearch() {
-		$('input.search').val( function( i, val ) {
-    		return val.trim();
-    	});
+		$('input.search')
+			.val( function( i, val ) {
+    			return val.trim();
+    		});
 	};
-	$('input.search').on('blur', function(){
-		trimSearch();
-	});
-	$('input.search').keypress(function(e) {
-		if ( e.which == 13 ) {
+	$('input.search')
+		.on('blur', function(){
 			trimSearch();
-		}
-	});
+		});
+	$('input.search')
+		.keypress(function(e) {
+			if ( e.which == 13 ) {
+				trimSearch();
+			}
+		});
 
 	// Init search functions
 	tcenterSearch();
@@ -168,44 +176,69 @@ $(document).ready(function() {
     /**
      * JSON for building list of links
      *
+     * First, we get the data from the `links.json` file. Then, we build
+     * an `<li>` element with a child anchor element and append it to the
+     * `ul#content-bookmarks` element. Finally, we target the `<a>` element
+     * we just generated and insert the relevent attribute data.
+     *
      */
     $.getJSON('./data/links.json', function(data) {
     	var item = [];
     	$.each(data, function(key,val) {
-    		var url          = this.url;                    //console.log(url);
-			var title        = this.title;                  //console.log(title);
-			var titleSmall   = title.toLowerCase();         //console.log(titleSmall);
-			var id           = title.replace(/\s+/g, '');   console.log(id);
-			var link         = document.createElement('a'); console.log(link);
-				link['url']  = url;                         console.log(link['url']);
-				link['html'] = title;                       console.log(link['html']);
+    		var url           = this.url;                    //console.log(url);
+			var title         = this.title;                  //console.log(title);
+			var titleSmall    = title.toLowerCase();         //console.log(titleSmall);
+			var id            = title.replace(/\s+/g, '');   //console.log(id);
+			var link          = document.createElement('a'); //console.log(link);
+				link['href']  = url;                         //console.log(link['href']);
+				link['title'] = title;                       //console.log(link['html']);
 
 			$('<li/>')
 				.attr({
-					class:        'list-group-item bookmark',
+					class:        'list-group-item link',
 					id:           id,
 					'data-index': titleSmall
 				})
 				.append(link)
-				.appendTo('#content-bookmarks');
-			$('#' + id + " > a").attr('url',url).text(title);
+				.appendTo('#content-links');
+			$('#' + id + " > a")
+				.attr({
+					'href': url,
+					'title': title,
+					'target': '_blank'
+				})
+				.text(title);
     	});
     });
+
+
+    /**
+     * jQuery code for search a la CSS-filtering. Allows for filtering of
+     * the links.
+     * http://jzhang.io/add-search-to-jekyll
+     */
     searchStyle = $("style#search-style");
  	$("input#link-search").on("keyup", function() {
  	  if (this.value === "") {
  	    searchStyle.html("");
  	  } else {
- 	    searchStyle.html("li.bookmark:not([data-index*=\"" + (this.value.toLowerCase().replace(/\\/g, "")) + "\"]) { display: none !important; }");
+ 	    searchStyle.html("li.link:not([data-index*=\"" + (this.value.toLowerCase().replace(/\\/g, "")) + "\"]) { display: none !important; }");
  	  }
  	});
-	$('#nav-bookmarks').click(function(){
-		$('input#bookmark-search').select();
+	$('#nav-links').click(function(){
+		$('input#link-search').select();
 	});
 
-    $('.bookmark a').attr('target', '_blank');
+    $('.link > a').attr('target', '_blank'); // Make links open in a new window.
 
-	// Jumfield key bindings
+	/**
+	 * Keyboard shortcuts
+	 *
+	 * These are pretty self-expalnatory.
+	 *
+	 * For documentation on the Mousetrap library, see here:
+	 * http://craig.is/killing/mice
+	 */
 	Mousetrap.bind('w', function() { $('input#wiki-search').focus();}, 'keyup'); // Wiki
 	Mousetrap.bind('f', function() { $('input#footprints-search').focus(); }, 'keyup'); // Footprints
 	Mousetrap.bind('t', function() { $('input#tcenter-search').focus(); }, 'keyup'); // TCenter
