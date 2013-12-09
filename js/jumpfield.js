@@ -165,18 +165,45 @@ $(document).ready(function() {
 	clawsSearch();
     fpSearch();
 
-	// Init bookmarks filter feature
-	$('input#bookmark-search').on('keyup', function() {
-		console.log('filter input changed');
-		filterBookmarks();
-	});
+    /**
+     * JSON for building list of links
+     *
+     */
+    $.getJSON('./data/links.json', function(data) {
+    	var item = [];
+    	$.each(data, function(key,val) {
+    		var url          = this.url;                    //console.log(url);
+			var title        = this.title;                  //console.log(title);
+			var titleSmall   = title.toLowerCase();         //console.log(titleSmall);
+			var id           = title.replace(/\s+/g, '');   console.log(id);
+			var link         = document.createElement('a'); console.log(link);
+				link['url']  = url;                         console.log(link['url']);
+				link['html'] = title;                       console.log(link['html']);
 
+			$('<li/>')
+				.attr({
+					class:        'list-group-item bookmark',
+					id:           id,
+					'data-index': titleSmall
+				})
+				.append(link)
+				.appendTo('#content-bookmarks');
+			$('#' + id + " > a").attr('url',url).text(title);
+    	});
+    });
+    searchStyle = $("style#search-style");
+ 	$("input#link-search").on("keyup", function() {
+ 	  if (this.value === "") {
+ 	    searchStyle.html("");
+ 	  } else {
+ 	    searchStyle.html("li.bookmark:not([data-index*=\"" + (this.value.toLowerCase().replace(/\\/g, "")) + "\"]) { display: none !important; }");
+ 	  }
+ 	});
 	$('#nav-bookmarks').click(function(){
 		$('input#bookmark-search').select();
-		console.log('Select on the bookmark search field');
 	});
 
-  $('.bookmark a').attr('target', '_blank');
+    $('.bookmark a').attr('target', '_blank');
 
 	// Jumfield key bindings
 	Mousetrap.bind('w', function() { $('input#wiki-search').focus();}, 'keyup'); // Wiki
@@ -185,7 +212,4 @@ $(document).ready(function() {
 	Mousetrap.bind('c', function() { $('input#claws-search').focus(); }, 'keyup'); // CLAWS
 	Mousetrap.bind('m', function() { $('input#maps-search').focus(); }, 'keyup'); // Maps
 	Mousetrap.bind('l', function() { $('input#ldap-search').focus(); }, 'keyup'); // LDAP
-
 });
-
-
