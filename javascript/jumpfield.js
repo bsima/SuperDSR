@@ -19,40 +19,40 @@ function tcenterSearch() {
     	var input = $(this).val();
 
 		if ( input.trim(this).match(ticketNum) ) {
-			$('#tcs-tcenterID').addClass('label-success');
+			$('#tcs-tcenterID').addClass('green');
 			$('input#tcenter-search').attr('name', 'ticketNum');
 		} else {
-			$('#tcs-tcenterID').attr('class', 'label label-default');
+			$('#tcs-tcenterID').attr('class', 'ui label');
 		};
 
 		if ( input.trim(this).match(footprintsNum) ) {
-			$('#tcs-footprintsID').addClass('label-success');
+			$('#tcs-footprintsID').addClass('green');
 			$('input#tcenter-search').attr('name', 'footprintsNum');
 		} else {
-			$("#tcs-footprintsID").attr('class', 'label label-default');
+			$("#tcs-footprintsID").attr('class', 'ui label');
 		};
 
 		if ( input.trim(this).match(hostname) ) {
-			$('#tcs-hostname').addClass('label-success');
+			$('#tcs-hostname').addClass('green');
 			$('input#tcenter-search').attr('name', 'hostname');
 		} else {
-			$("#tcs-hostname").attr('class', 'label label-default');
+			$("#tcs-hostname").attr('class', 'ui label');
 		};
 
 		if ( input.trim(this).match(username) ) {
-			$('#tcs-username').addClass('label-success');
+			$('#tcs-username').addClass('green');
 			$('#tcenter-search').attr('name', 'username');
 			$('#tcs form').attr('action', 'https://apps.rit.edu/~a-tcent/admin/viewUser.php');
 		} else {
-			$('#tcs-username').attr('class', 'label label-default');
+			$('#tcs-username').attr('class', 'ui label');
 			$('#tcs form').attr('action', 'https://apps.rit.edu/~a-tcent/admin/search.php');
 		};
 
 		if ( input.trim(this).match(serial) ) {
-			$('#tcs-serial').addClass('label-success');
+			$('#tcs-serial').addClass('green');
 			$('input#tcenter-search').attr('name', 'serial');
 		} else {
-			$('#tcs-serial').attr('class', 'label label-default');
+			$('#tcs-serial').attr('class', 'ui label');
 		};
 
     })
@@ -80,58 +80,38 @@ function clawsSearch() {
     	var input = $(this).val();
 
       if ( input.trim(this).match(uid) ) {
-        $('#claws-uid').addClass('label-success');
+        $('#claws-uid').addClass('green');
         // $('input#claws-search').attr('name', 'RITUID');
         $('#claws form').attr('action', 'https://claws.rit.edu/admintools/users/usersearch.php?ldap_modifier_USERNAME=Contains&ldap_USERNAME=&ldap_modifier_IDENTITY=Is&ldap_IDENTITY='+input+'&ldap_modifier_HOMEPAGEURL=Contains&ldap_HOMEPAGEURL=&ldap_modifier_CRMPERSONID=Is&ldap_CRMPERSONID=&ldap_modifier_ALLFIELDS=Contains&ldap_ALLFIELDS=&ldap_modifier_Name=Contains&ldap_Name=&ldap_modifier_Email_Address=Contains&ldap_Email_Address=&ldap_modifier_Address=Contains&ldap_Address=&ldap_match=2&ldap_group%5B%5D=-1&ACTION=SEARCH');
       } else {
-        $('#claws-uid').attr('class', 'label label-default');
+        $('#claws-uid').attr('class', 'ui label');
       };
 
       if ( input.trim(this).match(username) ) {
-        $('#claws-username').addClass('label-success');
+        $('#claws-username').addClass('green');
         // $('input#claws-search').attr('name', 'USERNAME');
         $('#claws form').attr('action', 'https://claws.rit.edu/admintools/users/useredit.php?USERNAME='+input+'&submit=Submit&ACTION=GETUSER');
       } else {
-        $('#claws-username').attr('class', 'label label-default');
+        $('#claws-username').attr('class', 'ui label');
       };
 
       if ( input.trim(this).match(hostname) || input.trim(this).match(printer) ) {
-        $('#claws-hostname').addClass('label-success');
+        $('#claws-hostname').addClass('green');
         // $('input#claws-search').attr('name', 'hostname');
         $('#claws form').attr('action', 'https://claws.rit.edu/admintools/computers/computerSearch.php?DDNSHostname='+input+'%&ACTION=SEARCH');
       } else {
-        $("#claws-hostname").attr('class', 'label label-default');
+        $("#claws-hostname").attr('class', 'ui label');
       };
 
       if ( input.trim(this).match(mac) ) {
-        $('#claws-mac').addClass('label-success');
+        $('#claws-mac').addClass('green');
         // $('input#claws-search').attr('name', 'STRING');
         $('#claws form').attr('action', 'https://claws.rit.edu/admintools/computers/computerSearch.php?MAC='+input+'&ACTION=SEARCH');
       } else {
-        $('#claws-mac').attr('class', 'label label-default');
+        $('#claws-mac').attr('class', 'ui label');
       };
 
     })
-};
-
-/**
- *
- * Footprints Search
- *
- * Doesn't currently work. I don't think it will ever work...
- * Maybe I can just put some useful links in there instead of a search field.
- *
- */
-function fpSearch() {
-
-    $('input#fp-search').on('keyup', function() {
-
-        var input = $(this).val();
-
-        $('#fp form').attr('action', 'https://footprints02.main.ad.rit.edu/MRcgi/MRTicketPage.pl?USER=bwshelp&MRP=dvJARCrSP&MAJOR_MODE=DETAILS&MAXMININC=&MRNUMBERLIST='+input+'&ABN=&GRPDETAIL=&HISTORYKEY=&MR='+input+'&PROJECTID=2&RUNNING_IN_POPUP=1');
-
-    })
-
 };
 
 /**
@@ -141,13 +121,13 @@ function fpSearch() {
  */
 $(document).ready(function() {
 
-	// Listen for closeButton
-	document.addEventListener('DOMContentLoaded', function(e) {
-	  var closeButton = $('#close');
-	  closeButton.addEventListener('click', function(e) {
-	    window.close();
-	  });
-	});
+	// Load the view
+	$('#content').delay(100).fadeIn();
+
+	// Init dropdown items
+	$('.ui.selection.dropdown')
+  		.dropdown()
+	;
 
 	// Strip leading and trailing spaces in search
 	// boxes on submit or enter press
@@ -171,7 +151,6 @@ $(document).ready(function() {
 	// Init search functions
 	tcenterSearch();
 	clawsSearch();
-    fpSearch();
 
     /**
      * JSON for building list of links
@@ -189,28 +168,39 @@ $(document).ready(function() {
 			var title         = this.title;                  //console.log(title);
 			var titleSmall    = title.toLowerCase();         //console.log(titleSmall);
 			var id            = title.replace(/\s+/g, '');   //console.log(id);
-			var link          = document.createElement('a'); //console.log(link);
-				link['href']  = url;                         //console.log(link['href']);
-				link['title'] = title;                       //console.log(link['html']);
 
-			$('<li/>')
+			$('<a>')
 				.attr({
-					class:        'list-group-item link',
-					id:           id,
+					class:        'item link',
+					'href':       url,
+					'title':      title,
+					'target':     '_blank',
+					'id':         id,
 					'data-index': titleSmall
 				})
-				.append(link)
-				.appendTo('#content-links');
-			$('#' + id + " > a")
-				.attr({
-					'href': url,
-					'title': title,
-					'target': '_blank'
-				})
-				.text(title);
+				.text(title)
+				.appendTo('#content-links')
+			;
     	});
     });
 
+    /**
+     * Main menu tabs
+     *
+     *
+     */
+    $('nav .tab')
+    	.click(function() {
+    		$('section.tab').hide();
+    		$('.active').removeClass('active');
+
+    		var newtab = this.getAttribute('data-tab');
+    		$(this).addClass('active');
+    		$('section[data-tab="' + newtab + '"]')
+    			.fadeIn()
+    		;
+    	})
+    ;
 
     /**
      * jQuery code for search a la CSS-filtering. Allows for filtering of

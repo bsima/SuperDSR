@@ -2,150 +2,157 @@
 <html ng-app ng-csp>
   <head>
     <title>SuperDSR Jumpfield</title>
-    <link rel="stylesheet" id="bootstrap-css" href="libs/bootstrap.min.css" type="text/css" media="all">
+    <link rel="stylesheet" id="normalize-css" href="css/vendor/normalize.css" type="text/css" media="all">
+    <link rel="stylesheet" id="semantic-ui-css" href="css/vendor/semantic.min.css" type="text/css" media="all">
     <link rel="stylesheet" id="main-css" href="css/jumpfield.css" type="text/css" media="all">
 
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
     <!--
       - JavaScript and HTML must be in separate files: see Google's Content Security
       - Policy documentation[1] for details and explanation.
       -
       - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
      -->
-     <script src="libs/jquery-2.0.3.min.js"></script>
-     <script src="libs/angular.min.js"></script>
-     <script src="libs/bootstrap.min.js"></script>
-     <script src="libs/mousetrap.min.js"></script>
-
+     <script src="javascript/vendor/jquery-2.0.3.min.js"></script>
+     <script src="javascript/vendor/semantic.min.js"></script>
+     <script src="javascript/vendor/mousetrap.min.js"></script>
   </head>
   <body>
-    <div id="top" class="navbar navbar-fixed-top">
-      <a class="navbar-brand" href="#">SuperDSR</a>
-      <button id="close" type="button" class="close">&times;</button>
+    <nav class="ui pointing fixed menu inverted">
+      <div id="supertech" class="item">SuperTech</div>
+      <a id="nav-searches" class="active item tab" data-tab="searches">Searches</a>
+      <a id="nav-links" class="item tab" data-tab="links">Links</a>
+    </nav>
 
-      <ul id="myTab" class="nav nav-tabs">
-
-        <li id="nav-searches" class="active" ><a href="#content-searches" data-toggle="tab">Searches</a></li>
-        <li id="nav-links"><a href="#content-links" data-toggle="tab">Links</a></li>
-      </ul>
-    </div>
-
-    <div class="tab-content">
-    <ul id="content-searches" class="list-group tab-pane active">
-
-      <li class="list-group-item">
-        <h4><a id="wiki-link" class="list-group-item-heading" target="_blank" href="https://wiki.rit.edu/display/its/Desktop+Support+Internal?where=its&">Wiki</a></h4>
-        <form class="form-inline input-group" id="wiki-quick-search" action="https://wiki.rit.edu/dosearchsite.action" method="get" target="_blank">
-          <input id="wiki-search" class="form-control input-sm search" type="text" name="queryString" title="Quick Search (/or g , g)" placeholder="Search the Wiki">
-          <span class="input-group-btn">
-            <button class="submit btn btn-primary btn-sm" type="submit">GO</button>
-          </span>
-        </form>
-      </li>
-
-      <!-- Footprints -->
-
-      <li id="fp" class="list-group-item">
-        <h4><a id="footprints-link" class="list-group-item-heading" target="_blank" href="https://footprints.rit.edu">Footprints</a></h4>
-
-        <form name="quickSearch" class="form-inline input-group" method="post" action="" target="_blank" >
-          <input id="fp-search" class="form-control input-sm search" type="text" title="Search" NAME="SEARCHS" ID="SEARCHS" placeholder="Jump to Footprints Ticket">
-          <span class="input-group-btn">
-            <button class="submit btn btn-primary btn-sm" type="submit">GO</button>
-          </span>
-        </form>
-      </li>
-
-      <!-- TCenter -->
-
-      <li id="tcs" class="list-group-item">
-        <h4><a id="tcenter-link" class="list-group-item-heading" target="_blank" href="https://apps.rit.edu/~a-tcent/admin/ticketList.php">TCenter</a></h4>
-
-        <form class="form-inline input-group" name="tcenter" method="post" target="_blank" action="https://apps.rit.edu/~a-tcent/admin/search.php">
-            <input id="tcenter-search" class="form-control input-sm search" type="text" name="" placeholder="Search TCenter tickets">
-            <span class="input-group-btn">
-              <button class="submit btn btn-sm btn-primary" type="submit">GO</button>
-            </span>
-        </form>
-
-        <div class="help-block">
-          <span id="tcs-tcenterID" class="label label-default">TCenter ID</span>
-          <span id="tcs-footprintsID" class="label label-default">Footprints ID</span>
-          <span id="tcs-hostname" class="label label-default">Hostname</span>
-          <span id="tcs-username" class="label label-default">Username</span>
-          <span id="tcs-serial" class="label label-default">Serial Number (CAPS)</span>
-        </div>
-      </li>
-
-      <!-- CLAWS IS HERE BITCHES -->
-
-      <li id="claws" class="list-group-item">
-        <h4><a id="claws-link" class="list-group-item-heading" target="_blank" href="https://claws.rit.edu/admintools">CLAWS</a></h4>
-        <form name="" class="form-inline input-group" action="" method="POST" target="_blank">
-          <input id="claws-search" class="form-control input-sm search" name="" type="text" placeholder="Search CLAWS">
-          <span class="input-group-btn">
-            <button class="submit btn btn-primary btn-sm" type="submit">GO</button>
-          </span>
-        </form>
-
-        <div class="help-block">
-          <span id="claws-uid" class="label label-default">UID</span>
-          <span id="claws-username" class="label label-default">Username</span>
-          <span id="claws-hostname" class="label label-default">Hostname</span>
-          <span id="claws-mac" class="label label-default">MAC</span>
-          <!-- <span id="claws-dhcp" class="label label-default">DHCP Log</span>
-               DHCP Search is wicked complicated so I'm leaving it out for now. -->
-        </div>
-      </li>
-
-      <li class="list-group-item">
-        <h4 class="list-group-item-heading"><a id="maps-link" target="_blank" href="https://maps.rit.edu">Maps</a></h4>
-        <form name="maps" class="form-inline input-group" id="" action="https://maps.rit.edu/index.php" method="get" target="_blank">
-          <input id="maps-search" class="form-control input-sm search" name="q" type="text" placeholder="Search RIT Maps">
-          <span class="input-group-btn">
-            <button class="submit btn btn-primary btn-sm" type="submit">GO</button>
-          </span>
-        </form>
-      </li>
-
-      <li class="list-group-item">
-        <h4><a id="ldap-link" class="list-group-item-heading" target="_blank" href="https://www.rit.edu/~w-home/lookup/index.php">LDAP</a></h4>
-        <form class="form-inline" method="post" action="https://www.rit.edu/~w-home/lookup/index.php" target="_blank">
-          <div class="form-group">
-            <select class="form-control input-sm" name="search_for">
-              <option value="displayname">Name</option>
-              <option value="mail">Email Address</option>
-              <option value="uid">Username</option>
-              <option value="labeleduri">Home Page URL</option>
-              <option value="title">Title</option>
-              <option value="telephonenumber">Phone Number</option>
-            </select>
-            <select class="form-control input-sm" name="search_type">
-              <option value="=*">Contains</option>
-              <option value="=">Is</option>
-              <option value="~=">Sounds Like</option>
-            </select>
+    <section id="content" style="display:none;">
+      <section class="ui tab active" data-tab="searches">
+        <div id="content-searches" class="ui relaxed divided list">
+    
+          <div class="item">
+            <h4 class="ui header"><a id="wiki-link" class="header" target="_blank" href="https://wiki.rit.edu/display/its/Desktop+Support+Internal?where=its&">Wiki</a></h4>
+              <form class="ui form" id="wiki-quick-search" action="https://wiki.rit.edu/dosearchsite.action" method="get" target="_blank">
+                <div class="field">
+                  <input id="wiki-search" class="search" type="text" name="queryString" placeholder="Search the Wiki">
+                  <button class="submit ui button" type="submit"><i class="right arrow blue icon"></i></button>
+                </div>
+              </form>
           </div>
-          <div id="ldap-search" class="form-inline input-group">
-            <input id="ldap-search" class="form-control input-sm search" type="text" name="search_val" placeholder="Search the RIT directory" />
-            <input type="hidden" name="submit" value="Find" />
-            <span class="input-group-btn">
-              <button class="submit btn btn-sm btn-primary" type="submit" value="Find">GO</button>
-            </span>
+    
+          <!-- Footprints -->
+    
+          <div id="fp" class="item">
+            <h4 class="ui header"><a id="footprints-link" class="" target="_blank" href="https://footprints.rit.edu">Footprints</a></h4>
+            <div class="description">
+              <p>Coming soon...</p>
+            </div>
           </div>
-        </form>
-      </li>
+    
+          <!-- TCenter -->
+    
+          <div id="tcs" class="item">
+            <h4 class="ui header"><a id="tcenter-link" class="" target="_blank" href="https://apps.rit.edu/~a-tcent/admin/ticketList.php">TCenter</a></h4>
+              <form class="ui form" name="tcenter" method="post" target="_blank" action="https://apps.rit.edu/~a-tcent/admin/search.php">
+                <div class="field">
+                  <input id="tcenter-search" class="search" type="text" name="" placeholder="Search TCenter tickets">
+                  <button class="submit ui button" type="submit"><i class="right arrow blue icon"></i></button>
+                </div>
+              </form>
+    
+              <div class="ui small horizontal labels">
+                <div id="tcs-tcenterID" class="ui label">TCenter ID</div>
+                <div id="tcs-footprintsID" class="ui label">Footprints ID</div>
+                <div id="tcs-hostname" class="ui label">Hostname</div>
+                <div id="tcs-username" class="ui label">Username</div>
+                <div id="tcs-serial" class="ui label">Serial Number (CAPS)</div>
+              </div>
+          </div>
+    
+          <!-- CLAWS IS HERE BITCHES -->
+    
+          <div id="claws" class="item">
+            <h4 class="ui header"><a id="claws-link" class="" target="_blank" href="https://claws.rit.edu/admintools">CLAWS</a></h4>
+            <form name="" class="ui form" action="" method="POST" target="_blank">
+              <div class="field">
+                <input id="claws-search" class="search" name="" type="text" placeholder="Search CLAWS">
+                <button class="submit ui button" type="submit"><i class="right arrow blue icon"></i></button>
+              </div>
+            </form>
+    
+            <div class="ui small horizontal labels">
+              <div id="claws-uid" class="ui label">UID</div>
+              <div id="claws-username" class="ui label">Username</div>
+              <div id="claws-hostname" class="ui label">Hostname</div>
+              <div id="claws-mac" class="ui label">MAC</div>
+              <!-- <span id="claws-dhcp" class="label label-default">DHCP Log</span>
+                   DHCP Search is wicked complicated so I'm leaving it out for now. -->
+            </div>
+          </div>
+    
+          <!-- Maps -->
+    
+          <div class="item">
+            <h4 class="ui header"><a id="maps-link" target="_blank" href="https://maps.rit.edu">Maps</a></h4>
+            <form name="maps" class="ui form" id="" action="https://maps.rit.edu/index.php" method="get" target="_blank">
+              <div class="field">
+                <input id="maps-search" class="search" name="q" type="text" placeholder="Search RIT Maps">
+                <button class="submit ui button" type="submit"><i class="right arrow blue icon"></i></button>
+              </div>
+            </form>
+          </div>
+    
+          <!-- LDAP -->
+    
+          <div class="item">
+            <h4 class="ui header"><a id="ldap-link" class="list-group-item-heading" target="_blank" href="https://www.rit.edu/~w-home/lookup/index.php">LDAP</a></h4>
+            <form class="ui form" method="post" action="https://www.rit.edu/~w-home/lookup/index.php" target="_blank">
+              <div class="field">
+                <div class="ui selection dropdown">
+                  <input type="hidden" name="search_for">
+                  <div class="default text">Name</div>
+                  <i class="dropdown icon"></i>
+                  <div class="menu ui transition menu">
+                    <div class="item" data-value="displayname">Name</div>
+                    <div class="item" data-value="mail">Email Address</div>
+                    <div class="item" data-value="uid">Username</div>
+                    <div class="item" data-value="labeleduri">Home Page URL</div>
+                    <div class="item" data-value="title">Title</div>
+                    <div class="item" data-value="telephonenumber">Phone Number</div>
+                  </div>
+                </div>
+                <div class="ui selection dropdown" name="search_type">
+                  <input type="hidden" name="search_type">
+                  <div class="default text">Contains</div>
+                  <i class="dropdown icon"></i>
+                  <div class="menu ui transistion menu">
+                    <div class="item" data-value="=*">Contains</div>
+                    <div class="item" data-value="=">Is</div>
+                    <div class="item" data-value="~=">Sounds Like</div>
+                  </div>
+                </div>
+                <div id="ldap-search">
+                  <input id="ldap-search" class="search" type="text" name="search_val" placeholder="Search the RIT directory" />
+                  <input type="hidden" name="submit" value="Find" />
+                  <button class="submit ui button" type="submit" value="Find"><i class="right arrow blue icon"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+    
+        </div>
+      </section>
 
-    </ul>
+      <section class="ui tab" data-tab="links">
+        <div id="content-links" class="ui very relaxed divided list">
+          <div class="item ui form">
+              <input id="link-search" class="search" type="text" placeholder="Filter Links"/>
+              <style id="search-style" class="search"></style>
+          </div>
+        </div>
+      </view>
+    </section><!-- /#content -->
 
-    <ul id="content-links" class="list-group tab-pane">
-      <li class="list-group-item">
-          <input id="link-search" type="text" class="form-control" placeholder="Filter Links"/>
-          <style id="search-style"></style>
-      </li>
-    </ul>
-    </div>
-
-    <script src="js/jumpfield.js"></script>
+    <script src="javascript/jumpfield.js"></script>
 
   </body>
 </html>

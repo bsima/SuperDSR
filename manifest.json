@@ -12,7 +12,7 @@
 
   "browser_action": {
     "default_popup": "jumpfield.html",
-    "default_icon": "icon.png"
+    "default_icon": "images/icon.png"
   },
   "commands": {
     "_execute_browser_action": {
@@ -25,33 +25,33 @@
   "content_scripts": [
     {
       "matches": ["https://*.main.ad.rit.edu/MRcgi/MRTicketPage.pl*"],
-      "js": ["js/tcenterLove.js", "js/quickAssign.js", "js/biggerDescription.js"],
+      "js": ["javascript/tcenterLove.js", "javascript/quickAssign.js", "javascript/biggerDescription.js"],
       "css": ["css/footprints.css"]
     },
     {
       "matches": ["https://*.main.ad.rit.edu/MRcgi/MRhomepage.pl*"],
       "css": ["css/footprints.css"],
-      "js": ["js/userSearch.js"]
+      "js": ["javascript/userSearch.js"]
     },
     {
       "matches": ["https://wiki.rit.edu/*"],
-      "js": ["js/kickassWiki.js"],
+      "js": ["javascript/kickassWiki.js"],
       "css": ["css/wiki.css"]
     },
     {
       "matches": ["https://claws.rit.edu/admintools*"],
-      "js": ["js/clawsTools.js"]
+      "js": ["javascript/clawsTools.js"]
     },
     {
       "matches": ["https://apps.rit.edu/~a-tcent/index.php?manualTicket=true&type=2"],
-      "js": ["libs/jquery-2.0.3.min.js", "js/tcenterAutofill.js"],
+      "js": ["javascript/vendor/jquery-2.0.3.min.js", "javascript/tcenterAutofill.js"],
       "css": ["css/tcenterAutofill.css"]
     }
   ],
   "web_accessible_resources": [
-    "libs/bootstrap.min.css",
-    "libs/bootstrap.min.js",
-    "libs/jquery-2.0.3.min.js",
-    "libs/mousetrap.min.js"
+    "css/vendor/bootstrap.min.css",
+    "javascript/vendor/bootstrap.min.js",
+    "javascript/vendor/jquery-2.0.3.min.js",
+    "javascript/vendor/mousetrap.min.js"
   ]
 }
