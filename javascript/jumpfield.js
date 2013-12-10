@@ -8,11 +8,11 @@
 function tcenterSearch() {
 
 	// Regular expressions. yay.
-    var ticketNum     = /\d{5}/g;                            // Tcenter ticket ID - 5-digit number
-    var footprintsNum = /\d{6}/g;                            // Footprints ticket ID - 6-digit number
-    var hostname      = /\w+-\d+/g;                          // Hostname - a series of letters, hyphen, a series of numbers
-    var username      = /(\w(?=\D)){2}((\w{3,5})|(\d{4}))/g; // Username - 3 letters, followed by 3 or 4 word characters
-    var serial        = /[A-Z0-9]{7}/g;                      // Serial - a series of 7 uppercase letters and/or digits
+    var ticketNum     = /\d{5}/;                             // Tcenter ticket ID - 5-digit number
+    var footprintsNum = /\d{6}/;                             // Footprints ticket ID - 6-digit number
+    var hostname      = /\w+-\d+/;                          // Hostname - a series of letters, hyphen, a series of numbers
+    var username      = /(\w(?=\D)){2}((\w{3,5})|(\d{4}))/; // Username - 3 letters, followed by 3 or 4 word characters
+    var serial        = /[A-Z0-9]{7}/;                       // Serial - a series of 7 uppercase letters and/or digits
     
     $('input#tcenter-search').on('keyup', function() {
 
@@ -22,7 +22,8 @@ function tcenterSearch() {
 			$('#tcs-tcenterID').addClass('green');
 			$('input#tcenter-search').attr('name', 'ticketNum');
 		} else {
-			$('#tcs-tcenterID').attr('class', 'ui label');
+			$('#tcs-tcenterID').removeClass('green');
+			//$('#tcs-tcenterID').attr('class', 'ui label');
 		};
 
 		if ( input.trim(this).match(footprintsNum) ) {
@@ -67,17 +68,17 @@ function tcenterSearch() {
 function clawsSearch() {
 
 	// Regular expressions. yay.
-    var hostname = /\w+-\d+/g;                             // Hostname - a series of letters, hyphen, a series of numbers
-    var username = /(\w){3}([A-Za-z]{3,}|\d{4})/g;         // Username - 3 letters, followed by 3 or 4 word characters
-    var serial   = /[A-Z0-9]{7}/g;                         // Serial - a series of 7 uppercase letters and/or digits
-    var mac      = /(\b^([0-9a-fA-F]{2}(:|-)){5}([0-9a-fA-F]{2})$\b)|(\b^([0-9a-fA-F]{2}){6}$\b)/g; // MAC Address - 6 couples of 2 hexadecimel numbers, separated (or not) by a colon
-    var uid      = /\d{9}/g;                               // University ID - a 9-digit number
-    var printer  = /pr[A-Za-z]{2,4}\d{1,}/g;               // Printers - "PR" followed by 2-4 word characters, followed by 1 or more digit
+    var hostname = /\w+-\d+/;                             // Hostname - a series of letters, hyphen, a series of numbers
+    var username = /([A-Za-z]){3}([A-Za-z]{3,}|\d{4})/;         // Username - 3 letters, followed by 3 or 4 word characters
+    var serial   = /[A-Z0-9]{7}/;                         // Serial - a series of 7 uppercase letters and/or digits
+    var mac      = /(^([0-9a-fA-F]{2}(:|-)){5}([0-9a-fA-F]{2})$)|(^([0-9a-fA-F]{2}){6}$)/; // MAC Address - 6 couples of 2 hexadecimel numbers, separated (or not) by a colon
+    var uid      = /\d{9}/;                               // University ID - a 9-digit number
+    var printer  = /pr[A-Za-z]{2,4}\d{1,}/;               // Printers - "PR" followed by 2-4 word characters, followed by 1 or more digit
 
 
     $('input#claws-search').on('keyup', function() {
 
-    	var input = $(this).val();
+      var input = $(this).val();
 
       if ( input.trim(this).match(uid) ) {
         $('#claws-uid').addClass('green');
@@ -122,7 +123,7 @@ function clawsSearch() {
 $(document).ready(function() {
 
 	// Load the view
-	$('#content').delay(100).fadeIn();
+	$('#content').delay(100).fadeIn(600);
 
 	// Init dropdown items
 	$('.ui.selection.dropdown')
@@ -212,7 +213,7 @@ $(document).ready(function() {
  	  if (this.value === "") {
  	    searchStyle.html("");
  	  } else {
- 	    searchStyle.html("li.link:not([data-index*=\"" + (this.value.toLowerCase().replace(/\\/g, "")) + "\"]) { display: none !important; }");
+ 	    searchStyle.html("a.link:not([data-index*=\"" + (this.value.toLowerCase().replace(/\\/g, "")) + "\"]) { display: none !important; }");
  	  }
  	});
 	$('#nav-links').click(function(){

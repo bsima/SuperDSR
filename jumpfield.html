@@ -19,7 +19,7 @@
      <script src="javascript/vendor/mousetrap.min.js"></script>
   </head>
   <body>
-    <nav class="ui pointing fixed menu inverted">
+    <nav class="ui pointing fixed menu">
       <div id="supertech" class="item">SuperTech</div>
       <a id="nav-searches" class="active item tab" data-tab="searches">Searches</a>
       <a id="nav-links" class="item tab" data-tab="links">Links</a>
@@ -105,31 +105,21 @@
     
           <div class="item">
             <h4 class="ui header"><a id="ldap-link" class="list-group-item-heading" target="_blank" href="https://www.rit.edu/~w-home/lookup/index.php">LDAP</a></h4>
-            <form class="ui form" method="post" action="https://www.rit.edu/~w-home/lookup/index.php" target="_blank">
+            <form class="ui form" method="post" action="https://www.rit.edu/~w-home/lookup/index.php">
               <div class="field">
-                <div class="ui selection dropdown">
-                  <input type="hidden" name="search_for">
-                  <div class="default text">Name</div>
-                  <i class="dropdown icon"></i>
-                  <div class="menu ui transition menu">
-                    <div class="item" data-value="displayname">Name</div>
-                    <div class="item" data-value="mail">Email Address</div>
-                    <div class="item" data-value="uid">Username</div>
-                    <div class="item" data-value="labeleduri">Home Page URL</div>
-                    <div class="item" data-value="title">Title</div>
-                    <div class="item" data-value="telephonenumber">Phone Number</div>
-                  </div>
-                </div>
-                <div class="ui selection dropdown" name="search_type">
-                  <input type="hidden" name="search_type">
-                  <div class="default text">Contains</div>
-                  <i class="dropdown icon"></i>
-                  <div class="menu ui transistion menu">
-                    <div class="item" data-value="=*">Contains</div>
-                    <div class="item" data-value="=">Is</div>
-                    <div class="item" data-value="~=">Sounds Like</div>
-                  </div>
-                </div>
+                <select class="ui selection dropdown" name="search_for">
+                    <option class="item" value="displayname">Name</option>
+                    <option class="item" value="mail">Email Address</option>
+                    <option class="item" value="uid">Username</option>
+                    <option class="item" value="labeleduri">Home Page URL</option>
+                    <option class="item" value="title">Title</option>
+                    <option class="item" value="telephonenumber">Phone Number</option>
+                </select>
+                <select class="ui selection dropdown" name="search_type">
+                    <option class="item" value="=*">Contains</option>
+                    <option class="item" value="=">Is</option>
+                    <option class="item" value="~=">Sounds Like</option>
+                </select>
                 <div id="ldap-search">
                   <input id="ldap-search" class="search" type="text" name="search_val" placeholder="Search the RIT directory" />
                   <input type="hidden" name="submit" value="Find" />

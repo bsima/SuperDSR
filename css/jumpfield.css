@@ -27,9 +27,14 @@ h4 > a, a.link {
 }
 
 a.link:hover {
-	background: rgba(34, 36, 38, 0.3);
+	background: rgba(243, 110, 33, 0.3);
 }
 
 .ui.selection {
 	margin-bottom: 5px;
+}
+
+select {
+	box-shadow: none !important; 
+	border: none;
 }
