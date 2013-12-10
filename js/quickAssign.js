@@ -55,7 +55,7 @@ dbmsg('Init quickAssign.js script.');
  * This creates an empty JS object and then loads it with the previously-saved
  * data from Chrome.
  */
-var customQA = {}; // Create an empty object
+var customQA = new Object(); // Create an empty object
 chrome.storage.sync.get(customQA,function() {
     dbmsg('customQA = '+customQA)
 });
@@ -70,7 +70,12 @@ if ( customQA == {} ) {
     loadDefaults();
     dbmsg('Defaults loaded into undefinded customQA.');
 } else {
-    dbmsg('This browser has saved data.');
+    dbmsg('This browser has saved data. For debugging purposes, lets clear it.');
+    if ( debugMode = 1 ) {
+        chrome.storage.sync.clear(function() {
+            dbmsg('Cleared saved data')
+        });
+    }
 }
 
 /** loadDefaults
@@ -86,8 +91,7 @@ function loadDefaults() {
 
     // Default for Service Desk Full Timers. If these change, PLEASE update the defaults here
     // The format for members of the team is straight forward
-    customQA[1]=
-        ['Service Desk - FTE',
+    customQA[1] = ['Service Desk - FTE',
         '<option value="HelpDesk">HelpDesk</option>'+
         '<option class="member" value="gcchelp">Geoffrey Cabrera</option>'+
         '<option class="member" value="jjmhelp">John Mander</option>'+
@@ -96,30 +100,25 @@ function loadDefaults() {
         '<option class="member" value="odphelp">Omar Phillips</option>'];
 
     // Special request from Geoff Cabrera
-    customQA[2]=
-        ['PS-Access',
+    customQA[2] = ['PS-Access',
         '<option value="PS__b__u__bAccess__bApprovers\">PS - Access Approvers</option>'+
         '<option class="member" value="dhhrgr">Doug Hausner</option>'+
         '<option class="member" value="nhsrgr2">Nancy Simonds</option>'];
 
     // Desktop Support quick assign button
-    customQA[3]=
-        ['Desktop',
+    customQA[3] = ['Desktop', 
         '<option value="Desktop__bSupport">Desktop Support</option>'];
 
     // Systems support
-    customQA[4]=
-        ['Systems Support',
+    customQA[4] = ['Systems Support', 
         '<option value="Systems__bSupport">Systems Support</option>'];
 
     // Command Center
-    customQA[5]=
-        ['Command Center',
+    customQA[5] = ['Command Center', 
         '<option value="Command__bCenter">Command Center</option>'];
 
     // Network Communications
-    customQA[6]=
-        ['Network Communications',
+    customQA[6] = ['Network Communications', 
         '<option value="Network__bCommunications">Network Communications</option>'];
 
     chrome.storage.sync.set(customQA,function() {
@@ -175,41 +174,31 @@ function addQuickAssignee(name, html) {
  *
  */
 function makeMenu(tempJSON, itemCount) {
-    // If tempJSON is a string, parse to JSON
-    if ( typeof tempJSON == 'string' ) {
-        tempJSON = JSON.parse(tempJSON);
-    } else {
-        // Make copy of customQA
-        tempJSON  = {};
-        itemCount = 0;
-        // Copy elements into tempJSON
-        for( var qassignName in customQA ) {
-            tempJSON[qassignName] = [
-                                        customQA[qassignName][0],
-                                        customQA[qassignName][1]
-                                    ];
-            ++itemCount;
-        }
+    // Make copy of customQA
+    tempJSON  = {};
+    itemCount = 0;
+    // Copy elements into tempJSON
+    for( var qassignName in customQA ) {
+        tempJSON[qassignName] = [
+            customQA[qassignName][0],
+            customQA[qassignName][1]
+        ];
+        ++itemCount;
     }
 
     // Get main content div
     var content = document.getElementById('ContentWrapper');
 
     // Create new content container for management interface
-    var newEl = document.createElement('div');
-    // Element is 75% of window window height and width
-    newEl.style.width = '75%';
-    newEl.style.height = '75%';
-
-    // Position is fixed
-    newEl.style.position = 'fixed';
-
-    // Thus, the element will always be centered on the screen
-    newEl.style.top = '12.5%';
-    newEl.style.left = '12.5%';
-    newEl.style.backgroundColor = '#fff';
-    newEl.style.border = '1px solid #000';
-    newEl.style.overflow = 'auto';
+    var newEl                       = document.createElement('div'); 
+        newEl.style.width           = '75%';
+        newEl.style.height          = '75%';            // Element is 75% of window window height and width 
+        newEl.style.position        = 'fixed';          // Position is fixed 
+        newEl.style.top             = '12.5%';          // Thus, the element will always be centered on the screen
+        newEl.style.left            = '12.5%';
+        newEl.style.backgroundColor = '#fff';
+        newEl.style.border          = '1px solid #000';
+        newEl.style.overflow        = 'auto';
 
     // Close button
     var closeButton = document.createElement('div');
@@ -222,7 +211,7 @@ function makeMenu(tempJSON, itemCount) {
 
     // Close button handler
     closeButton.onclick = function() {
-        if( confirm('Any unsaved changes will be lost. Are you sure you want to close this window?') ) {
+        if ( confirm('Any unsaved changes will be lost. Are you sure you want to close this window?') ) {
             content.removeChild(newEl);
         }
     };
@@ -231,11 +220,11 @@ function makeMenu(tempJSON, itemCount) {
     newEl.appendChild(closeButton);
 
     // Create table to hold contacts
-    var contactTable = document.createElement('table');
-    contactTable.style.border = '1px solid #000';
-    contactTable.style.borderSpacing = '0';
-    contactTable.style.marginLeft = '25%';
-    contactTable.style.width = '50%';
+    var contactTable                     = document.createElement('table');
+        contactTable.style.border        = '1px solid #000';
+        contactTable.style.borderSpacing = '0';
+        contactTable.style.marginLeft    = '25%';
+        contactTable.style.width         = '50%';
 
     // Use counter to track odd/even
     var count = 0;
@@ -271,8 +260,8 @@ function makeMenu(tempJSON, itemCount) {
             this.parentNode.onclick = editOnClick;
 
             // Update configuration and state variables
-            var nodeNum = this.parentNode.parentNode.id;
-            tempJSON[nodeNum][0] = val;
+            var nodeNum               = this.parentNode.parentNode.id;
+            tempJSON[nodeNum][0]      = val;
             this.parentNode.innerHTML = val;
 
         };
@@ -313,18 +302,18 @@ function makeMenu(tempJSON, itemCount) {
             // Onlick function performs swap and redraws menu window
             swapUp.onclick = function() {
                 var number = this.parentNode.parentNode.id;
-                var i = parseInt(number);
+                var i      = parseInt(number);
 
                 // Sanity check
-                if( i > 0 ) {
+                if ( i > 0 ) {
                     // Swap names
-                    var temp = tempJSON[(i+'')][0];
-                    tempJSON[(i+'')][0] = tempJSON[((i-1)+'')][0];
-                    tempJSON[((i-1)+'')][0] = temp;
+                    var temp                    = tempJSON[(i+'')][0];
+                        tempJSON[(i+'')][0]     = tempJSON[((i-1)+'')][0];
+                        tempJSON[((i-1)+'')][0] = temp;
 
                     // Swap innerHTML for assignee
-                    temp = tempJSON[(i+'')][1];
-                    tempJSON[(i+'')][1] = tempJSON[((i-1)+'')][1];
+                    temp                    = tempJSON[(i+'')][1];
+                    tempJSON[(i+'')][1]     = tempJSON[((i-1)+'')][1];
                     tempJSON[((i-1)+'')][1] = temp;
 
                     // Unload window
@@ -354,7 +343,7 @@ function makeMenu(tempJSON, itemCount) {
                 var number = this.parentNode.parentNode.id;
                 var i = parseInt(number);
 
-                if( i < (itemCount-1) ) {
+                if ( i < (itemCount-1) ) {
                     // Swap names
                     var temp = tempJSON[(i+'')][0];
                     tempJSON[(i+'')][0] = tempJSON[((i+1)+'')][0];
@@ -411,7 +400,7 @@ function makeMenu(tempJSON, itemCount) {
             content.removeChild(newEl);
 
             // Redraw
-            makeMenu(JSON.stringify(tempJSON), itemCount-1);
+            makeMenu(tempJSON, itemCount-1);
 
         };
 
@@ -429,70 +418,69 @@ function makeMenu(tempJSON, itemCount) {
     newEl.appendChild(contactTable);
 
     // Save button
-    var saveChanges = document.createElement('input');
-    saveChanges.type = 'submit';
-    saveChanges.value = 'Save Changes';
-    saveChanges.style.marginLeft = '25%';
-    saveChanges.onclick = function() {
-        // Really save values
-        customQA = tempJSON;
-        chrome.storage.sync.set(customQA, function() {
-            // Notify that the changes are saved.
-            var msg = 'Quick Assignees settings saved successfully.';
-            message(msg);
-            dbmsg(msg); 
-        });
+    var saveChanges                  = document.createElement('input');
+        saveChanges.type             = 'submit';
+        saveChanges.value            = 'Save Changes';
+        saveChanges.style.marginLeft = '25%';
+        saveChanges.onclick          = function() {
+            // Really save values
+            customQA = tempJSON;
+            chrome.storage.sync.set(customQA, function() {
+                // Notify that the changes are saved.
+                var msg = 'Quick Assignees settings saved successfully.';
+                message(msg);
+                dbmsg(msg); 
+            });
 
-        // Clear old fields
-        var quickAssignTD = document.getElementById('quickAssignTd');
-        quickAssignTD.innerHTML = '';
+            // Clear old fields
+            var quickAssignTD = document.getElementById('quickAssignTd');
+            quickAssignTD.innerHTML = '';
 
-        // Redraw quickassign section
-        customQA = chrome.storage.sync.get('customQA',function() {
-            dbmsg('Redrawing quickassing section.')
-        });
-        for ( var qassignName in tempJSON ) {
-            addQuickAssignee(tempJSON[qassignName][0], tempJSON[qassignName][1]);
-        }
-
-    };
+            // Redraw quickassign section
+            customQA = chrome.storage.sync.get('customQA',function() {
+                dbmsg('Redrawing quickassing section.')
+            });
+            for ( var qassignName in tempJSON ) {
+                addQuickAssignee(tempJSON[qassignName][0], tempJSON[qassignName][1]);
+            }
+        };
     // Add save button to window
     newEl.appendChild(saveChanges);
 
     // Reset button to restore default settings
-    var reset            = document.createElement('input');
-    reset.type           = 'submit';
-    reset.value          = 'Load Defaults Assignees';
-    reset.style.right    = '25%';
-    reset.style.position = 'absolute';
-    reset.onclick        = function() {
-        if ( !confirm("Are you sure you want to reset the quick assignees list?") ) {
-            return false;
-        }
+    var reset                = document.createElement('input');
+        reset.type           = 'submit';
+        reset.value          = 'Load Defaults Assignees';
+        reset.style.right    = '25%';
+        reset.style.position = 'absolute';
+        reset.onclick        = function() {
+            if ( !confirm("Are you sure you want to reset the quick assignees list?") ) {
+                return false;
+            }
 
-        var quickAssignTd = document.getElementById('quickAssignTd');
-        quickAssignTd.innerHTML = '';
-        //customQA = JSON.parse('{}');
+            var quickAssignTd = document.getElementById('quickAssignTd');
+            quickAssignTd.innerHTML = '';
+            //customQA = JSON.parse('{}');
 
-        loadDefaults();
+            loadDefaults();
 
-        for ( var qassignName in customQA ) {
-            addQuickAssignee(customQA[qassignName][0], customQA[qassignName][1]);
-        }
+            for ( var qassignName in customQA ) {
+                addQuickAssignee(customQA[qassignName][0], customQA[qassignName][1]);
+            }
 
-        // GM_setValue("customQA", JSON.stringify(customQA));
-        chrome.storage.sync.set(customQA, function() {
-            var msg = 'Quick Assignees list reset successfully.';
-            message(msg);
-            dbmsg(msg);
-        });
+            // GM_setValue("customQA", JSON.stringify(customQA));
+            chrome.storage.sync.set(customQA, function() {
+                var msg = 'Quick Assignees list reset successfully.';
+                message(msg);
+                dbmsg(msg);
+            });
 
-        // Unload window
-        content.removeChild(newEl);
+            // Unload window
+            content.removeChild(newEl);
 
-        // Redraw
-        makeMenu(null);
-    };
+            // Redraw
+            makeMenu(null);
+        };
 
     // Add save button to window
     newEl.appendChild(reset);
@@ -505,7 +493,7 @@ function makeMenu(tempJSON, itemCount) {
  * This segment here is for converting older versions of the custom Assignees
  * configuration variable to the newer format.
  * 
- * ===== I don't think this section is necessary anymore =====
+ * ===== I don't think this section is necessary anymore because chrome.storage.sync can store JS objects =====
 var doConvert = false;
 // Convert old style assignees
 for ( var qassignName in customQA ) {
@@ -542,15 +530,15 @@ var labelRow = assignRow.previousElementSibling;
 labelRow.appendChild(document.createElement('td'));
 
 // Create a label for the quick assign cell
-var qassignLabel = document.createElement('label');
-qassignLabel.htmlFor   = 'qassign';
-qassignLabel.className = 'tinytext';
-qassignLabel.innerHTML = 'Quick Assign';
+var qassignLabel           = document.createElement('label');
+    qassignLabel.htmlFor   = 'qassign';
+    qassignLabel.className = 'tinytext';
+    qassignLabel.innerHTML = 'Quick Assign';
 
 // Add a link to launch management console
-var manageA = document.createElement('a');
-manageA.href = '#';
-manageA.onclick = function() {
+var manageA         = document.createElement('a');
+    manageA.href    = '#';
+    manageA.onclick = function() {
     makeMenu();
 };
 manageA.innerHTML = '[Manage]';
@@ -568,16 +556,16 @@ qassignLabelCell.appendChild(manageA);
 labelRow.appendChild(qassignLabelCell);
 
 // Create the instant save function
-var qassignSaveCell = document.createElement('td');
-qassignSaveCell.innerHTML = ' <label class="tinytext"> Save </label> ';
+var qassignSaveCell           = document.createElement('td');
+    qassignSaveCell.innerHTML = ' <label class="tinytext"> Save </label> ';
 
 // Create anchor
 var saveAnchor = document.createElement('a');
 // BEGIN saveAnchor CREATION CODE
     // Set onclick function
     saveAnchor.onclick = function() {
-        var name = document.getElementById('assgnee').children[0] == null?
-            'New Element':
+        var name = document.getElementById('assgnee').children[0] == null ?
+            'New Element' :
             document.getElementById('assgnee').children[0].innerHTML;
 
         // Get new Assignee name
@@ -597,7 +585,7 @@ var saveAnchor = document.createElement('a');
 
         // Get length of JSON object
         var count = 0;
-        for( var qassignName in customQA ) {
+        for ( var qassignName in customQA ) {
             ++count;
         }
 
@@ -616,19 +604,17 @@ var saveAnchor = document.createElement('a');
     saveAnchor.innerHTML = '<img border="0" align="absmiddle" src="/MRimg/next.png" alt="Add Selected Users to Assignee List" id="assgnadd_image">';
 
     // Replicate Footprints style mouse styles
-    saveAnchor.onmouseover= function() {this.style.border='2px outset threedhighlight';};
-    saveAnchor.onmouseout=function() {this.style.border='none';};
-    saveAnchor.onmouseup=function() {this.style.border='none';};
-    saveAnchor.onmousedown=function() {
-        this.style.border='2px inset threedhighlight';
-    };
+    saveAnchor.onmouseover = function() { this.style.border='2px outset threedhighlight'; };
+    saveAnchor.onmouseout  = function() { this.style.border='none'; };
+    saveAnchor.onmouseup   = function() { this.style.border='none'; };
+    saveAnchor.onmousedown = function() { this.style.border='2px inset threedhighlight'; };
 
 // END saveAnchor CREATION CODE
 
 // Add anchor to cell
 qassignSaveCell.appendChild(saveAnchor);
 
-assignRow.appendChild( qassignSaveCell );
+assignRow.appendChild(qassignSaveCell);
 
 // Create the final cell for the assign row
 var qassignCell        = document.createElement('td');
@@ -639,7 +625,7 @@ var qassignCell        = document.createElement('td');
 /*
     Load buttons
 */
-for( var qassignName in customQA ) {
+for ( var qassignName in customQA ) {
     addQuickAssignee(customQA[qassignName][0], customQA[qassignName][1]);
 }
 
