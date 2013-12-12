@@ -5,8 +5,9 @@ html {
 body {
   width: 500px;
   min-width: 500px; max-width: 500px;
-  min-height: 780px;
-  overflow-x: hidden;
+  height: 600px;
+  min-height: 600px; max-height: 600px;
+  overflow: hidden;
   background: #FCFCFC url(/images/bg.jpg) repeat;
   font-family: "Open Sans",sans-serif;
 }
@@ -21,7 +22,7 @@ a:hover {
     text-decoration: none;
     top: 5px;
 }
-
+.supertech,
 a.supertech { color: #F36E21 !important; font-family: "Lobster",cursive; }
 
 section#content {
@@ -66,12 +67,32 @@ section[data-tab='notepad'],
 #content-notepad,
 #content-notepad > .field,
 #notepad {
-    height: 700px !important;
+    height: 600px !important;
 }
 
 #notepad {
     background: transparent;
     border: none;
+    font-family: 'CosmicSansNeueMono', monospace;
     max-height: 100% !important;
     margin: 0;
+}
+#notepad-status {
+    bottom: 20px;
+    position: absolute;
+}
+/* Styles for settings */
+
+#settings-header {
+    margin: 0;
+}
+#settings-description {
+    color: #888;
+    font-size: 12px;
+    padding-top: 0;
+}
+#settings-description > p { margin-top: 3px; }
+
+#settings-form {
+    margin-top: 10px;
 }
