@@ -1,18 +1,40 @@
+html {
+    max-width: 500px;
+}
+
 body {
-  min-width: 500px;
+  width: 500px;
+  min-width: 500px; max-width: 500px;
   min-height: 780px;
   overflow-x: hidden;
   background: #FCFCFC url(/images/bg.jpg) repeat;
   font-family: "Open Sans",sans-serif;
 }
+a:hover {
+    color: #F36E21;
+}
 
-#supertech { color: #F36E21; font-family: "Lobster",cursive; }
+#close-sidebar { 
+    color: #222426;
+    position: absolute;
+    right: 5px;
+    text-decoration: none;
+    top: 5px;
+}
+
+a.supertech { color: #F36E21 !important; font-family: "Lobster",cursive; }
 
 section#content {
 	padding-top: 50px;
+    max-width: 500px;
+    min-width: 500px;
+    width: 500px;
+}
+.sidebar {
+    padding-top: 50px;
 }
 
-.search {
+.field > .search {
 	width: 375px !important;
 }
 
@@ -22,7 +44,7 @@ section#content {
 }
 
 h4 > a, a.link {
-	color: #222426;
+	color: #0B0B0B;
 	text-decoration: none;
 }
 
@@ -37,4 +59,19 @@ a.link:hover {
 select {
 	box-shadow: none !important; 
 	border: none;
+}
+
+/* Styles for the notepad */
+section[data-tab='notepad'],
+#content-notepad,
+#content-notepad > .field,
+#notepad {
+    height: 700px !important;
+}
+
+#notepad {
+    background: transparent;
+    border: none;
+    max-height: 100% !important;
+    margin: 0;
 }

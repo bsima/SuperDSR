@@ -20,12 +20,21 @@
   </head>
   <body>
     <nav class="ui pointing fixed menu">
-      <div id="supertech" class="item">SuperTech</div>
-      <a id="nav-searches" class="active item tab" data-tab="searches">Searches</a>
-      <a id="nav-links" class="item tab" data-tab="links">Links</a>
+        <a class="supertech item tab" data-tab="about">SuperTech</a>
+        <a id="nav-searches" class="active item tab" data-tab="searches"><i class="search icon"></i> Searches</a>
+        <a id="nav-links" class="item tab" data-tab="links"><i class="url icon"></i>Links</a>
+        <a id="nav-notepad" class="item tab" data-tab="notepad"><i class="text file icon"></i>Notepad</a> 
+        <a id="setting" class="borderless item"><i class="setting icon"></i></a>
     </nav>
 
     <section id="content" style="display:none;">
+
+      <section class="ui tab" data-tab="about">
+        <div id="content-about">
+            <p>Here be content</p>
+        </div>
+      </section>
+
       <section class="ui tab active" data-tab="searches">
         <div id="content-searches" class="ui relaxed divided list">
     
@@ -120,7 +129,7 @@
                     <option class="item" value="=">Is</option>
                     <option class="item" value="~=">Sounds Like</option>
                 </select>
-                <div id="ldap-search">
+                <div id="ldap-search" class="field">
                   <input id="ldap-search" class="search" type="text" name="search_val" placeholder="Search the RIT directory" />
                   <input type="hidden" name="submit" value="Find" />
                   <button class="submit ui button" type="submit" value="Find"><i class="right arrow blue icon"></i></button>
@@ -139,7 +148,21 @@
               <style id="search-style" class="search"></style>
           </div>
         </div>
-      </view>
+      </section>
+
+    <section class="ui tab" data-tab="notepad">
+        <div id="content-notepad" class="ui form">
+            <div class="field"> 
+                <textarea id="notepad"></textarea>
+            </div>
+        </div>
+    </section>
+
+      <section class="ui sidebar styled right floating wide">
+        <a href="#" id="close-sidebar"><i class="remove icon"></i></a>
+        <p>Some sample content.</p>
+      </section>
+  
     </section><!-- /#content -->
 
     <script src="javascript/jumpfield.js"></script>

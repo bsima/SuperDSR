@@ -3,7 +3,15 @@
  * @package Jumpfield
  * @package TCenter
  *
- * @TODO I think this can be refactored to be more stable/efficient, and so I'm not repeating myself so much
+ * @TODO I think this can be refactored to be more stable/efficient, and so I'm not repeating myself so much:
+ *       - I could probably make each `if` statement in the search functions much more condensed.
+ *          - Maybe make it a `switch` statement instead. `switch` tends to be faster:
+ *            http://stackoverflow.com/questions/2922948/javascript-switch-vs-if-else-if-else
+ *            http://oreilly.com/server-administration/excerpts/even-faster-websites/writing-efficient-javascript.html
+ *       - I should be able to make one set of master regex's and reuse them in each search function.
+ *          - Then again, each search function might have different requirements for what they are filtering...
+ *            so it might be beneficial (and more robust) to have different sets of regex's.
+ *       - Maybe the search functions should be placed in a separate file.
 */
 function tcenterSearch() {
 
@@ -116,28 +124,95 @@ function clawsSearch() {
 };
 
 /**
+ * Create a settings dialog box for certain 
+ * elements of the app.
+ *
+ * @TODO This needs to be expanded upon. I could put some seriously useful settings in here. Some ideas:
+ *       - Add you own links and sync them to Chrome's storage area
+ *       - A notepad for quick notes
+ *       - Activating and deactivating elements (not everyone uses TCenter)
+ */
+function settingsSidebar() {
+    $('#setting').click(function() {
+        $('.sidebar')
+            .sidebar('toggle')
+        ;
+    });
+    $('#close-sidebar').click(function() {
+        $('.sidebar')
+            .sidebar('toggle')
+        ;
+    });
+}
+
+/**
+ * Strip leading and trailing spaces in search
+ * boxes on submit or enter press
+ */
+function trimSearch() {
+	$('input.search')
+		.val( function( i, val ) {
+   			return val.trim();
+   		});
+};
+
+
+/**
  * 
  * Start your engines...
  *
  */
 $(document).ready(function() {
 
-	// Load the view
+	/**
+     * Load the view
+     *
+     * We use a 100 milisecond delay and a 
+     * 600 milisecond fade-in because that's
+     * what I think looks cool.
+     */
 	$('#content').delay(100).fadeIn(600);
 
-	// Init dropdown items
+	/**
+     *  Initialize the dropdown items
+     */
 	$('.ui.selection.dropdown')
   		.dropdown()
 	;
 
-	// Strip leading and trailing spaces in search
-	// boxes on submit or enter press
-	function trimSearch() {
-		$('input.search')
-			.val( function( i, val ) {
-    			return val.trim();
-    		});
-	};
+    /**
+     * Main menu tabs
+     *
+     * Whenever you click on a `.tab` in the `nav` element,
+     * a few things happen:
+     *     1. Both section tabs are hidden and the active
+     *        class is removed.
+     *     2. The `data-tab` attribute is acquired from the
+     *        clicked element.
+     *     3. We add the `active` class to the clicked element
+     *        and then fade-in the respective tab content.
+     *
+     */
+    $('nav .tab')
+    	.click(function() {
+    		$('section.tab').hide();
+    		$('.active').removeClass('active');
+
+    		var newtab = this.getAttribute('data-tab');
+    		$(this).addClass('active');
+    		$('section[data-tab="' + newtab + '"]')
+    			.fadeIn()
+    		;
+    	})
+    ;
+
+    /**
+     * Whenever we press a key in a search field,
+     * we should clean up the code. This lets us 
+     * do the cool regex-powered real-time highlighting
+     * of labels and awareness of what the user is
+     * typing.
+     */
 	$('input.search')
 		.on('blur', function(){
 			trimSearch();
@@ -149,9 +224,12 @@ $(document).ready(function() {
 			}
 		});
 
-	// Init search functions
+	/** 
+     * Init search functions and sidebar
+     */
 	tcenterSearch();
 	clawsSearch();
+    settingsSidebar();
 
     /**
      * JSON for building list of links
@@ -186,26 +264,9 @@ $(document).ready(function() {
     });
 
     /**
-     * Main menu tabs
-     *
-     *
-     */
-    $('nav .tab')
-    	.click(function() {
-    		$('section.tab').hide();
-    		$('.active').removeClass('active');
-
-    		var newtab = this.getAttribute('data-tab');
-    		$(this).addClass('active');
-    		$('section[data-tab="' + newtab + '"]')
-    			.fadeIn()
-    		;
-    	})
-    ;
-
-    /**
      * jQuery code for search a la CSS-filtering. Allows for filtering of
      * the links.
+     *
      * http://jzhang.io/add-search-to-jekyll
      */
     searchStyle = $("style#search-style");
@@ -230,10 +291,12 @@ $(document).ready(function() {
 	 * For documentation on the Mousetrap library, see here:
 	 * http://craig.is/killing/mice
 	 */
-	Mousetrap.bind('w', function() { $('input#wiki-search').focus();}, 'keyup'); // Wiki
+	Mousetrap.bind('w', function() { $('input#wiki-search').focus();}, 'keyup');        // Wiki
 	Mousetrap.bind('f', function() { $('input#footprints-search').focus(); }, 'keyup'); // Footprints
-	Mousetrap.bind('t', function() { $('input#tcenter-search').focus(); }, 'keyup'); // TCenter
-	Mousetrap.bind('c', function() { $('input#claws-search').focus(); }, 'keyup'); // CLAWS
-	Mousetrap.bind('m', function() { $('input#maps-search').focus(); }, 'keyup'); // Maps
-	Mousetrap.bind('l', function() { $('input#ldap-search').focus(); }, 'keyup'); // LDAP
+	Mousetrap.bind('t', function() { $('input#tcenter-search').focus(); }, 'keyup');    // TCenter
+	Mousetrap.bind('c', function() { $('input#claws-search').focus(); }, 'keyup');      // CLAWS
+	Mousetrap.bind('m', function() { $('input#maps-search').focus(); }, 'keyup');       // Maps
+	Mousetrap.bind('l', function() { $('input#ldap-search').focus(); }, 'keyup');       // LDAP
+    Mousetrap.bind('1', function() { $('section[data-tab=searches]').focus(); }, 'keyup'); // Focus on Searches tab
+    Mousetrap.bind('2', function() { $('section[data-tab=links]').focus(); }, 'keyup'); // Focus on Links tab
 });
