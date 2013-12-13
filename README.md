@@ -32,7 +32,6 @@ Contents
         * m selects the Maps search
         * l selects the LDAP search
 
-
 Installation
 ------------
 
@@ -40,17 +39,6 @@ Installation
 2. Download this entire directory using the download button to the right or one of the [releases](https://github.com/bsima/SuperDSR/releases)
 3. In Chrome: Enable developer mode in Settings > Extensions
 4. Install this directory as an extension ("Load unpacked extension" button)
-
-TODO's and Future Features
---------------------------
-
-To see all open TODO's in the code documentation, run the command `grep -rn "@TODO" *`
-
-* Jumpfield.
-    * When you click on the SuperDSR button on the Chrome bar, a popup displays that lets you search the wiki, etc. Only the wiki search and the Maps search currently works. The other search boxes need work.
-* TCenter Autofill
-    * Javascript. Put a button on the ticket creation page of TCenter that looks up a ticket in Footprints and pulls certain information from the ticket, then enters it into the TCenter ticket.
-* Authentication. Have the DRS sign in with their employee username and password, authenticate with shibolleth, then autofill/login everywere one needs to be logged in
 
 Comments, Questions, Suggestions?
 ---------------------------------
