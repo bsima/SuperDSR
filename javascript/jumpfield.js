@@ -114,7 +114,7 @@ $(document).ready(function() {
      *       - Add your own links and sync them to Chrome's storage area
      *       - A notepad for quick notes
      *       - Activating and deactivating elements (not everyone uses TCenter)
-     */
+     *
     function settingsSidebar() {
       
         // Initialize settings sidebar
@@ -165,7 +165,7 @@ $(document).ready(function() {
         }
         //document.addEventListener('DOMContentLoaded', restore_options);
         //document.querySelector('#save').addEventListener('click', save_options);
-    }
+    }*/
     
     /**
      * Strip leading and trailing spaces in search
@@ -226,10 +226,9 @@ $(document).ready(function() {
 
     /**
      * Whenever we press a key in a search field,
-     * we should clean up the code. This lets us 
-     * do the cool regex-powered real-time highlighting
-     * of labels and awareness of what the user is
-     * typing.
+     * we should clean up the code. This ensures 
+     * that the query passed is actually what the 
+     * user wanted.
      */
 	$('input.search')
 		.on('blur', function(){
@@ -247,14 +246,14 @@ $(document).ready(function() {
     */
 	tcenterSearch();
 	clawsSearch();
-    settingsSidebar();
+    //settingsSidebar(); // Scheduled for v0.5
 
     /**
      * JSON for getting current version
      *
      */
     $.getJSON('./manifest.json', function(data) {
-        console.log(data.version);
+        //console.log(data.version);
         $('#version').text('Version ' + data.version);
     }); 
 
