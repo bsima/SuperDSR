@@ -313,24 +313,42 @@ $(document).ready(function() {
      * Initialize notepad settings loader and save function
      *
      */
-    var notepadContent = $('#notepad');
+    // First get stored content
+    chrome.storage.sync.getBytesInUse('myValue',function(data) {
+        console.log('there is data: ' + data);
+    });
+    chrome.storage.sync.get('myValue', function(result) {
+        //result.JSON.sringify();
+        $('#notepad').val(result.myValue);
+        console.log('Notepad val: ' + result);
+    });
+    
+    var notepadContent     = $('#notepad'),
+        typingTimer,
+        doneTypingInterval = 1000; // 1 second
+    
+    notepadContent.keyup(function() {
+        clearTimeout(typingTimer);
+        if ( notepadContent.val ) {
+            typingTimer = setTimeout(doneTyping, doneTypingInterval);
+        }
+    });
 
-    function notepadChanged(newContent) {
-       oldContent = newContent;
-    }
-
-    notepad.addEventListener('keyup', function(e) {
+    function doneTyping() {
         var notes = notepadContent.val();
-        e.preventDefault();
+        //this.preventDefault();
        
         chrome.storage.sync.set({
             myValue: notes,
             timestamp: Date.now()
         }, function() {
             console.log("Notes saved: " + notes);
-            $('#notepad-status').delay(3000).fadeIn().fadeOut(); 
-        });            
-    });
+            $('#notepad-status').fadeIn().fadeOut(); 
+        });
+    }
+    function notepadChanged(newContent) {
+       oldContent = newContent;
+    }
 
     chrome.storage.onChanged.addListener(function(changes, namespace){
         if (changes.notepadContent) {
