@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "SuperDSR",
-  "description": "A little extension to make an RIT Desktop Support Representative's life just super.",
+  "name": "SuperTech",
+  "description": "An extension to make an ITS superhero's life just a little bit easier.",
   "version": "0.4",
 
   "permissions": [

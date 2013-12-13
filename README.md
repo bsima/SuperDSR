@@ -1,5 +1,5 @@
-SuperDSR
-========
+SuperTech
+=========
 
 A little extension to make an RIT Desktop Support Representative's life just super.
 
@@ -17,12 +17,12 @@ Contents
     * **clawsTools.js** - A collection of functions that makes searching the dreaded CLAWS into a breeze.
 * Jumpfield
     * By clicking on the SuperDSR button, you can access a quick-search field.
-        * Search the Wiki - working
-        * Search Footprints - **not working**
-        * Search Tcenter - working
-        * Search CLAWS - working
-        * Search RIT Maps - working
-        * Search LDAP - working
+        * Search the Wiki
+        * Jump to Footprints
+        * Search Tcenter
+        * Search CLAWS
+        * Search RIT Maps
+        * Search LDAP
     * Keyboard shortcuts make it quicker to navigate the Jumpfield
         * Alt+S opens the Jumpfield, then:
         * w selects the Wiki search
@@ -31,6 +31,7 @@ Contents
         * c selects the CLAWS search
         * m selects the Maps search
         * l selects the LDAP search
+
 
 Installation
 ------------
@@ -55,3 +56,4 @@ Comments, Questions, Suggestions?
 ---------------------------------
 
 Post 'em here in GitHub, or send an email to bwshelp(at)rit.edu
+
