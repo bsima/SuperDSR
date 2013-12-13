@@ -81,12 +81,13 @@ section[data-tab='notepad'],
     background: transparent;
     border: none;
     font-family: 'CosmicSansNeueMono', monospace;
-    max-height: 100% !important;
+    max-height: 600px !important;
     margin: 0;
 }
 #notepad-status {
-    bottom: 20px;
+    top: 20px;
     position: absolute;
+    right: 0px;
 }
 /* Styles for settings */
 
