@@ -25,6 +25,13 @@ a:hover {
 .supertech,
 a.supertech { color: #F36E21 !important; font-family: "Lobster",cursive; }
 
+/* About Section */
+#version {
+    font-size: 10px;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
 section#content {
 	padding-top: 50px;
     max-width: 500px;

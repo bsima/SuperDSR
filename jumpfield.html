@@ -33,29 +33,39 @@
 
         <section id="content" style="display:none;">
 
-            <section class="ui tab" data-tab="about">
-                <div id="content-about" class="ui basic segment">
-                    <h2 class="ui center aligned dividing header">
-                        <span class="supertech">SuperTech</span>
-                        <div class="sub header">An extension to make an RIT ITS superhero's life a little bit easier.</div> 
-                    </h2>
-                    <nav class="ui secondary text menu">
-                        <a class="item" href="#keyboard-shortcuts">Keyboard Shortcuts</a>
-                        <a class="item" href="#user-scripts">User Scripts</a>
-                        <a class="item" href="#links">Links</a>
-                        <a class="item" href="#notepad">Notepad</a>
-                    </nav>
-                    <div class="ui piled segment" id="keyboard-shortcuts">
-                        <h3 class="ui header">Keyboard Shortcuts</h3>
-                        <table class="ui small table">
-                            <thead>
-                                <tr><th>Key</th>
-                                    <th>Action</th>
+        <section class="ui tab" data-tab="about">
+            <div id="content-about" class="ui basic segment">  
+                <h2 class="ui center aligned header raised segment">
+                    <span class="supertech">SuperTech</span>
+                    <div class="sub header">An extension to make an ITS superhero's life just a little bit easier.</div> 
+                    <div id="version" class="sub header"></div>
+                </h2>
+                
+                <h3 class="ui center aligned header">Documentation</h3>
+
+                <nav class="ui secondary text pointing menu">
+                    <a class="item" href="#doc-keyboard-shortcuts">Keyboard Shortcuts</a>
+                    <a class="item" href="#doc-enhancements">Enhancements</a>
+                    <a class="item" href="#doc-links">Links</a>
+                    <a class="item" href="#doc-notepad">Notepad</a>
+                </nav>
+
+                <div class="ui basic segment" id="doc-keyboard-shortcuts">
+                    <h3 class="ui header">
+                        Keyboard Shortcuts
+                        <div class="sub header">
+                            These shortcuts can be used at anytime while you're in the SuperTech pop-up interface.
+                        </div>
+                    </h3>
+                    <table class="ui small table">
+                        <thead>
+                            <tr><th>Key</th>
+                                <th>Action</th>
                             </tr></thead>
                             <tbody>
                                 <tr>
                                     <td>Alt+S</td>
-                                    <td>Open SuperTech</td>
+                                    <td>Open SuperTech (from another tab in Chrome)</td>
                                 </tr>
                                 <tr>
                                     <td>w</td>
@@ -80,6 +90,37 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div id="doc-enhancements" class="ui basic segment">
+                        <h3 class="ui header">Enhancements
+                            <div class="sub header">
+                                These originated as Greasemonkey User Scripts and have been ported over to this Chrome extension. The code has been reworked some, but for the most part the original authors' code remains intact.
+                            </div>    
+                        </h3>
+                        <ul>
+                            <lh>Footprints</lh>
+                            <li><em>biggerDescription.js</em> - Increases the size of the previous description area in edit-ticket mode. Also includes the functions from <em>largerAssignees.js</em>, which increases the size of the assignees section on the ticket page.</li>
+                            <li><em>quickAssign.js</em> - Adds buttons to the side of the assingees box to allow assigning of tickets with one click. <em>Note:</em> not currently working :(</li>
+                            <li><em>userSearch.js</em> - Adds a search bar under the normal Footprints search bar that allows for search all tickets by username.</li>
+                            <li><em>tcenterLove.js</em> - Adds a link to jump to a TCenter ticket if one exists.</li>
+                            <lh>Wiki</lh>
+                            <li><em>kickassWiki.js</em> - A collection of JavaScript functions and CSS classes that make the Confluence wiki a little bit more kickass.</li>
+                            <lh>CLAWS</li>
+                            <li><em>clawsTools.js</em> - A collection of functions that makes searching the dreaded CLAWS into a breeze on a summer morning.</li>
+                        </ul>
+                    </div>
+
+                    <div id="doc-links" class="ui basic segment">
+                        <h3 class="ui header">Links</h3>
+                        <p>I collected these links from the <a target="_blank" href="https://wiki.rit.edu/display/its/Desktop+Support+Internal">Desktop Support wiki page</a>, which lists a few "quick links" on the front page. In the future, I'll code a feature that lets you add your own links, but for now this is what you get.</p>
+                        <p>If you really want to add some links to there, I suggest you <code>git clone</code> <a target="_blank" href="https://github.com/bsima/supertech">on GitHub</a> and edit the <code>/data/links.json</code> file, which is where the data is pulled from. Then, submit a pull request and I'll merge your changes.</p> 
+                    </div>
+
+                    <div id="doc-notepad" class="ui basic segment">
+                        <h3 class="ui header">Notepad</h3>
+                        <p>I'll admit, this feature is experimental. Every time you stop typing, it saves what you wrote into a JavaScript object, and then stores that in Chrome's cloud storage. The Chrome cloud is associated with whatever account you are logged into Chrome with. Personally, I created a separate Chrome account with my <code>@rit.edu</code> username; this stores all of my bookmarks, history, and SuperTech notes accross every station I log into.</p>
+                        <p>Since this is experimental, I don't recommend you keep anything super-important in the Notepad. Also, since this goes to Google's servers, you probably shouldn't put anythign super-confidential in there either. But, when you're surfing around looking for a solution to a problem and need to just jot down a few notes, this becomes quite handy.</p>
+                    </div>  
                 </div>
             </section>
 
@@ -99,10 +140,7 @@
              <!-- Footprints -->
     
                 <div id="fp" class="item">
-                    <h4 class="ui header"><a id="footprints-link" class="" target="_blank" href="https://footprints.rit.edu">Footprints</a></h4>
-                    <div class="description">
-                        <p>Coming soon...</p>
-                    </div>
+                    <h4 class="ui header"><a id="footprints-link" class="" target="_blank" href="https://footprints.rit.edu">Go to Footprints <i class="circle arrow right icon"></i></a></h4>
                 </div>
     
              <!-- TCenter -->

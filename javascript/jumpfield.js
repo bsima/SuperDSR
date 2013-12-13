@@ -197,12 +197,7 @@ $(document).ready(function() {
        		});
     };
     
-    
-    /**
-     * 
-     * Start your engines...
-     *
-     */
+    /******** Here is where the content is actually beginning to be generated ****/ 
 	/**
      * Load the view
      *
@@ -210,7 +205,10 @@ $(document).ready(function() {
      * 600 milisecond fade-in because that's
      * what I think looks cool.
      */
-	$('#content').delay(100).fadeIn(600);
+	$('#content')
+        .delay(100)
+        .fadeIn(600)
+    ;
 
 	/**
      *  Initialize the dropdown items
@@ -269,6 +267,15 @@ $(document).ready(function() {
 	tcenterSearch();
 	clawsSearch();
     settingsSidebar();
+
+    /**
+     * JSON for getting current version
+     *
+     */
+    $.getJSON('./manifest.json', function(data) {
+        console.log(data.version);
+        $('#version').text('Version ' + data.version);
+    }); 
 
     /**
      * JSON for building list of links

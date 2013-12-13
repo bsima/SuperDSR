@@ -3,7 +3,7 @@
 
   "name": "SuperDSR",
   "description": "A little extension to make an RIT Desktop Support Representative's life just super.",
-  "version": "0.3.6",
+  "version": "0.4",
 
   "permissions": [
       "tabs",
