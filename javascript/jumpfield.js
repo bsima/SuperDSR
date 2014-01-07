@@ -16,19 +16,19 @@ $(document).ready(function() {
      *       - Maybe the search functions should be placed in a separate file.
      */
     function tcenterSearch() {
-    
+
     	// Regular expressions. yay.
         var ticketNum     = /^\d{5}$/;                            // Tcenter ticket ID - 5-digit number
         var footprintsNum = /^\d{6}$/;                            // Footprints ticket ID - 6-digit number
         var hostname      = /^\w+-\d+$/;                          // Hostname - a series of letters, hyphen, a series of numbers
         var username      = /^(\w(?=\D)){2}((\w{3,5})|(\d{4}))$/; // Username - 3 letters, followed by 3 or 4 word characters
         var serial        = /^[A-Z0-9]{7}$/;                      // Serial - a series of 7 uppercase letters and/or digits
-        
+
         $('input#tcenter-search').on('keyup', function() {
-    
+
         	var input = $(this).val().trim();
-   
-            input.match(ticketNum) ? ( 
+
+            input.match(ticketNum) ? (
                 $('#tcenter-tcenterID').addClass('green'),
                 $('input#tcenter-search').attr('name','ticketNum')
             ) : $('#tcenter-tcenterID').removeClass('green');
@@ -37,7 +37,7 @@ $(document).ready(function() {
                 $('#tcenter-footprintsID').addClass('green'),
                 $('input#tcenter-search').attr('name','footprintsNum')
             ) : $('#tcenter-footprintsID').removeClass('green');
- 
+
     		input.match(hostname) ? (
                 $('#tcenter-hostname').addClass('green'),
     			$('input#tcenter-search').attr('name', 'hostname')
@@ -47,57 +47,57 @@ $(document).ready(function() {
                 $('#tcenter-username').addClass('green'),
     			$('#tcenter-search').attr('name', 'username'),
     		    $('#tcenter form').attr('action', 'https://apps.rit.edu/~a-tcent/admin/viewUser.php')
-            ) : ( 
+            ) : (
                 $('#tcenter-username').attr('class', 'ui label'),
     			$('#tcenter form').attr('action', 'https://apps.rit.edu/~a-tcent/admin/search.php')
             );
-            
+
             input.match(serial) ? (
                 $('#tcenter-serial').addClass('green'),
     			$('input#tcenter-search').attr('name', 'serial')
     		) : $('#tcenter-serial').attr('class', 'ui label');
         })
     };
-    
+
     /**
      *
      * CLAWS Search
      *
      */
     function clawsSearch() {
-    
+
     	// Regular expressions. yay.
         var hostname = /^\w+-\d+$/;                           // Hostname - a series of letters, hyphen, a series of numbers
         var username = /^([A-Za-z]){3}([A-Za-z]{3,}|\d{4})$/; // Username - 3 letters, followed by 3 or 4 word characters
         var serial   = /^[A-Z0-9]{7}$/;                       // Serial - a series of 7 uppercase letters and/or digits
-        var mac      = /(^([0-9a-fA-F]{2}(:|-)){5}([0-9a-fA-F]{2})$)|(^([0-9a-fA-F]{2}){6}$)/; 
+        var mac      = /(^([0-9a-fA-F]{2}(:|-)){5}([0-9a-fA-F]{2})$)|(^([0-9a-fA-F]{2}){6}$)/;
         // ^^ MAC Address - 6 couples of 2 hexadecimel numbers, separated (or not) by a colon
         var uid      = /^\d{9}$/;                             // University ID - a 9-digit number
         var printer  = /^pr[A-Za-z]{2,4}\d{1,}$/;             // Printers - "PR" followed by 2-4 word characters, followed by 1 or more digit
-    
-    
+
+
         $('input#claws-search').on('keyup', function() {
-    
+
             var input = $(this).val().trim();
-    
+
             input.match(uid) ? (
                 $('#claws-uid').addClass('green'),
                 // $('input#claws-search').attr('name', 'RITUID')
                 $('#claws form').attr('action', 'https://claws.rit.edu/admintools/users/usersearch.php?ldap_modifier_USERNAME=Contains&ldap_USERNAME=&ldap_modifier_IDENTITY=Is&ldap_IDENTITY='+input+'&ldap_modifier_HOMEPAGEURL=Contains&ldap_HOMEPAGEURL=&ldap_modifier_CRMPERSONID=Is&ldap_CRMPERSONID=&ldap_modifier_ALLFIELDS=Contains&ldap_ALLFIELDS=&ldap_modifier_Name=Contains&ldap_Name=&ldap_modifier_Email_Address=Contains&ldap_Email_Address=&ldap_modifier_Address=Contains&ldap_Address=&ldap_match=2&ldap_group%5B%5D=-1&ACTION=SEARCH')
             ) : $('#claws-uid').attr('class', 'ui label');
-    
+
             input.match(username) ? (
                 $('#claws-username').addClass('green'),
                 // $('input#claws-search').attr('name', 'USERNAME'),
                 $('#claws form').attr('action', 'https://claws.rit.edu/admintools/users/useredit.php?USERNAME='+input+'&submit=Submit&ACTION=GETUSER')
             ) : $('#claws-username').attr('class', 'ui label');
-    
-            input.match(hostname) || input.match(printer) ? ( 
+
+            input.match(hostname) || input.match(printer) ? (
                 $('#claws-hostname').addClass('green'),
                 // $('input#claws-search').attr('name', 'hostname')
                 $('#claws form').attr('action', 'https://claws.rit.edu/admintools/computers/computerSearch.php?DDNSHostname='+input+'%&ACTION=SEARCH')
             ) : $("#claws-hostname").attr('class', 'ui label');
-    
+
             input.match(mac) ? (
                 $('#claws-mac').addClass('green'),
                 // $('input#claws-search').attr('name', 'STRING'),
@@ -105,9 +105,9 @@ $(document).ready(function() {
             ) : $('#claws-mac').attr('class', 'ui label');
         })
     };
-    
+
     /**
-     * Create a settings dialog box for certain 
+     * Create a settings dialog box for certain
      * elements of the app.
      *
      * @TODO This needs to be expanded upon. I could put some seriously useful settings in here. Some ideas:
@@ -116,7 +116,7 @@ $(document).ready(function() {
      *       - Activating and deactivating elements (not everyone uses TCenter)
      *
     function settingsSidebar() {
-      
+
         // Initialize settings sidebar
         $('#setting').click(function() {
             $('.sidebar')
@@ -128,18 +128,18 @@ $(document).ready(function() {
                 .sidebar('toggle')
             ;
         });
-        
+
         // Initialize toggle animations
         $('.ui.checkbox')
             .checkbox()
         ;
-    
+
         // Saves options to localStorage.
         function save_options() {
             var select              = document.getElementById("color");
             var options             = select.children[select.selectedIndex].value;
             localStorage["options"] = options;
-    
+
             // Update status to let user know options were saved.
             var status = document.getElementById("status");
             status.innerHTML = "Options Saved.";
@@ -147,7 +147,7 @@ $(document).ready(function() {
                 status.innerHTML = "";
             }, 750);
         }
-    
+
         // Restores select box state to saved value from localStorage.
         function restore_options() {
             var favorite = localStorage["options"];
@@ -166,7 +166,7 @@ $(document).ready(function() {
         //document.addEventListener('DOMContentLoaded', restore_options);
         //document.querySelector('#save').addEventListener('click', save_options);
     }*/
-    
+
     /**
      * Strip leading and trailing spaces in search
      * boxes on submit or enter press
@@ -177,12 +177,12 @@ $(document).ready(function() {
        			return val.trim();
        		});
     };
-    
-    /******** Here is where the content is actually beginning to be generated ****/ 
+
+    /******** Here is where the content is actually beginning to be generated ****/
 	/**
      * Load the view
      *
-     * We use a 100 milisecond delay and a 
+     * We use a 100 milisecond delay and a
      * 600 milisecond fade-in because that's
      * what I think looks cool.
      */
@@ -226,8 +226,8 @@ $(document).ready(function() {
 
     /**
      * Whenever we press a key in a search field,
-     * we should clean up the code. This ensures 
-     * that the query passed is actually what the 
+     * we should clean up the code. This ensures
+     * that the query passed is actually what the
      * user wanted.
      */
 	$('input.search')
@@ -241,7 +241,7 @@ $(document).ready(function() {
 			}
 		});
 
-	/** 
+	/**
     * Init search functions and sidebar
     */
 	tcenterSearch();
@@ -255,7 +255,7 @@ $(document).ready(function() {
     $.getJSON('./manifest.json', function(data) {
         //console.log(data.version);
         $('#version').text('Version ' + data.version);
-    }); 
+    });
 
     /**
      * JSON for building list of links
@@ -304,7 +304,7 @@ $(document).ready(function() {
  	  }
  	});
 	$('#nav-links').click(function(){
-		$('input#link-search').select();
+        $('input#link-search').select();
 	});
 
     $('.link > a').attr('target', '_blank'); // Make links open in a new window.
@@ -322,11 +322,11 @@ $(document).ready(function() {
         $('#notepad').val(result.myValue);
         console.log('Notepad val: ' + result);
     });
-    
+
     var notepadContent     = $('#notepad'),
         typingTimer,
         doneTypingInterval = 1000; // 1 second
-    
+
     notepadContent.keyup(function() {
         clearTimeout(typingTimer);
         if ( notepadContent.val ) {
@@ -337,13 +337,13 @@ $(document).ready(function() {
     function doneTyping() {
         var notes = notepadContent.val();
         //this.preventDefault();
-       
+
         chrome.storage.sync.set({
             myValue: notes,
             timestamp: Date.now()
         }, function() {
             console.log("Notes saved: " + notes);
-            $('#notepad-status').fadeIn().fadeOut(); 
+            $('#notepad-status').fadeIn().fadeOut();
         });
     }
     function notepadChanged(newContent) {
